@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tausif | Senior Product Designer</title>
+    <meta name="description" content="Portfolio of Tausif, a Senior Product Designer and UI Engineer crafting premium, modern, and beautiful software experiences.">
+    <meta name="theme-color" content="#050816">
+    <meta property="og:title" content="Tausif | Senior Product Designer">
+    <meta property="og:description" content="Portfolio of Tausif, crafting premium, modern, and beautiful software experiences.">
+    <meta property="og:type" content="website">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <!-- 1. Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-logo">
+            T.
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- Background Mesh -->
+    <div class="bg-mesh"></div>
+
+    <!-- 2. Global Utilities & Overlays -->
+    <div id="scroll-progress" class="scroll-progress"></div>
+
+    <!-- Command Palette Overlay -->
+    <div id="command-palette" class="cmd-palette-overlay">
+        <div class="cmd-palette-container">
+            <div class="cmd-search-bar">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" id="cmd-input" placeholder="Search projects, switch themes, or navigate..." autocomplete="off">
+                <span class="cmd-shortcut">ESC</span>
+            </div>
+            <div class="cmd-results" id="cmd-results">
+                <!-- Dynamically populated via JS -->
+            </div>
+            <div class="cmd-footer">
+                <span><i class="ph ph-arrow-up"></i> <i class="ph ph-arrow-down"></i> to navigate</span>
+                <span><i class="ph ph-key-return"></i> to select</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Overlay -->
+    <div id="lightbox" class="lightbox-overlay">
+        <button id="lightbox-close" class="lightbox-close" aria-label="Close Lightbox"><i class="ph ph-x"></i></button>
+        <img id="lightbox-img" src="" alt="Zoomed view">
+    </div>
+
+    <!-- Floating Dock -->
+    <nav class="floating-dock" id="floating-dock" aria-label="Main Navigation">
+        <div class="dock-container">
+            <a href="#home" class="dock-item active" data-tooltip="Home" aria-label="Navigate to Home">
+                <i class="ph ph-house"></i>
+            </a>
+            <a href="#about" class="dock-item" data-tooltip="About" aria-label="Navigate to About">
+                <i class="ph ph-user"></i>
+            </a>
+            <a href="#work" class="dock-item" data-tooltip="Projects" aria-label="Navigate to Projects">
+                <i class="ph ph-folder-notch"></i>
+            </a>
+            <a href="#experience" class="dock-item" data-tooltip="Experience" aria-label="Navigate to Experience">
+                <i class="ph ph-briefcase"></i>
+            </a>
+            <div class="dock-divider"></div>
+            <button id="theme-toggle" class="dock-item" data-tooltip="Toggle Theme" aria-label="Toggle Theme">
+                <i class="ph ph-moon"></i>
+            </button>
+            <button id="cmd-trigger" class="dock-item" data-tooltip="Search (Ctrl+K)" aria-label="Open Command Palette">
+                <i class="ph ph-command"></i>
+            </button>
+        </div>
+    </nav>
+    <!-- 3. Hero Section (Cinematic Overhaul) -->
+    <section id="home" class="hero cinematic-hero">
+        <!-- Animated Background Grid -->
+        <div class="hero-grid"></div>
+        
+        <!-- Spotlight Element -->
+        <div class="hero-spotlight" id="hero-spotlight"></div>
+        
+        <!-- Floating Rings -->
+        <div class="floating-ring ring-1" data-speed="0.05"></div>
+        <div class="floating-ring ring-2" data-speed="-0.03"></div>
+        <div class="floating-ring ring-3" data-speed="0.02"></div>
+
+        <div class="container hero-content-wrapper">
+            <!-- Profile Area with Badges -->
+            <div class="hero-profile-container reveal">
+                <!-- Floating Tech Badges -->
+                <div class="tech-badge badge-react" data-speed="0.1"><i class="ph ph-atom"></i></div>
+                <div class="tech-badge badge-figma" data-speed="-0.08"><i class="ph ph-figma-logo"></i></div>
+                <div class="tech-badge badge-js" data-speed="0.12"><i class="ph ph-file-code"></i></div>
+                
+                <div class="profile-photo-wrapper">
+                    <div class="profile-photo-placeholder">
+                        <i class="ph ph-user"></i>
+                    </div>
+                    <!-- Status Badges -->
+                    <div class="status-badge available-badge" data-speed="-0.05">
+                        <span class="pulse-dot"></span> Available for Internship
+                    </div>
+                    <div class="status-badge location-badge" data-speed="0.04">
+                        <i class="ph ph-map-pin"></i> San Francisco, CA
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typography Area -->
+            <div class="hero-text-area reveal" style="transition-delay: 0.1s;">
+                <h1 class="cinematic-heading">
+                    Designing the <br>
+                    <span class="text-gradient">future of software.</span>
+                </h1>
+                
+                <div class="typing-container">
+                    I build <span id="typing-text" class="typing-text"></span><span class="typing-cursor">|</span>
+                </div>
+
+                <p class="hero-description text-muted">
+                    Senior Product Designer and UI Engineer crafting premium, modern, and beautiful experiences that people love to use.
+                </p>
+
+                <!-- 5 Buttons -->
+                <div class="hero-actions">
+                    <a href="#work" class="btn btn-primary hero-btn">
+                        View Projects <i class="ph ph-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-primary hero-btn pulse-glow-btn">
+                        Hire Me
+                    </a>
+                    <a href="#TODO" class="btn btn-glass hero-btn">
+                        Download Resume <i class="ph ph-download-simple"></i>
+                    </a>
+                    <a href="#TODO" class="btn btn-glass icon-btn hero-btn" aria-label="GitHub">
+                        <i class="ph ph-github-logo"></i>
+                    </a>
+                    <a href="#TODO" class="btn btn-glass icon-btn hero-btn" aria-label="LinkedIn">
+                        <i class="ph ph-linkedin-logo"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Statistics Bar -->
+            <div class="hero-stats reveal" style="transition-delay: 0.3s;" id="hero-stats">
+                <div class="stat-item">
+                    <h3 class="stat-number"><span class="counter" data-target="25">0</span>+</h3>
+                    <p class="stat-label">Projects</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <h3 class="stat-number"><span class="counter" data-target="15">0</span>+</h3>
+                    <p class="stat-label">Technologies</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <h3 class="stat-number"><span class="counter" data-target="1500">0</span>+</h3>
+                    <p class="stat-label">Contributions</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <h3 class="stat-number"><span class="counter" data-target="5000">0</span>+</h3>
+                    <p class="stat-label">Coding Hours</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. About Section (Bento Box) -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2 class="h2">Beyond the <span class="text-gradient">Screen.</span></h2>
+                <p class="text-muted text-large">A snapshot of my background, focus, and passions.</p>
+            </div>
+            
+            <div class="bento-grid">
+                <!-- Education & College (Spans 2 cols) -->
+                <div class="card bento-card bento-education reveal" style="transition-delay: 0.1s;">
+                    <div class="bento-icon-wrapper"><i class="ph ph-graduation-cap"></i></div>
+                    <h3 class="h4" style="margin-bottom: 1rem;">Education</h3>
+                    <div class="bento-timeline">
+                        <div class="b-timeline-item">
+                            <div class="b-dot"></div>
+                            <p class="text-primary font-medium" style="margin: 0; font-weight: 500;">B.S. Computer Science</p>
+                            <p class="text-muted text-sm" style="margin: 0; font-size: 0.875rem;">Stanford University</p>
+                        </div>
+                        <div class="b-timeline-item">
+                            <div class="b-dot"></div>
+                            <p class="text-primary font-medium" style="margin: 0; font-weight: 500;">Expected Graduation</p>
+                            <p class="text-muted text-sm" style="margin: 0; font-size: 0.875rem;">Class of 2027</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="card bento-card bento-location reveal" style="transition-delay: 0.2s;">
+                    <div class="location-map"></div>
+                    <div class="location-content">
+                        <i class="ph ph-map-pin pulse-pin" style="color: var(--accent-primary); font-size: 2.5rem; margin-bottom: 0.5rem;"></i>
+                        <h3 class="h4" style="margin: 0;">San Francisco, CA</h3>
+                        <p class="text-muted text-sm" style="margin: 0;">Open to remote worldwide</p>
+                    </div>
+                </div>
+
+                <!-- Current Focus -->
+                <div class="card bento-card bento-focus reveal" style="transition-delay: 0.3s;">
+                    <div class="bento-icon-wrapper" style="color: var(--accent-secondary);"><i class="ph ph-crosshair"></i></div>
+                    <h3 class="h4" style="margin-bottom: 0.5rem;">Current Focus</h3>
+                    <p class="text-muted text-sm" style="margin: 0;">Building accessible, high-performance design systems for scalable AI products.</p>
+                </div>
+
+                <!-- Languages -->
+                <div class="card bento-card bento-languages reveal" style="transition-delay: 0.4s;">
+                    <h3 class="h4" style="margin-bottom: 1rem;"><i class="ph ph-translate" style="margin-right:0.5rem; color:var(--accent-primary);"></i>Languages</h3>
+                    <div style="display:flex; flex-direction:column; gap:1rem;">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+                                <span class="text-sm" style="font-weight: 500;">English</span> <span class="text-muted" style="font-size: 0.75rem;">Native</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress" style="width: 100%;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+                                <span class="text-sm" style="font-weight: 500;">Spanish</span> <span class="text-muted" style="font-size: 0.75rem;">Fluent</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+                                <span class="text-sm" style="font-weight: 500;">French</span> <span class="text-muted" style="font-size: 0.75rem;">Basic</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress" style="width: 40%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Goal -->
+                <div class="card bento-card bento-goal reveal" style="transition-delay: 0.5s;">
+                    <i class="ph ph-rocket-launch" style="font-size: 5rem; color: rgba(255,255,255,0.05); position:absolute; right: -10px; bottom: -10px;"></i>
+                    <h3 class="h4" style="margin-bottom: 0.5rem;">Career Goal</h3>
+                    <p class="text-muted text-sm" style="margin: 0; position:relative; z-index: 2;">To lead the design architecture of products that fundamentally improve human interaction with technology.</p>
+                </div>
+
+                <!-- Spotify Now Playing -->
+                <div class="card bento-card bento-spotify reveal" style="transition-delay: 0.55s;">
+                    <div class="spotify-header">
+                        <i class="ph-fill ph-spotify-logo" style="color: #1DB954; font-size: 1.5rem;"></i>
+                        <span class="text-sm font-medium" style="color: #1DB954;">Now Playing</span>
+                    </div>
+                    <div class="spotify-content">
+                        <div class="spotify-album-art">
+                            <img src="https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452" alt="Starboy Album Art" loading="lazy">
+                            <div class="spotify-eq">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="spotify-track-info">
+                            <p class="track-name">Starboy</p>
+                            <p class="artist-name text-muted text-sm">The Weeknd, Daft Punk</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passion & Interests (Spans 2 cols) -->
+                <div class="card bento-card bento-passion reveal" style="transition-delay: 0.6s;">
+                    <h3 class="h4" style="margin-bottom: 1rem;"><i class="ph ph-heart" style="margin-right:0.5rem; color:#F43F5E;"></i>Passions & Interests</h3>
+                    <div class="tags-container">
+                        <span class="passion-tag"><i class="ph ph-aperture"></i> Photography</span>
+                        <span class="passion-tag"><i class="ph ph-books"></i> Sci-Fi Literature</span>
+                        <span class="passion-tag"><i class="ph ph-coffee"></i> Specialty Coffee</span>
+                        <span class="passion-tag"><i class="ph ph-barbell"></i> Weightlifting</span>
+                        <span class="passion-tag"><i class="ph ph-code"></i> Open Source</span>
+                        <span class="passion-tag"><i class="ph ph-game-controller"></i> Game Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Skills Section (3D Tech Stack) -->
+    <section class="section" style="background: rgba(14, 22, 40, 0.3); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); overflow: hidden;">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2 class="h2">Technical <span class="text-gradient">Arsenal.</span></h2>
+                <p class="text-muted text-large">A comprehensive overview of my technological proficiency.</p>
+            </div>
+            
+            <div class="skills-grid">
+                <!-- Frontend (Primary Strength) -->
+                <div class="card skill-3d-card skill-frontend reveal" style="transition-delay: 0.1s;">
+                    <div class="skill-glow"></div>
+                    <div class="skill-content">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1rem;">
+                            <div class="skill-icon-3d" style="color: #61DAFB;"><i class="ph ph-layout"></i></div>
+                            <span style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color:var(--accent-primary); border: 1px solid var(--accent-primary); padding: 0.25rem 0.75rem; border-radius:var(--radius-full);">Primary</span>
+                        </div>
+                        <h3 class="h4" style="margin-bottom: 0.5rem;">Frontend Engineering</h3>
+                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Building pixel-perfect, highly interactive, and accessible user interfaces at 60fps.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">Next.js</span>
+                            <span class="tech-pill">TypeScript</span>
+                            <span class="tech-pill">Tailwind CSS</span>
+                            <span class="tech-pill">Framer Motion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="card skill-3d-card reveal" style="transition-delay: 0.2s;">
+                    <div class="skill-glow"></div>
+                    <div class="skill-content">
+                        <div class="skill-icon-3d" style="color: #68A063; margin-bottom: 1rem;"><i class="ph ph-database"></i></div>
+                        <h3 class="h4" style="margin-bottom: 0.5rem;">Backend Architecture</h3>
+                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Designing robust APIs and scalable server-side logic.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">Node.js</span>
+                            <span class="tech-pill">Express</span>
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">GraphQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="card skill-3d-card reveal" style="transition-delay: 0.3s;">
+                    <div class="skill-glow"></div>
+                    <div class="skill-content">
+                        <div class="skill-icon-3d" style="color: #F7DF1E; margin-bottom: 1rem;"><i class="ph ph-file-code"></i></div>
+                        <h3 class="h4" style="margin-bottom: 0.5rem;">Core Languages</h3>
+                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">The foundational languages I use daily.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">JavaScript</span>
+                            <span class="tech-pill">TypeScript</span>
+                            <span class="tech-pill">HTML/CSS</span>
+                            <span class="tech-pill">SQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI (Primary Strength) -->
+                <div class="card skill-3d-card skill-ai reveal" style="transition-delay: 0.4s;">
+                    <div class="skill-glow"></div>
+                    <div class="skill-content">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1rem;">
+                            <div class="skill-icon-3d" style="color: #10B981;"><i class="ph ph-brain"></i></div>
+                            <span style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color:#10B981; border: 1px solid #10B981; padding: 0.25rem 0.75rem; border-radius:var(--radius-full);">Primary</span>
+                        </div>
+                        <h3 class="h4" style="margin-bottom: 0.5rem;">AI Integration</h3>
+                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Implementing LLMs and building AI-driven product features.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">OpenAI API</span>
+                            <span class="tech-pill">LangChain</span>
+                            <span class="tech-pill">Vector DBs</span>
+                            <span class="tech-pill">Prompt Engineering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="card skill-3d-card reveal" style="transition-delay: 0.5s;">
+                    <div class="skill-glow"></div>
+                    <div class="skill-content">
+                        <div class="skill-icon-3d" style="color: #336791; margin-bottom: 1rem;"><i class="ph ph-hard-drives"></i></div>
+                        <h3 class="h4" style="margin-bottom: 0.5rem;">Databases</h3>
+                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Data modeling and storage solutions.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">PostgreSQL</span>
+                            <span class="tech-pill">MongoDB</span>
+                            <span class="tech-pill">Redis</span>
+                            <span class="tech-pill">Prisma</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud -->
+                <div class="card skill-3d-card reveal" style="transition-delay: 0.6s;">
+                    <div class="skill-glow"></div>
+                    <div class="skill-content">
+                        <div class="skill-icon-3d" style="color: #FF9900; margin-bottom: 1rem;"><i class="ph ph-cloud"></i></div>
+                        <h3 class="h4" style="margin-bottom: 0.5rem;">Cloud & DevOps</h3>
+                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Deploying and scaling applications seamlessly.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">AWS</span>
+                            <span class="tech-pill">Vercel</span>
+                            <span class="tech-pill">Docker</span>
+                            <span class="tech-pill">CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="card skill-3d-card reveal" style="transition-delay: 0.7s;">
+                    <div class="skill-glow"></div>
+                    <div class="skill-content">
+                        <div class="skill-icon-3d" style="color: #F24E1E; margin-bottom: 1rem;"><i class="ph ph-wrench"></i></div>
+                        <h3 class="h4" style="margin-bottom: 0.5rem;">Design & Tools</h3>
+                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">The software that accelerates my workflow.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">Figma</span>
+                            <span class="tech-pill">Git</span>
+                            <span class="tech-pill">Linear</span>
+                            <span class="tech-pill">VS Code</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Featured Projects (Premium Showcase) -->
+    <section id="work" class="section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2 class="h2">Selected <span class="text-gradient">Works.</span></h2>
+                <p class="text-muted text-large">Deep-dive case studies showcasing end-to-end product engineering.</p>
+            </div>
+
+            <!-- Filter Navigation -->
+            <div class="project-filters reveal">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="frontend">Frontend</button>
+                <button class="filter-btn" data-filter="backend">Backend</button>
+                <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+                <button class="filter-btn" data-filter="ai">AI</button>
+                <button class="filter-btn" data-filter="react">React</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+            </div>
+
+            <div class="project-gallery">
+                
+                <!-- Project 1: Nova (Full Stack / React) -->
+                <div class="premium-project-showcase reveal" data-category="fullstack react frontend">
+                    <div class="project-cinematic-glow" style="background: radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.15), transparent 70%);"></div>
+                    
+                    <!-- Zone A: Device Presentation -->
+                    <div class="project-devices-zone">
+                        <div class="macbook-mockup">
+                            <div class="macbook-screen">
+                                <div class="macbook-content" style="background: #0E1628; display:flex; align-items:center; justify-content:center; color: var(--accent-primary); flex-direction:column;">
+                                    <i class="ph ph-chart-line-up" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                                    <h3 class="h4">Nova Analytics Dashboard</h3>
+                                </div>
+                            </div>
+                            <div class="macbook-base"></div>
+                        </div>
+                        <div class="iphone-mockup parallax-item">
+                            <div class="iphone-screen">
+                                <div class="iphone-content" style="background: #050816; display:flex; align-items:center; justify-content:center; color: var(--accent-secondary); flex-direction:column;">
+                                    <i class="ph ph-device-mobile" style="font-size: 3rem; margin-bottom: 0.5rem;"></i>
+                                    <span class="text-xs">Mobile View</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zone B: Deep Dive Dashboard -->
+                    <div class="project-deepdive card">
+                        <div class="deepdive-header">
+                            <h3 class="h2">Nova Financial Platform</h3>
+                            <div class="tech-badges">
+                                <span class="tech-pill">React</span>
+                                <span class="tech-pill">Node.js</span>
+                                <span class="tech-pill">PostgreSQL</span>
+                            </div>
+                        </div>
+                        
+                        <div class="deepdive-grid">
+                            <div class="dd-col">
+                                <h4 class="h5" style="color:var(--text-muted); margin-bottom:0.5rem;">The Problem</h4>
+                                <p class="text-sm">B2B fintech users struggled with fragmented data sources and slow dashboards that hindered real-time decision making.</p>
+                            </div>
+                            <div class="dd-col">
+                                <h4 class="h5" style="color:var(--text-muted); margin-bottom:0.5rem;">The Solution</h4>
+                                <p class="text-sm">A unified, real-time analytics dashboard with a custom design system, reducing cognitive load and increasing task completion by 40%.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dd-features">
+                            <span class="passion-tag"><i class="ph ph-lightning"></i> Real-time Websockets</span>
+                            <span class="passion-tag"><i class="ph ph-chart-bar"></i> D3.js Visualizations</span>
+                            <span class="passion-tag"><i class="ph ph-shield-check"></i> Enterprise Security</span>
+                        </div>
+                        
+                        <div class="project-actions">
+                            <a href="#TODO" class="btn btn-primary pulse-glow-btn">Live Demo <i class="ph ph-arrow-up-right"></i></a>
+                            <a href="#TODO" class="btn btn-glass">GitHub <i class="ph ph-github-logo"></i></a>
+                            <a href="#TODO" class="btn btn-glass">Case Study <i class="ph ph-book-open"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Lumina AI (AI / Python / Backend) -->
+                <div class="premium-project-showcase reveal" data-category="ai python backend">
+                    <div class="project-cinematic-glow" style="background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15), transparent 70%);"></div>
+                    
+                    <!-- Zone A: Device Presentation -->
+                    <div class="project-devices-zone reverse">
+                        <div class="macbook-mockup">
+                            <div class="macbook-screen">
+                                <div class="macbook-content" style="background: #0A192F; display:flex; align-items:center; justify-content:center; color: #10B981; flex-direction:column;">
+                                    <i class="ph ph-brain" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                                    <h3 class="h4">Lumina AI Agent</h3>
+                                </div>
+                            </div>
+                            <div class="macbook-base"></div>
+                        </div>
+                        <div class="iphone-mockup parallax-item">
+                            <div class="iphone-screen">
+                                <div class="iphone-content" style="background: #020C1B; display:flex; align-items:center; justify-content:center; color: #10B981; flex-direction:column;">
+                                    <i class="ph ph-chat-teardrop-text" style="font-size: 3rem; margin-bottom: 0.5rem;"></i>
+                                    <span class="text-xs">Chat UI</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zone B: Deep Dive Dashboard -->
+                    <div class="project-deepdive card">
+                        <div class="deepdive-header">
+                            <h3 class="h2">Lumina AI Assistant</h3>
+                            <div class="tech-badges">
+                                <span class="tech-pill">Python</span>
+                                <span class="tech-pill">FastAPI</span>
+                                <span class="tech-pill">OpenAI</span>
+                                <span class="tech-pill">LangChain</span>
+                            </div>
+                        </div>
+                        
+                        <div class="deepdive-grid">
+                            <div class="dd-col">
+                                <h4 class="h5" style="color:var(--text-muted); margin-bottom:0.5rem;">The Challenge</h4>
+                                <p class="text-sm">Building a context-aware AI agent capable of summarizing massive documents without exceeding token limits or hallucinating facts.</p>
+                            </div>
+                            <div class="dd-col">
+                                <h4 class="h5" style="color:var(--text-muted); margin-bottom:0.5rem;">The Architecture</h4>
+                                <p class="text-sm">Implemented an advanced RAG (Retrieval-Augmented Generation) pipeline using Pinecone vector databases and LangChain for semantic search.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dd-features">
+                            <span class="passion-tag"><i class="ph ph-database"></i> Vector Database</span>
+                            <span class="passion-tag"><i class="ph ph-rocket"></i> 50ms Latency API</span>
+                            <span class="passion-tag"><i class="ph ph-text-aa"></i> Semantic Search</span>
+                        </div>
+                        
+                        <div class="project-actions">
+                            <a href="#TODO" class="btn btn-primary pulse-glow-btn">Live Demo <i class="ph ph-arrow-up-right"></i></a>
+                            <a href="#TODO" class="btn btn-glass">GitHub <i class="ph ph-github-logo"></i></a>
+                            <a href="#TODO" class="btn btn-glass">Case Study <i class="ph ph-book-open"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Experience & Impact Section -->
+    <section id="experience" class="section" style="background: rgba(14, 22, 40, 0.3); border-top: 1px solid var(--border-glass); overflow: hidden;">
+        <div class="container relative">
+            <div class="section-title reveal">
+                <h2 class="h2">My <span class="text-gradient">Journey.</span></h2>
+                <p class="text-muted text-large">A track record of high-impact projects, hackathons, and open-source contributions.</p>
+            </div>
+
+            <div class="journey-timeline">
+                <div class="timeline-track"></div>
+
+                <!-- Open Source -->
+                <div class="journey-row reveal left">
+                    <div class="journey-node"><i class="ph ph-git-pull-request"></i></div>
+                    <div class="journey-card card">
+                        <div class="journey-date">Oct 2025</div>
+                        <h3 class="h3" style="margin-bottom: 0.5rem;">Open Source Contributor</h3>
+                        <p class="text-primary" style="font-weight: 500; margin-bottom: 1rem;">LangChain &bull; <span class="text-muted">Python / AI</span></p>
+                        <p class="text-muted text-sm" style="margin-bottom: 1rem;">Architected and merged a new document loader for Notion databases, improving data ingestion pipelines for over 10,000 developers globally.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">API Design</span>
+                            <span class="tech-pill">OSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hackathon -->
+                <div class="journey-row reveal right" style="transition-delay: 0.2s;">
+                    <div class="journey-node" style="color: #F59E0B; border-color: #F59E0B; box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);"><i class="ph ph-trophy"></i></div>
+                    <div class="journey-card card">
+                        <div class="journey-date">July 2025</div>
+                        <h3 class="h3" style="margin-bottom: 0.5rem;">1st Place Overall Winner</h3>
+                        <p class="text-primary" style="font-weight: 500; margin-bottom: 1rem;">Global AI Hackathon &bull; <span class="text-muted">San Francisco, CA</span></p>
+                        <p class="text-muted text-sm" style="margin-bottom: 1rem;">Built a real-time sign language translation app using WebRTC and TensorFlow.js in 48 hours. Led a team of 4 engineers and designers.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">TensorFlow.js</span>
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">WebRTC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Major Project -->
+                <div class="journey-row reveal left" style="transition-delay: 0.4s;">
+                    <div class="journey-node" style="color: #00D9FF; border-color: #00D9FF;"><i class="ph ph-rocket-launch"></i></div>
+                    <div class="journey-card card">
+                        <div class="journey-date">Mar 2025</div>
+                        <h3 class="h3" style="margin-bottom: 0.5rem;">Founder & Lead Developer</h3>
+                        <p class="text-primary" style="font-weight: 500; margin-bottom: 1rem;">SyntaxNote SaaS &bull; <span class="text-muted">1,500+ Active Users</span></p>
+                        <p class="text-muted text-sm" style="margin-bottom: 1rem;">Designed and developed a premium markdown note-taking app tailored for software engineers. Integrated Stripe for monetization and Supabase for real-time sync.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">Next.js</span>
+                            <span class="tech-pill">Supabase</span>
+                            <span class="tech-pill">Stripe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leadership -->
+                <div class="journey-row reveal right" style="transition-delay: 0.6s;">
+                    <div class="journey-node" style="color: #10B981; border-color: #10B981;"><i class="ph ph-users-three"></i></div>
+                    <div class="journey-card card">
+                        <div class="journey-date">Sep 2024 - Present</div>
+                        <h3 class="h3" style="margin-bottom: 0.5rem;">President & Tech Lead</h3>
+                        <p class="text-primary" style="font-weight: 500; margin-bottom: 1rem;">University Computer Science Society &bull; <span class="text-muted">Leadership</span></p>
+                        <p class="text-muted text-sm" style="margin-bottom: 1rem;">Organized weekly technical workshops, mentored 50+ underclassmen in web development, and hosted the university's largest annual hackathon.</p>
+                        <div class="tech-badges">
+                            <span class="tech-pill">Mentorship</span>
+                            <span class="tech-pill">Public Speaking</span>
+                            <span class="tech-pill">Event Planning</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Learning Roadmap -->
+    <section class="section" id="learning">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2 class="h2">Learning <span class="text-gradient">Roadmap.</span></h2>
+                <p class="text-muted text-large">My continuous journey through the technology stack.</p>
+            </div>
+            
+            <div class="roadmap-container reveal">
+                <!-- Background track -->
+                <div class="roadmap-line-bg"></div>
+                <!-- Foreground glowing track that draws on scroll -->
+                <div class="roadmap-line-fill" id="roadmapFill"></div>
+
+                <!-- 2024 -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#050816"><i class="ph ph-flag"></i></div>
+                    <div class="roadmap-content card">
+                        <span class="roadmap-year">2024</span>
+                        <h4 class="h4">Started Programming</h4>
+                    </div>
+                </div>
+
+                <!-- HTML -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#E34F26"><i class="ph ph-file-html"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4" style="margin-bottom:0.25rem;">HTML</h4>
+                        <p class="text-muted text-sm">Semantic web foundations</p>
+                    </div>
+                </div>
+
+                <!-- CSS -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#1572B6"><i class="ph ph-file-css"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4" style="margin-bottom:0.25rem;">CSS</h4>
+                        <p class="text-muted text-sm">Layouts, animations, design systems</p>
+                    </div>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#F7DF1E"><i class="ph ph-file-code"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4" style="margin-bottom:0.25rem;">JavaScript</h4>
+                        <p class="text-muted text-sm">DOM manipulation & async logic</p>
+                    </div>
+                </div>
+
+                <!-- Python -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#3776AB"><i class="ph ph-file-py"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4" style="margin-bottom:0.25rem;">Python</h4>
+                        <p class="text-muted text-sm">Data structures & algorithms</p>
+                    </div>
+                </div>
+
+                <!-- React -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#61DAFB"><i class="ph ph-atom"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4" style="margin-bottom:0.25rem;">React</h4>
+                        <p class="text-muted text-sm">Component-driven UI architecture</p>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#339933"><i class="ph ph-database"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4" style="margin-bottom:0.25rem;">Backend</h4>
+                        <p class="text-muted text-sm">Node.js, APIs, PostgreSQL</p>
+                    </div>
+                </div>
+
+                <!-- AI -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#10B981"><i class="ph ph-brain"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4" style="margin-bottom:0.25rem;">AI Integration</h4>
+                        <p class="text-muted text-sm">LangChain, OpenAI, Vectors</p>
+                    </div>
+                </div>
+
+                <!-- Current -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#00D9FF"><i class="ph ph-rocket"></i></div>
+                    <div class="roadmap-content card">
+                        <span class="roadmap-year" style="color:var(--accent-primary);">Current</span>
+                        <h4 class="h4">System Design & Architecture</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. GitHub & Open Source (Dynamic) -->
+    <section class="section" id="github" style="background: rgba(14, 22, 40, 0.3); border-top: 1px solid var(--border-glass);">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2 class="h2">Open <span class="text-gradient">Source.</span></h2>
+                <p class="text-muted text-large">Live GitHub statistics and recent public contributions.</p>
+            </div>
+            
+            <!-- GitHub Bento Dashboard -->
+            <div class="github-dashboard reveal">
+                
+                <!-- Stat Cards -->
+                <div class="github-stats-grid">
+                    <div class="github-stat-card card">
+                        <i class="ph ph-users" style="color: var(--accent-primary); font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <h4 class="h2" id="gh-followers">--</h4>
+                        <p class="text-muted text-sm">Followers</p>
+                    </div>
+                    <div class="github-stat-card card">
+                        <i class="ph ph-star" style="color: #F59E0B; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <h4 class="h2" id="gh-stars">--</h4>
+                        <p class="text-muted text-sm">Stars Earned</p>
+                    </div>
+                    <div class="github-stat-card card">
+                        <i class="ph ph-git-repository" style="color: #10B981; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <h4 class="h2" id="gh-repos">--</h4>
+                        <p class="text-muted text-sm">Public Repos</p>
+                    </div>
+                </div>
+
+                <!-- Contribution Graph (Using GitHub Readme Stats SVG) -->
+                <div class="github-graph-card card">
+                    <h4 class="h4" style="margin-bottom: 1rem; display:flex; align-items:center; gap:0.5rem;">
+                        <i class="ph ph-github-logo"></i> GitHub Activity
+                    </h4>
+                    <div class="graph-container">
+                        <!-- We use an image generation service for the complex graph.
+                             Replace '?user=octocat' with real username in JS or hardcode here. -->
+                        <img id="gh-graph-img" src="https://ghchart.rshah.org/00D9FF/octocat" alt="GitHub Contribution Graph" style="width:100%; filter: hue-rotate(180deg) invert(0.9) hue-rotate(180deg);" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Repositories Grid -->
+            <h3 class="h3 reveal" style="margin: 4rem 0 2rem;">Latest Repositories</h3>
+            <div class="grid grid-cols-3" id="github-repos-container">
+                <!-- Skeletons while loading -->
+                <div class="repo-card skeleton-card card reveal">
+                    <div class="skeleton-line" style="width: 60%; height: 24px; margin-bottom: 1rem;"></div>
+                    <div class="skeleton-line" style="width: 100%; height: 16px; margin-bottom: 0.5rem;"></div>
+                    <div class="skeleton-line" style="width: 80%; height: 16px; margin-bottom: 1.5rem;"></div>
+                    <div class="skeleton-line" style="width: 40%; height: 16px;"></div>
+                </div>
+                <div class="repo-card skeleton-card card reveal" style="transition-delay: 0.1s;">
+                    <div class="skeleton-line" style="width: 60%; height: 24px; margin-bottom: 1rem;"></div>
+                    <div class="skeleton-line" style="width: 100%; height: 16px; margin-bottom: 0.5rem;"></div>
+                    <div class="skeleton-line" style="width: 80%; height: 16px; margin-bottom: 1.5rem;"></div>
+                    <div class="skeleton-line" style="width: 40%; height: 16px;"></div>
+                </div>
+                <div class="repo-card skeleton-card card reveal" style="transition-delay: 0.2s;">
+                    <div class="skeleton-line" style="width: 60%; height: 24px; margin-bottom: 1rem;"></div>
+                    <div class="skeleton-line" style="width: 100%; height: 16px; margin-bottom: 0.5rem;"></div>
+                    <div class="skeleton-line" style="width: 80%; height: 16px; margin-bottom: 1.5rem;"></div>
+                    <div class="skeleton-line" style="width: 40%; height: 16px;"></div>
+                </div>
+            </div>
+            
+            <div id="gh-error-msg" class="text-muted text-center" style="display:none; margin-top:2rem;">
+                <i class="ph ph-warning-circle text-primary"></i> GitHub API rate limit exceeded. Please check back later.
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Certificates -->
+    <section class="section" id="certificates">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2 class="h2">Certifications</h2>
+                <p class="text-muted text-large">Professional qualifications and continuous learning.</p>
+            </div>
+            
+            <div class="grid grid-cols-3">
+                <!-- Certificate 1 -->
+                <div class="cert-card card reveal">
+                    <div class="cert-image-wrapper">
+                        <div class="cert-image bg-aws">
+                            <i class="ph ph-certificate cert-watermark"></i>
+                            <div class="cert-overlay">
+                                <a href="#TODO" class="btn btn-primary btn-sm" style="font-size:0.8rem; padding: 0.5rem 1rem;">View Credential <i class="ph ph-arrow-up-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cert-content">
+                        <div class="cert-meta">
+                            <div class="cert-platform">
+                                <i class="ph ph-amazon-logo" style="color:#FF9900;"></i> AWS
+                            </div>
+                            <span class="cert-date text-mono">Aug 2025</span>
+                        </div>
+                        <h4 class="h4" style="margin-bottom: 0.5rem; font-size: 1.1rem; line-height: 1.3;">AWS Certified Solutions Architect</h4>
+                        <p class="text-muted text-sm">Amazon Web Services</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="cert-card card reveal" style="transition-delay: 0.1s;">
+                    <div class="cert-image-wrapper">
+                        <div class="cert-image bg-meta">
+                            <i class="ph ph-certificate cert-watermark"></i>
+                            <div class="cert-overlay">
+                                <a href="#TODO" class="btn btn-primary btn-sm" style="font-size:0.8rem; padding: 0.5rem 1rem;">View Credential <i class="ph ph-arrow-up-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cert-content">
+                        <div class="cert-meta">
+                            <div class="cert-platform">
+                                <i class="ph ph-meta-logo" style="color:#0668E1;"></i> Meta
+                            </div>
+                            <span class="cert-date text-mono">May 2025</span>
+                        </div>
+                        <h4 class="h4" style="margin-bottom: 0.5rem; font-size: 1.1rem; line-height: 1.3;">Front-End Developer Professional</h4>
+                        <p class="text-muted text-sm">Coursera &bull; Meta</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="cert-card card reveal" style="transition-delay: 0.2s;">
+                    <div class="cert-image-wrapper">
+                        <div class="cert-image bg-google">
+                            <i class="ph ph-certificate cert-watermark"></i>
+                            <div class="cert-overlay">
+                                <a href="#TODO" class="btn btn-primary btn-sm" style="font-size:0.8rem; padding: 0.5rem 1rem;">View Credential <i class="ph ph-arrow-up-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cert-content">
+                        <div class="cert-meta">
+                            <div class="cert-platform">
+                                <i class="ph ph-google-logo" style="color:#34A853;"></i> Google
+                            </div>
+                            <span class="cert-date text-mono">Jan 2025</span>
+                        </div>
+                        <h4 class="h4" style="margin-bottom: 0.5rem; font-size: 1.1rem; line-height: 1.3;">Google UX Design Professional</h4>
+                        <p class="text-muted text-sm">Coursera &bull; Google</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Testimonials -->
+    <section class="section" style="background: rgba(14, 22, 40, 0.3); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2 class="h2">Client & Colleague Love</h2>
+                <p class="text-muted text-large">What people say about working with me.</p>
+            </div>
+            
+            <div class="masonry">
+                <div class="card testimonial-card reveal">
+                    <p class="text-large">"Tausif is a rare breed of designer who deeply understands engineering constraints without compromising on aesthetic quality. The design system he built saved us months of dev time."</p>
+                    <div class="author">
+                        <div class="author-avatar">S</div>
+                        <div>
+                            <h5 style="font-weight: 600; font-size: 0.875rem;">Sarah Jenkins</h5>
+                            <p class="text-muted" style="font-size: 0.75rem;">VP of Engineering, Nova</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card testimonial-card reveal" style="transition-delay: 0.1s;">
+                    <p class="text-large">"Working with Tausif elevated our entire product. He brings a level of polish and attention to detail that is simply world-class. Highly recommended."</p>
+                    <div class="author">
+                        <div class="author-avatar">M</div>
+                        <div>
+                            <h5 style="font-weight: 600; font-size: 0.875rem;">Marcus Chen</h5>
+                            <p class="text-muted" style="font-size: 0.75rem;">CEO, StartupX</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card testimonial-card reveal" style="transition-delay: 0.2s;">
+                    <p class="text-large">"The prototyping skills are unmatched. Being able to interact with the high-fidelity React prototypes before writing backend code gave us incredible confidence in the product direction."</p>
+                    <div class="author">
+                        <div class="author-avatar">E</div>
+                        <div>
+                            <h5 style="font-weight: 600; font-size: 0.875rem;">Elena Rodriguez</h5>
+                            <p class="text-muted" style="font-size: 0.75rem;">Product Manager</p>
+                        </div>
+                    </div>
+                </div>
+    <!-- 12. Contact -->
+    <section class="section" id="contact" style="position: relative; overflow: hidden;">
+        <!-- Animated Background Glow -->
+        <div class="ambient-glow" style="background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 60%); top: 50%; left: 0; opacity: 0.1;"></div>
+        
+        <div class="container relative">
+            <div class="section-title reveal">
+                <h2 class="display">Let's build <br><span class="text-gradient">together.</span></h2>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-lg">
+                <!-- Left: Contact Details -->
+                <div class="contact-details reveal">
+                    <p class="text-muted text-large" style="margin-bottom: 3rem;">
+                        I'm always open to discussing product design work, new frontend architecture opportunities, or tech mentorship. Let's connect.
+                    </p>
+                    
+                    <div class="contact-links-grid">
+                        <a href="mailto:hello@tausif.design" class="contact-link-pill card">
+                            <i class="ph ph-envelope-simple text-primary"></i>
+                            <div class="contact-text">
+                                <span class="contact-label">Email</span>
+                                <span class="contact-value">hello@tausif.design</span>
+                            </div>
+                        </a>
+                        
+                        <a href="tel:+1234567890" class="contact-link-pill card">
+                            <i class="ph ph-phone text-primary"></i>
+                            <div class="contact-text">
+                                <span class="contact-label">Phone</span>
+                                <span class="contact-value">+1 (234) 567-890</span>
+                            </div>
+                        </a>
+                        
+                        <a href="#TODO" class="contact-link-pill card">
+                            <i class="ph ph-map-pin text-primary"></i>
+                            <div class="contact-text">
+                                <span class="contact-label">Location</span>
+                                <span class="contact-value">San Francisco, CA</span>
+                            </div>
+                        </a>
+                        
+                        <a href="#TODO" class="contact-link-pill card">
+                            <i class="ph ph-file-pdf text-primary"></i>
+                            <div class="contact-text">
+                                <span class="contact-label">Resume</span>
+                                <span class="contact-value">Download PDF</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="social-pills" style="margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="#TODO" class="social-btn card"><i class="ph ph-github-logo"></i> GitHub</a>
+                        <a href="#TODO" class="social-btn card"><i class="ph ph-linkedin-logo"></i> LinkedIn</a>
+                        <a href="#TODO" class="social-btn card"><i class="ph ph-instagram-logo"></i> Instagram</a>
+                        <a href="#TODO" class="social-btn card"><i class="ph ph-whatsapp-logo"></i> WhatsApp</a>
+                    </div>
+                </div>
+                
+                <!-- Right: Interactive Form -->
+                <div class="contact-form-wrapper card reveal" style="transition-delay: 0.2s; padding: 3rem;">
+                    <form id="contactForm" class="contact-form">
+                        
+                        <div class="form-group floating-label-group">
+                            <input type="text" id="name" class="form-input" required autocomplete="off">
+                            <label for="name" class="floating-label">Your Name</label>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <div class="form-group floating-label-group">
+                            <input type="email" id="email" class="form-input" required autocomplete="off">
+                            <label for="email" class="floating-label">Email Address</label>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <div class="form-group floating-label-group">
+                            <textarea id="message" class="form-input" rows="4" required autocomplete="off" style="resize: vertical; min-height: 120px;"></textarea>
+                            <label for="message" class="floating-label">Tell me about your project...</label>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <button type="submit" id="submitBtn" class="btn btn-primary submit-btn" style="width: 100%; position: relative; overflow: hidden; height: 50px;">
+                            <span class="btn-text">Send Message <i class="ph ph-paper-plane-tilt"></i></span>
+                            <span class="btn-loader" style="display:none;"><i class="ph ph-spinner-gap"></i></span>
+                            <span class="btn-success" style="display:none;"><i class="ph ph-check-circle"></i> Sent Successfully!</span>
+                            <span class="btn-error" style="display:none;"><i class="ph ph-warning-circle"></i> Try Again</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. Premium Footer -->
+    <footer class="footer-premium">
+        <div class="footer-glow"></div>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-brand">
+                    <a href="#TODO" class="logo footer-logo">
+                        <div class="logo-circle"></div>
+                        <span>Tausif.</span>
+                    </a>
+                    <p class="text-muted text-sm" style="margin: 1.5rem 0;">Building digital products with a focus on typography, layout, and purpose.</p>
+                    <div class="footer-socials">
+                        <a href="#TODO" class="footer-social-link"><i class="ph ph-dribbble-logo"></i></a>
+                        <a href="#TODO" class="footer-social-link"><i class="ph ph-github-logo"></i></a>
+                        <a href="#TODO" class="footer-social-link"><i class="ph ph-linkedin-logo"></i></a>
+                        <a href="#TODO" class="footer-social-link"><i class="ph ph-twitter-logo"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-links-group">
+                    <h5 class="h5" style="margin-bottom: 1.5rem;">Explore</h5>
+                    <a href="#about" class="footer-link">About Me</a>
+                    <a href="#skills" class="footer-link">Tech Stack</a>
+                    <a href="#projects" class="footer-link">Case Studies</a>
+                    <a href="#experience" class="footer-link">Experience</a>
+                </div>
+                
+                <!-- Connect -->
+                <div class="footer-links-group">
+                    <h5 class="h5" style="margin-bottom: 1.5rem;">Connect</h5>
+                    <a href="mailto:hello@tausif.design" class="footer-link">hello@tausif.design</a>
+                    <a href="#TODO" class="footer-link">Schedule a Call</a>
+                    <a href="#TODO" class="footer-link">Resume</a>
+                </div>
+                
+                <!-- Back to Top -->
+                <div class="footer-to-top">
+                    <button class="back-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                        <i class="ph ph-arrow-up"></i>
+                        <span>Back to top</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="text-muted text-sm">&copy; <span id="currentYear">2026</span> Tausif. Crafted with precision.</p>
+                <div class="footer-status">
+                    <div class="status-dot pulse-glow-btn" style="width:8px; height:8px; border-radius:50%; background:#10B981; margin:0;"></div>
+                    <span class="text-mono text-sm text-muted">All Systems Operational</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="script.js"></script>
+</body>
+</html>

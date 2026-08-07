@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-align: center;
+            margin: 0;
+            font-family: var(--font-body);
+        }
+        .error-container {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 2rem;
+        }
+        .error-code {
+            font-size: 10rem;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            line-height: 1;
+            text-shadow: var(--glow-primary);
+            animation: float 6s ease-in-out infinite;
+        }
+        .error-title {
+            font-size: 2rem;
+            margin: 1rem 0;
+            font-family: var(--font-heading);
+        }
+        .error-desc {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            transition: all 0.3s var(--spring);
+            font-weight: 500;
+        }
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        
+        /* Interactive Background Elements */
+        .blob-1 {
+            position: absolute;
+            top: 20%; left: 20%;
+            width: 300px; height: 300px;
+            background: rgba(0, 217, 255, 0.15);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 8s ease-in-out infinite alternate;
+        }
+        .blob-2 {
+            position: absolute;
+            bottom: 20%; right: 20%;
+            width: 400px; height: 400px;
+            background: rgba(91, 140, 255, 0.15);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: float 10s ease-in-out infinite alternate-reverse;
+        }
+    </style>
+</head>
+<body>
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+    
+    <div class="error-container">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Lost in Cyberspace</h2>
+        <p class="error-desc">The page you are looking for has drifted into the void. It might have been moved, deleted, or perhaps it never existed at all.</p>
+        <a href="index.html" class="home-btn">
+            <i class="ph ph-rocket-launch"></i> Return to Base
+        </a>
+    </div>
+</body>
+</html>
