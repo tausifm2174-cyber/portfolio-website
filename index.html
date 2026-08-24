@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tausif | Senior Product Designer</title>
-    <meta name="description" content="Portfolio of Tausif, a Senior Product Designer and UI Engineer crafting premium, modern, and beautiful software experiences.">
-    <meta name="theme-color" content="#050816">
-    <meta property="og:title" content="Tausif | Senior Product Designer">
-    <meta property="og:description" content="Portfolio of Tausif, crafting premium, modern, and beautiful software experiences.">
+    <title>TAUSIF M | Computer Science & Engineering Student</title>
+    <meta name="description"
+        content="Portfolio of TAUSIF M, a Computer Science & Engineering Student crafting premium, modern, and beautiful software experiences.">
+    <meta property="og:title" content="TAUSIF M | Computer Science & Engineering Student">
+    <meta property="og:description"
+        content="Portfolio of TAUSIF M, crafting premium, modern, and beautiful software experiences.">
     <meta property="og:type" content="website">
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-    
+
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
+
 <body>
     <!-- 1. Loading Screen -->
     <div id="loading-screen">
@@ -32,11 +35,12 @@
     <div id="scroll-progress" class="scroll-progress"></div>
 
     <!-- Command Palette Overlay -->
-    <div id="command-palette" class="cmd-palette-overlay">
+    <div id="command-palette" class="cmd-palette-overlay" role="dialog" aria-modal="true" aria-label="Command Palette">
         <div class="cmd-palette-container">
             <div class="cmd-search-bar">
-                <i class="ph ph-magnifying-glass"></i>
-                <input type="text" id="cmd-input" placeholder="Search projects, switch themes, or navigate..." autocomplete="off">
+                <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+                <input type="text" id="cmd-input" placeholder="Search projects, switch themes, or navigate..."
+                    aria-label="Command Palette Search" autocomplete="off">
                 <span class="cmd-shortcut">ESC</span>
             </div>
             <div class="cmd-results" id="cmd-results">
@@ -76,17 +80,28 @@
             </button>
             <button id="cmd-trigger" class="dock-item" data-tooltip="Search (Ctrl+K)" aria-label="Open Command Palette">
                 <i class="ph ph-command"></i>
-            </button>
+                <div class="dock-divider"></div>
+                <div class="lang-dropdown-wrapper">
+                    <button class="dock-item" id="lang-trigger" data-tooltip="Language" aria-label="Select Language">
+                        <i class="ph ph-translate"></i>
+                    </button>
+                    <div class="lang-dropdown-content">
+                        <button class="lang-opt" data-lang="en">English (EN)</button>
+                        <button class="lang-opt" data-lang="kn">ಕನ್ನಡ (KN)</button>
+                        <button class="lang-opt" data-lang="ur">اردو (UR)</button>
+                        <button class="lang-opt" data-lang="hi">हिंदी (HI)</button>
+                    </div>
+                </div>
         </div>
     </nav>
     <!-- 3. Hero Section (Cinematic Overhaul) -->
     <section id="home" class="hero cinematic-hero">
         <!-- Animated Background Grid -->
         <div class="hero-grid"></div>
-        
+
         <!-- Spotlight Element -->
         <div class="hero-spotlight" id="hero-spotlight"></div>
-        
+
         <!-- Floating Rings -->
         <div class="floating-ring ring-1" data-speed="0.05"></div>
         <div class="floating-ring ring-2" data-speed="-0.03"></div>
@@ -99,7 +114,7 @@
                 <div class="tech-badge badge-react" data-speed="0.1"><i class="ph ph-atom"></i></div>
                 <div class="tech-badge badge-figma" data-speed="-0.08"><i class="ph ph-figma-logo"></i></div>
                 <div class="tech-badge badge-js" data-speed="0.12"><i class="ph ph-file-code"></i></div>
-                
+
                 <div class="profile-photo-wrapper">
                     <div class="profile-photo-placeholder">
                         <i class="ph ph-user"></i>
@@ -109,24 +124,24 @@
                         <span class="pulse-dot"></span> Available for Internship
                     </div>
                     <div class="status-badge location-badge" data-speed="0.04">
-                        <i class="ph ph-map-pin"></i> San Francisco, CA
+                        <i class="ph ph-map-pin"></i> Bengaluru, Karnataka, India
                     </div>
                 </div>
             </div>
 
             <!-- Typography Area -->
-            <div class="hero-text-area reveal" style="transition-delay: 0.1s;">
+            <div class="hero-text-area reveal extracted-inline-1">
                 <h1 class="cinematic-heading">
-                    Designing the <br>
-                    <span class="text-gradient">future of software.</span>
+                    TAUSIF M <br>
+                    <span class="text-gradient">CS Student.</span>
                 </h1>
-                
+
                 <div class="typing-container">
                     I build <span id="typing-text" class="typing-text"></span><span class="typing-cursor">|</span>
                 </div>
 
                 <p class="hero-description text-muted">
-                    Senior Product Designer and UI Engineer crafting premium, modern, and beautiful experiences that people love to use.
+                    Computer Science & Engineering Student crafting premium, modern, and beautiful software experiences.
                 </p>
 
                 <!-- 5 Buttons -->
@@ -140,17 +155,19 @@
                     <a href="#TODO" class="btn btn-glass hero-btn">
                         Download Resume <i class="ph ph-download-simple"></i>
                     </a>
-                    <a href="#TODO" class="btn btn-glass icon-btn hero-btn" aria-label="GitHub">
+                    <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-glass icon-btn hero-btn" aria-label="GitHub">
                         <i class="ph ph-github-logo"></i>
                     </a>
-                    <a href="#TODO" class="btn btn-glass icon-btn hero-btn" aria-label="LinkedIn">
+                    <a href="https://linkedin.com/in/tausifm" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-glass icon-btn hero-btn" aria-label="LinkedIn">
                         <i class="ph ph-linkedin-logo"></i>
                     </a>
                 </div>
             </div>
-            
+
             <!-- Statistics Bar -->
-            <div class="hero-stats reveal" style="transition-delay: 0.3s;" id="hero-stats">
+            <div class="hero-stats reveal extracted-inline-2" id="hero-stats">
                 <div class="stat-item">
                     <h3 class="stat-number"><span class="counter" data-target="25">0</span>+</h3>
                     <p class="stat-label">Projects</p>
@@ -178,101 +195,104 @@
     <section id="about" class="section">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="h2">Beyond the <span class="text-gradient">Screen.</span></h2>
+                <h2 class="h2" data-i18n="about_title">Beyond the <span class="text-gradient">Screen.</span></h2>
                 <p class="text-muted text-large">A snapshot of my background, focus, and passions.</p>
             </div>
-            
+
             <div class="bento-grid">
                 <!-- Education & College (Spans 2 cols) -->
-                <div class="card bento-card bento-education reveal" style="transition-delay: 0.1s;">
+                <div class="card bento-card bento-education reveal extracted-inline-1">
                     <div class="bento-icon-wrapper"><i class="ph ph-graduation-cap"></i></div>
-                    <h3 class="h4" style="margin-bottom: 1rem;">Education</h3>
+                    <h3 class="h4 extracted-inline-3">Education</h3>
                     <div class="bento-timeline">
                         <div class="b-timeline-item">
                             <div class="b-dot"></div>
-                            <p class="text-primary font-medium" style="margin: 0; font-weight: 500;">B.S. Computer Science</p>
-                            <p class="text-muted text-sm" style="margin: 0; font-size: 0.875rem;">Stanford University</p>
+                            <p class="text-primary font-medium extracted-inline-4">B.E. Computer Science & Engineering
+                                (2nd Year)</p>
+                            <p class="text-muted text-sm extracted-inline-5">SJB Institute of Technology (VTU)</p>
                         </div>
                         <div class="b-timeline-item">
                             <div class="b-dot"></div>
-                            <p class="text-primary font-medium" style="margin: 0; font-weight: 500;">Expected Graduation</p>
-                            <p class="text-muted text-sm" style="margin: 0; font-size: 0.875rem;">Class of 2027</p>
+                            <p class="text-primary font-medium extracted-inline-4">Current Status</p>
+                            <p class="text-muted text-sm extracted-inline-5">CGPA 8.28/10</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Location -->
-                <div class="card bento-card bento-location reveal" style="transition-delay: 0.2s;">
+                <div class="card bento-card bento-location reveal extracted-inline-6">
                     <div class="location-map"></div>
                     <div class="location-content">
-                        <i class="ph ph-map-pin pulse-pin" style="color: var(--accent-primary); font-size: 2.5rem; margin-bottom: 0.5rem;"></i>
-                        <h3 class="h4" style="margin: 0;">San Francisco, CA</h3>
-                        <p class="text-muted text-sm" style="margin: 0;">Open to remote worldwide</p>
+                        <i class="ph ph-map-pin pulse-pin extracted-inline-7"></i>
+                        <h3 class="h4 extracted-inline-8">Bengaluru, Karnataka, India</h3>
+                        <p class="text-muted text-sm extracted-inline-8">Open to opportunities</p>
                     </div>
                 </div>
 
                 <!-- Current Focus -->
-                <div class="card bento-card bento-focus reveal" style="transition-delay: 0.3s;">
-                    <div class="bento-icon-wrapper" style="color: var(--accent-secondary);"><i class="ph ph-crosshair"></i></div>
-                    <h3 class="h4" style="margin-bottom: 0.5rem;">Current Focus</h3>
-                    <p class="text-muted text-sm" style="margin: 0;">Building accessible, high-performance design systems for scalable AI products.</p>
+                <div class="card bento-card bento-focus reveal extracted-inline-2">
+                    <div class="bento-icon-wrapper extracted-inline-9"><i class="ph ph-crosshair"></i></div>
+                    <h3 class="h4 extracted-inline-10">Current Focus</h3>
+                    <p class="text-muted text-sm extracted-inline-8">Building accessible, high-performance design
+                        systems for scalable AI products.</p>
                 </div>
 
                 <!-- Languages -->
-                <div class="card bento-card bento-languages reveal" style="transition-delay: 0.4s;">
-                    <h3 class="h4" style="margin-bottom: 1rem;"><i class="ph ph-translate" style="margin-right:0.5rem; color:var(--accent-primary);"></i>Languages</h3>
-                    <div style="display:flex; flex-direction:column; gap:1rem;">
+                <div class="card bento-card bento-languages reveal extracted-inline-11">
+                    <h3 class="h4 extracted-inline-3"><i class="ph ph-translate extracted-inline-12"></i>Languages</h3>
+                    <div class="extracted-inline-13">
                         <div>
-                            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
-                                <span class="text-sm" style="font-weight: 500;">English</span> <span class="text-muted" style="font-size: 0.75rem;">Native</span>
+                            <div class="extracted-inline-14">
+                                <span class="text-sm extracted-inline-15">English</span> <span
+                                    class="text-muted extracted-inline-16">Professional</span>
                             </div>
-                            <div class="progress-bar"><div class="progress" style="width: 100%;"></div></div>
+                            <div class="progress-bar">
+                                <div class="progress extracted-inline-17"></div>
+                            </div>
                         </div>
                         <div>
-                            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
-                                <span class="text-sm" style="font-weight: 500;">Spanish</span> <span class="text-muted" style="font-size: 0.75rem;">Fluent</span>
+                            <div class="extracted-inline-14">
+                                <span class="text-sm extracted-inline-15">Kannada (ಕನ್ನಡ)</span> <span
+                                    class="text-muted extracted-inline-16">Fluent</span>
                             </div>
-                            <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
+                            <div class="progress-bar">
+                                <div class="progress extracted-inline-18"></div>
+                            </div>
                         </div>
                         <div>
-                            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
-                                <span class="text-sm" style="font-weight: 500;">French</span> <span class="text-muted" style="font-size: 0.75rem;">Basic</span>
+                            <div class="extracted-inline-14">
+                                <span class="text-sm extracted-inline-15">Urdu (اردو)</span> <span
+                                    class="text-muted extracted-inline-16">Native</span>
                             </div>
-                            <div class="progress-bar"><div class="progress" style="width: 40%;"></div></div>
+                            <div class="progress-bar">
+                                <div class="progress extracted-inline-17"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="extracted-inline-14">
+                                <span class="text-sm extracted-inline-15">Hindi (हिंदी)</span> <span
+                                    class="text-muted extracted-inline-16">Fluent</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress extracted-inline-18"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Career Goal -->
-                <div class="card bento-card bento-goal reveal" style="transition-delay: 0.5s;">
-                    <i class="ph ph-rocket-launch" style="font-size: 5rem; color: rgba(255,255,255,0.05); position:absolute; right: -10px; bottom: -10px;"></i>
-                    <h3 class="h4" style="margin-bottom: 0.5rem;">Career Goal</h3>
-                    <p class="text-muted text-sm" style="margin: 0; position:relative; z-index: 2;">To lead the design architecture of products that fundamentally improve human interaction with technology.</p>
+                <div class="card bento-card bento-goal reveal extracted-inline-19">
+                    <i class="ph ph-rocket-launch extracted-inline-20"></i>
+                    <h3 class="h4 extracted-inline-10">Career Goal</h3>
+                    <p class="text-muted text-sm extracted-inline-21">To lead the design architecture of products that
+                        fundamentally improve human interaction with technology.</p>
                 </div>
 
-                <!-- Spotify Now Playing -->
-                <div class="card bento-card bento-spotify reveal" style="transition-delay: 0.55s;">
-                    <div class="spotify-header">
-                        <i class="ph-fill ph-spotify-logo" style="color: #1DB954; font-size: 1.5rem;"></i>
-                        <span class="text-sm font-medium" style="color: #1DB954;">Now Playing</span>
-                    </div>
-                    <div class="spotify-content">
-                        <div class="spotify-album-art">
-                            <img src="https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452" alt="Starboy Album Art" loading="lazy">
-                            <div class="spotify-eq">
-                                <span></span><span></span><span></span><span></span>
-                            </div>
-                        </div>
-                        <div class="spotify-track-info">
-                            <p class="track-name">Starboy</p>
-                            <p class="artist-name text-muted text-sm">The Weeknd, Daft Punk</p>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Passion & Interests (Spans 2 cols) -->
-                <div class="card bento-card bento-passion reveal" style="transition-delay: 0.6s;">
-                    <h3 class="h4" style="margin-bottom: 1rem;"><i class="ph ph-heart" style="margin-right:0.5rem; color:#F43F5E;"></i>Passions & Interests</h3>
+                <div class="card bento-card bento-passion reveal extracted-inline-25">
+                    <h3 class="h4 extracted-inline-3"><i class="ph ph-heart extracted-inline-26"></i>Passions &
+                        Interests</h3>
                     <div class="tags-container">
                         <span class="passion-tag"><i class="ph ph-aperture"></i> Photography</span>
                         <span class="passion-tag"><i class="ph ph-books"></i> Sci-Fi Literature</span>
@@ -287,24 +307,25 @@
     </section>
 
     <!-- 5. Skills Section (3D Tech Stack) -->
-    <section class="section" style="background: rgba(14, 22, 40, 0.3); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); overflow: hidden;">
+    <section class="section extracted-inline-27">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="h2">Technical <span class="text-gradient">Arsenal.</span></h2>
+                <h2 class="h2" data-i18n="tech_title">Technical <span class="text-gradient">Arsenal.</span></h2>
                 <p class="text-muted text-large">A comprehensive overview of my technological proficiency.</p>
             </div>
-            
+
             <div class="skills-grid">
                 <!-- Frontend (Primary Strength) -->
-                <div class="card skill-3d-card skill-frontend reveal" style="transition-delay: 0.1s;">
+                <div class="card skill-3d-card skill-frontend reveal extracted-inline-1">
                     <div class="skill-glow"></div>
                     <div class="skill-content">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1rem;">
-                            <div class="skill-icon-3d" style="color: #61DAFB;"><i class="ph ph-layout"></i></div>
-                            <span style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color:var(--accent-primary); border: 1px solid var(--accent-primary); padding: 0.25rem 0.75rem; border-radius:var(--radius-full);">Primary</span>
+                        <div class="extracted-inline-28">
+                            <div class="skill-icon-3d extracted-inline-29"><i class="ph ph-layout"></i></div>
+                            <span class="extracted-inline-30">Primary</span>
                         </div>
-                        <h3 class="h4" style="margin-bottom: 0.5rem;">Frontend Engineering</h3>
-                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Building pixel-perfect, highly interactive, and accessible user interfaces at 60fps.</p>
+                        <h3 class="h4 extracted-inline-10">Frontend Engineering</h3>
+                        <p class="text-muted text-sm extracted-inline-31">Building pixel-perfect, highly interactive,
+                            and accessible user interfaces at 60fps.</p>
                         <div class="tech-badges">
                             <span class="tech-pill">React</span>
                             <span class="tech-pill">Next.js</span>
@@ -316,12 +337,13 @@
                 </div>
 
                 <!-- Backend -->
-                <div class="card skill-3d-card reveal" style="transition-delay: 0.2s;">
+                <div class="card skill-3d-card reveal extracted-inline-6">
                     <div class="skill-glow"></div>
                     <div class="skill-content">
-                        <div class="skill-icon-3d" style="color: #68A063; margin-bottom: 1rem;"><i class="ph ph-database"></i></div>
-                        <h3 class="h4" style="margin-bottom: 0.5rem;">Backend Architecture</h3>
-                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Designing robust APIs and scalable server-side logic.</p>
+                        <div class="skill-icon-3d extracted-inline-32"><i class="ph ph-database"></i></div>
+                        <h3 class="h4 extracted-inline-10">Backend Architecture</h3>
+                        <p class="text-muted text-sm extracted-inline-31">Designing robust APIs and scalable server-side
+                            logic.</p>
                         <div class="tech-badges">
                             <span class="tech-pill">Node.js</span>
                             <span class="tech-pill">Express</span>
@@ -332,12 +354,12 @@
                 </div>
 
                 <!-- Languages -->
-                <div class="card skill-3d-card reveal" style="transition-delay: 0.3s;">
+                <div class="card skill-3d-card reveal extracted-inline-2">
                     <div class="skill-glow"></div>
                     <div class="skill-content">
-                        <div class="skill-icon-3d" style="color: #F7DF1E; margin-bottom: 1rem;"><i class="ph ph-file-code"></i></div>
-                        <h3 class="h4" style="margin-bottom: 0.5rem;">Core Languages</h3>
-                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">The foundational languages I use daily.</p>
+                        <div class="skill-icon-3d extracted-inline-33"><i class="ph ph-file-code"></i></div>
+                        <h3 class="h4 extracted-inline-10">Core Languages</h3>
+                        <p class="text-muted text-sm extracted-inline-31">The foundational languages I use daily.</p>
                         <div class="tech-badges">
                             <span class="tech-pill">JavaScript</span>
                             <span class="tech-pill">TypeScript</span>
@@ -348,15 +370,16 @@
                 </div>
 
                 <!-- AI (Primary Strength) -->
-                <div class="card skill-3d-card skill-ai reveal" style="transition-delay: 0.4s;">
+                <div class="card skill-3d-card skill-ai reveal extracted-inline-11">
                     <div class="skill-glow"></div>
                     <div class="skill-content">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1rem;">
-                            <div class="skill-icon-3d" style="color: #10B981;"><i class="ph ph-brain"></i></div>
-                            <span style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color:#10B981; border: 1px solid #10B981; padding: 0.25rem 0.75rem; border-radius:var(--radius-full);">Primary</span>
+                        <div class="extracted-inline-28">
+                            <div class="skill-icon-3d extracted-inline-34"><i class="ph ph-brain"></i></div>
+                            <span class="extracted-inline-35">Primary</span>
                         </div>
-                        <h3 class="h4" style="margin-bottom: 0.5rem;">AI Integration</h3>
-                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Implementing LLMs and building AI-driven product features.</p>
+                        <h3 class="h4 extracted-inline-10">AI Integration</h3>
+                        <p class="text-muted text-sm extracted-inline-31">Implementing LLMs and building AI-driven
+                            product features.</p>
                         <div class="tech-badges">
                             <span class="tech-pill">OpenAI API</span>
                             <span class="tech-pill">LangChain</span>
@@ -367,12 +390,12 @@
                 </div>
 
                 <!-- Database -->
-                <div class="card skill-3d-card reveal" style="transition-delay: 0.5s;">
+                <div class="card skill-3d-card reveal extracted-inline-19">
                     <div class="skill-glow"></div>
                     <div class="skill-content">
-                        <div class="skill-icon-3d" style="color: #336791; margin-bottom: 1rem;"><i class="ph ph-hard-drives"></i></div>
-                        <h3 class="h4" style="margin-bottom: 0.5rem;">Databases</h3>
-                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Data modeling and storage solutions.</p>
+                        <div class="skill-icon-3d extracted-inline-36"><i class="ph ph-hard-drives"></i></div>
+                        <h3 class="h4 extracted-inline-10">Databases</h3>
+                        <p class="text-muted text-sm extracted-inline-31">Data modeling and storage solutions.</p>
                         <div class="tech-badges">
                             <span class="tech-pill">PostgreSQL</span>
                             <span class="tech-pill">MongoDB</span>
@@ -383,12 +406,13 @@
                 </div>
 
                 <!-- Cloud -->
-                <div class="card skill-3d-card reveal" style="transition-delay: 0.6s;">
+                <div class="card skill-3d-card reveal extracted-inline-25">
                     <div class="skill-glow"></div>
                     <div class="skill-content">
-                        <div class="skill-icon-3d" style="color: #FF9900; margin-bottom: 1rem;"><i class="ph ph-cloud"></i></div>
-                        <h3 class="h4" style="margin-bottom: 0.5rem;">Cloud & DevOps</h3>
-                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">Deploying and scaling applications seamlessly.</p>
+                        <div class="skill-icon-3d extracted-inline-37"><i class="ph ph-cloud"></i></div>
+                        <h3 class="h4 extracted-inline-10">Cloud & DevOps</h3>
+                        <p class="text-muted text-sm extracted-inline-31">Deploying and scaling applications seamlessly.
+                        </p>
                         <div class="tech-badges">
                             <span class="tech-pill">AWS</span>
                             <span class="tech-pill">Vercel</span>
@@ -399,12 +423,12 @@
                 </div>
 
                 <!-- Tools -->
-                <div class="card skill-3d-card reveal" style="transition-delay: 0.7s;">
+                <div class="card skill-3d-card reveal extracted-inline-38">
                     <div class="skill-glow"></div>
                     <div class="skill-content">
-                        <div class="skill-icon-3d" style="color: #F24E1E; margin-bottom: 1rem;"><i class="ph ph-wrench"></i></div>
-                        <h3 class="h4" style="margin-bottom: 0.5rem;">Design & Tools</h3>
-                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem;">The software that accelerates my workflow.</p>
+                        <div class="skill-icon-3d extracted-inline-39"><i class="ph ph-wrench"></i></div>
+                        <h3 class="h4 extracted-inline-10">Design & Tools</h3>
+                        <p class="text-muted text-sm extracted-inline-31">The software that accelerates my workflow.</p>
                         <div class="tech-badges">
                             <span class="tech-pill">Figma</span>
                             <span class="tech-pill">Git</span>
@@ -421,7 +445,7 @@
     <section id="work" class="section">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="h2">Selected <span class="text-gradient">Works.</span></h2>
+                <h2 class="h2" data-i18n="work_title">Selected <span class="text-gradient">Works.</span></h2>
                 <p class="text-muted text-large">Deep-dive case studies showcasing end-to-end product engineering.</p>
             </div>
 
@@ -437,88 +461,89 @@
             </div>
 
             <div class="project-gallery">
-                
-                <!-- Project 1: Nova (Full Stack / React) -->
-                <div class="premium-project-showcase reveal" data-category="fullstack react frontend">
-                    <div class="project-cinematic-glow" style="background: radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.15), transparent 70%);"></div>
-                    
+
+                <!-- Project 1: SynapDoc AI -->
+                <div class="premium-project-showcase reveal" data-category="ai python backend">
+                    <div class="project-cinematic-glow extracted-inline-40"></div>
+
                     <!-- Zone A: Device Presentation -->
-                    <div class="project-devices-zone">
+                    <a href="https://ai-document-search-4660.onrender.com/" target="_blank" rel="noopener noreferrer"
+                        class="project-devices-zone" aria-label="Open SynapDoc AI live demo">
                         <div class="macbook-mockup">
                             <div class="macbook-screen">
-                                <div class="macbook-content" style="background: #0E1628; display:flex; align-items:center; justify-content:center; color: var(--accent-primary); flex-direction:column;">
-                                    <i class="ph ph-chart-line-up" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                                    <h3 class="h4">Nova Analytics Dashboard</h3>
-                                </div>
+                                <img src="assets/projects/synapdoc-ai/synapdoc-desktop-clean.png"
+                                    alt="SynapDoc AI Desktop Interface" class="mockup-screen-img" loading="lazy">
                             </div>
                             <div class="macbook-base"></div>
                         </div>
                         <div class="iphone-mockup parallax-item">
                             <div class="iphone-screen">
-                                <div class="iphone-content" style="background: #050816; display:flex; align-items:center; justify-content:center; color: var(--accent-secondary); flex-direction:column;">
-                                    <i class="ph ph-device-mobile" style="font-size: 3rem; margin-bottom: 0.5rem;"></i>
-                                    <span class="text-xs">Mobile View</span>
-                                </div>
+                                <img src="assets/projects/synapdoc-ai/synapdoc-mobile-clean.png"
+                                    alt="SynapDoc AI Mobile Interface" class="mockup-screen-img" loading="lazy">
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Zone B: Deep Dive Dashboard -->
                     <div class="project-deepdive card">
                         <div class="deepdive-header">
-                            <h3 class="h2">Nova Financial Platform</h3>
+                            <h3 class="h2">SynapDoc AI</h3>
                             <div class="tech-badges">
-                                <span class="tech-pill">React</span>
-                                <span class="tech-pill">Node.js</span>
-                                <span class="tech-pill">PostgreSQL</span>
+                                <span class="tech-pill">Python</span>
+                                <span class="tech-pill">FastAPI</span>
+                                <span class="tech-pill">LangChain</span>
+                                <span class="tech-pill">FAISS</span>
+                                <span class="tech-pill">OpenAI</span>
                             </div>
                         </div>
-                        
+
                         <div class="deepdive-grid">
                             <div class="dd-col">
-                                <h4 class="h5" style="color:var(--text-muted); margin-bottom:0.5rem;">The Problem</h4>
-                                <p class="text-sm">B2B fintech users struggled with fragmented data sources and slow dashboards that hindered real-time decision making.</p>
+                                <h4 class="h5 extracted-inline-45">The Challenge</h4>
+                                <p class="text-sm">Retrieving accurate information from massive document repositories
+                                    efficiently while avoiding AI hallucinations.</p>
                             </div>
                             <div class="dd-col">
-                                <h4 class="h5" style="color:var(--text-muted); margin-bottom:0.5rem;">The Solution</h4>
-                                <p class="text-sm">A unified, real-time analytics dashboard with a custom design system, reducing cognitive load and increasing task completion by 40%.</p>
+                                <h4 class="h5 extracted-inline-45">The Architecture</h4>
+                                <p class="text-sm">Implemented an advanced RAG (Retrieval-Augmented Generation) pipeline
+                                    using FAISS vector databases and LangChain.</p>
                             </div>
                         </div>
-                        
+
                         <div class="dd-features">
-                            <span class="passion-tag"><i class="ph ph-lightning"></i> Real-time Websockets</span>
-                            <span class="passion-tag"><i class="ph ph-chart-bar"></i> D3.js Visualizations</span>
-                            <span class="passion-tag"><i class="ph ph-shield-check"></i> Enterprise Security</span>
+                            <span class="passion-tag"><i class="ph ph-database"></i> Vector Search</span>
+                            <span class="passion-tag"><i class="ph ph-rocket"></i> FastAPI Backend</span>
+                            <span class="passion-tag"><i class="ph ph-text-aa"></i> Semantic Search</span>
                         </div>
-                        
+
                         <div class="project-actions">
-                            <a href="#TODO" class="btn btn-primary pulse-glow-btn">Live Demo <i class="ph ph-arrow-up-right"></i></a>
-                            <a href="#TODO" class="btn btn-glass">GitHub <i class="ph ph-github-logo"></i></a>
-                            <a href="#TODO" class="btn btn-glass">Case Study <i class="ph ph-book-open"></i></a>
+                            <a href="https://github.com/tausifm2174-cyber/ai-document-search" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-primary pulse-glow-btn">GitHub <i
+                                    class="ph ph-github-logo"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Project 2: Lumina AI (AI / Python / Backend) -->
-                <div class="premium-project-showcase reveal" data-category="ai python backend">
-                    <div class="project-cinematic-glow" style="background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15), transparent 70%);"></div>
-                    
+                <!-- Project 2: Expense Tracker App -->
+                <div class="premium-project-showcase reveal" data-category="frontend javascript">
+                    <div class="project-cinematic-glow extracted-inline-46"></div>
+
                     <!-- Zone A: Device Presentation -->
                     <div class="project-devices-zone reverse">
                         <div class="macbook-mockup">
                             <div class="macbook-screen">
-                                <div class="macbook-content" style="background: #0A192F; display:flex; align-items:center; justify-content:center; color: #10B981; flex-direction:column;">
-                                    <i class="ph ph-brain" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                                    <h3 class="h4">Lumina AI Agent</h3>
+                                <div class="macbook-content extracted-inline-47">
+                                    <i class="ph ph-wallet extracted-inline-42"></i>
+                                    <h3 class="h4">Expense Tracker App</h3>
                                 </div>
                             </div>
                             <div class="macbook-base"></div>
                         </div>
                         <div class="iphone-mockup parallax-item">
                             <div class="iphone-screen">
-                                <div class="iphone-content" style="background: #020C1B; display:flex; align-items:center; justify-content:center; color: #10B981; flex-direction:column;">
-                                    <i class="ph ph-chat-teardrop-text" style="font-size: 3rem; margin-bottom: 0.5rem;"></i>
-                                    <span class="text-xs">Chat UI</span>
+                                <div class="iphone-content extracted-inline-48">
+                                    <i class="ph ph-chart-pie extracted-inline-44"></i>
+                                    <span class="text-xs">Dashboard</span>
                                 </div>
                             </div>
                         </div>
@@ -527,36 +552,35 @@
                     <!-- Zone B: Deep Dive Dashboard -->
                     <div class="project-deepdive card">
                         <div class="deepdive-header">
-                            <h3 class="h2">Lumina AI Assistant</h3>
+                            <h3 class="h2">Expense Tracker App</h3>
                             <div class="tech-badges">
-                                <span class="tech-pill">Python</span>
-                                <span class="tech-pill">FastAPI</span>
-                                <span class="tech-pill">OpenAI</span>
-                                <span class="tech-pill">LangChain</span>
+                                <span class="tech-pill">JavaScript</span>
+                                <span class="tech-pill">HTML</span>
+                                <span class="tech-pill">CSS</span>
                             </div>
                         </div>
-                        
+
                         <div class="deepdive-grid">
                             <div class="dd-col">
-                                <h4 class="h5" style="color:var(--text-muted); margin-bottom:0.5rem;">The Challenge</h4>
-                                <p class="text-sm">Building a context-aware AI agent capable of summarizing massive documents without exceeding token limits or hallucinating facts.</p>
+                                <h4 class="h5 extracted-inline-45">Overview</h4>
+                                <p class="text-sm">A web application designed to help users track their daily expenses
+                                    and manage their budget effectively.</p>
                             </div>
                             <div class="dd-col">
-                                <h4 class="h5" style="color:var(--text-muted); margin-bottom:0.5rem;">The Architecture</h4>
-                                <p class="text-sm">Implemented an advanced RAG (Retrieval-Augmented Generation) pipeline using Pinecone vector databases and LangChain for semantic search.</p>
+                                <h4 class="h5 extracted-inline-45">Key Features</h4>
+                                <p class="text-sm">Intuitive UI for logging expenses, visualizing spending habits, and
+                                    local storage integration for data persistence.</p>
                             </div>
                         </div>
-                        
+
                         <div class="dd-features">
-                            <span class="passion-tag"><i class="ph ph-database"></i> Vector Database</span>
-                            <span class="passion-tag"><i class="ph ph-rocket"></i> 50ms Latency API</span>
-                            <span class="passion-tag"><i class="ph ph-text-aa"></i> Semantic Search</span>
+                            <span class="passion-tag"><i class="ph ph-chart-line-up"></i> Data Visualization</span>
+                            <span class="passion-tag"><i class="ph ph-device-mobile"></i> Responsive UI</span>
                         </div>
-                        
+
                         <div class="project-actions">
-                            <a href="#TODO" class="btn btn-primary pulse-glow-btn">Live Demo <i class="ph ph-arrow-up-right"></i></a>
-                            <a href="#TODO" class="btn btn-glass">GitHub <i class="ph ph-github-logo"></i></a>
-                            <a href="#TODO" class="btn btn-glass">Case Study <i class="ph ph-book-open"></i></a>
+                            <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-primary pulse-glow-btn">GitHub <i class="ph ph-github-logo"></i></a>
                         </div>
                     </div>
                 </div>
@@ -565,93 +589,16 @@
         </div>
     </section>
 
-    <!-- 7. Experience & Impact Section -->
-    <section id="experience" class="section" style="background: rgba(14, 22, 40, 0.3); border-top: 1px solid var(--border-glass); overflow: hidden;">
-        <div class="container relative">
-            <div class="section-title reveal">
-                <h2 class="h2">My <span class="text-gradient">Journey.</span></h2>
-                <p class="text-muted text-large">A track record of high-impact projects, hackathons, and open-source contributions.</p>
-            </div>
-
-            <div class="journey-timeline">
-                <div class="timeline-track"></div>
-
-                <!-- Open Source -->
-                <div class="journey-row reveal left">
-                    <div class="journey-node"><i class="ph ph-git-pull-request"></i></div>
-                    <div class="journey-card card">
-                        <div class="journey-date">Oct 2025</div>
-                        <h3 class="h3" style="margin-bottom: 0.5rem;">Open Source Contributor</h3>
-                        <p class="text-primary" style="font-weight: 500; margin-bottom: 1rem;">LangChain &bull; <span class="text-muted">Python / AI</span></p>
-                        <p class="text-muted text-sm" style="margin-bottom: 1rem;">Architected and merged a new document loader for Notion databases, improving data ingestion pipelines for over 10,000 developers globally.</p>
-                        <div class="tech-badges">
-                            <span class="tech-pill">Python</span>
-                            <span class="tech-pill">API Design</span>
-                            <span class="tech-pill">OSS</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hackathon -->
-                <div class="journey-row reveal right" style="transition-delay: 0.2s;">
-                    <div class="journey-node" style="color: #F59E0B; border-color: #F59E0B; box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);"><i class="ph ph-trophy"></i></div>
-                    <div class="journey-card card">
-                        <div class="journey-date">July 2025</div>
-                        <h3 class="h3" style="margin-bottom: 0.5rem;">1st Place Overall Winner</h3>
-                        <p class="text-primary" style="font-weight: 500; margin-bottom: 1rem;">Global AI Hackathon &bull; <span class="text-muted">San Francisco, CA</span></p>
-                        <p class="text-muted text-sm" style="margin-bottom: 1rem;">Built a real-time sign language translation app using WebRTC and TensorFlow.js in 48 hours. Led a team of 4 engineers and designers.</p>
-                        <div class="tech-badges">
-                            <span class="tech-pill">TensorFlow.js</span>
-                            <span class="tech-pill">React</span>
-                            <span class="tech-pill">WebRTC</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Major Project -->
-                <div class="journey-row reveal left" style="transition-delay: 0.4s;">
-                    <div class="journey-node" style="color: #00D9FF; border-color: #00D9FF;"><i class="ph ph-rocket-launch"></i></div>
-                    <div class="journey-card card">
-                        <div class="journey-date">Mar 2025</div>
-                        <h3 class="h3" style="margin-bottom: 0.5rem;">Founder & Lead Developer</h3>
-                        <p class="text-primary" style="font-weight: 500; margin-bottom: 1rem;">SyntaxNote SaaS &bull; <span class="text-muted">1,500+ Active Users</span></p>
-                        <p class="text-muted text-sm" style="margin-bottom: 1rem;">Designed and developed a premium markdown note-taking app tailored for software engineers. Integrated Stripe for monetization and Supabase for real-time sync.</p>
-                        <div class="tech-badges">
-                            <span class="tech-pill">Next.js</span>
-                            <span class="tech-pill">Supabase</span>
-                            <span class="tech-pill">Stripe</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Leadership -->
-                <div class="journey-row reveal right" style="transition-delay: 0.6s;">
-                    <div class="journey-node" style="color: #10B981; border-color: #10B981;"><i class="ph ph-users-three"></i></div>
-                    <div class="journey-card card">
-                        <div class="journey-date">Sep 2024 - Present</div>
-                        <h3 class="h3" style="margin-bottom: 0.5rem;">President & Tech Lead</h3>
-                        <p class="text-primary" style="font-weight: 500; margin-bottom: 1rem;">University Computer Science Society &bull; <span class="text-muted">Leadership</span></p>
-                        <p class="text-muted text-sm" style="margin-bottom: 1rem;">Organized weekly technical workshops, mentored 50+ underclassmen in web development, and hosted the university's largest annual hackathon.</p>
-                        <div class="tech-badges">
-                            <span class="tech-pill">Mentorship</span>
-                            <span class="tech-pill">Public Speaking</span>
-                            <span class="tech-pill">Event Planning</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
+    <!-- Experience Section Removed -->
 
     <!-- 8. Learning Roadmap -->
     <section class="section" id="learning">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="h2">Learning <span class="text-gradient">Roadmap.</span></h2>
+                <h2 class="h2" data-i18n="learning_title">Learning <span class="text-gradient">Roadmap.</span></h2>
                 <p class="text-muted text-large">My continuous journey through the technology stack.</p>
             </div>
-            
+
             <div class="roadmap-container reveal">
                 <!-- Background track -->
                 <div class="roadmap-line-bg"></div>
@@ -671,7 +618,7 @@
                 <div class="roadmap-node-wrapper">
                     <div class="roadmap-node" data-color="#E34F26"><i class="ph ph-file-html"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4" style="margin-bottom:0.25rem;">HTML</h4>
+                        <h4 class="h4 extracted-inline-52">HTML</h4>
                         <p class="text-muted text-sm">Semantic web foundations</p>
                     </div>
                 </div>
@@ -680,7 +627,7 @@
                 <div class="roadmap-node-wrapper">
                     <div class="roadmap-node" data-color="#1572B6"><i class="ph ph-file-css"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4" style="margin-bottom:0.25rem;">CSS</h4>
+                        <h4 class="h4 extracted-inline-52">CSS</h4>
                         <p class="text-muted text-sm">Layouts, animations, design systems</p>
                     </div>
                 </div>
@@ -689,7 +636,7 @@
                 <div class="roadmap-node-wrapper">
                     <div class="roadmap-node" data-color="#F7DF1E"><i class="ph ph-file-code"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4" style="margin-bottom:0.25rem;">JavaScript</h4>
+                        <h4 class="h4 extracted-inline-52">JavaScript</h4>
                         <p class="text-muted text-sm">DOM manipulation & async logic</p>
                     </div>
                 </div>
@@ -698,7 +645,7 @@
                 <div class="roadmap-node-wrapper">
                     <div class="roadmap-node" data-color="#3776AB"><i class="ph ph-file-py"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4" style="margin-bottom:0.25rem;">Python</h4>
+                        <h4 class="h4 extracted-inline-52">Python</h4>
                         <p class="text-muted text-sm">Data structures & algorithms</p>
                     </div>
                 </div>
@@ -707,7 +654,7 @@
                 <div class="roadmap-node-wrapper">
                     <div class="roadmap-node" data-color="#61DAFB"><i class="ph ph-atom"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4" style="margin-bottom:0.25rem;">React</h4>
+                        <h4 class="h4 extracted-inline-52">React</h4>
                         <p class="text-muted text-sm">Component-driven UI architecture</p>
                     </div>
                 </div>
@@ -716,7 +663,7 @@
                 <div class="roadmap-node-wrapper">
                     <div class="roadmap-node" data-color="#339933"><i class="ph ph-database"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4" style="margin-bottom:0.25rem;">Backend</h4>
+                        <h4 class="h4 extracted-inline-52">Backend</h4>
                         <p class="text-muted text-sm">Node.js, APIs, PostgreSQL</p>
                     </div>
                 </div>
@@ -725,7 +672,7 @@
                 <div class="roadmap-node-wrapper">
                     <div class="roadmap-node" data-color="#10B981"><i class="ph ph-brain"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4" style="margin-bottom:0.25rem;">AI Integration</h4>
+                        <h4 class="h4 extracted-inline-52">AI Integration</h4>
                         <p class="text-muted text-sm">LangChain, OpenAI, Vectors</p>
                     </div>
                 </div>
@@ -734,7 +681,7 @@
                 <div class="roadmap-node-wrapper">
                     <div class="roadmap-node" data-color="#00D9FF"><i class="ph ph-rocket"></i></div>
                     <div class="roadmap-content card">
-                        <span class="roadmap-year" style="color:var(--accent-primary);">Current</span>
+                        <span class="roadmap-year extracted-inline-53">Current</span>
                         <h4 class="h4">System Design & Architecture</h4>
                     </div>
                 </div>
@@ -743,30 +690,30 @@
     </section>
 
     <!-- 9. GitHub & Open Source (Dynamic) -->
-    <section class="section" id="github" style="background: rgba(14, 22, 40, 0.3); border-top: 1px solid var(--border-glass);">
+    <section class="section extracted-inline-54" id="github">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="h2">Open <span class="text-gradient">Source.</span></h2>
+                <h2 class="h2" data-i18n="opensource_title">Open <span class="text-gradient">Source.</span></h2>
                 <p class="text-muted text-large">Live GitHub statistics and recent public contributions.</p>
             </div>
-            
+
             <!-- GitHub Bento Dashboard -->
             <div class="github-dashboard reveal">
-                
+
                 <!-- Stat Cards -->
                 <div class="github-stats-grid">
                     <div class="github-stat-card card">
-                        <i class="ph ph-users" style="color: var(--accent-primary); font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <i class="ph ph-users extracted-inline-55"></i>
                         <h4 class="h2" id="gh-followers">--</h4>
                         <p class="text-muted text-sm">Followers</p>
                     </div>
                     <div class="github-stat-card card">
-                        <i class="ph ph-star" style="color: #F59E0B; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <i class="ph ph-star extracted-inline-56"></i>
                         <h4 class="h2" id="gh-stars">--</h4>
                         <p class="text-muted text-sm">Stars Earned</p>
                     </div>
                     <div class="github-stat-card card">
-                        <i class="ph ph-git-repository" style="color: #10B981; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <i class="ph ph-git-repository extracted-inline-57"></i>
                         <h4 class="h2" id="gh-repos">--</h4>
                         <p class="text-muted text-sm">Public Repos</p>
                     </div>
@@ -774,43 +721,45 @@
 
                 <!-- Contribution Graph (Using GitHub Readme Stats SVG) -->
                 <div class="github-graph-card card">
-                    <h4 class="h4" style="margin-bottom: 1rem; display:flex; align-items:center; gap:0.5rem;">
+                    <h4 class="h4 extracted-inline-58">
                         <i class="ph ph-github-logo"></i> GitHub Activity
                     </h4>
                     <div class="graph-container">
                         <!-- We use an image generation service for the complex graph.
                              Replace '?user=octocat' with real username in JS or hardcode here. -->
-                        <img id="gh-graph-img" src="https://ghchart.rshah.org/00D9FF/octocat" alt="GitHub Contribution Graph" style="width:100%; filter: hue-rotate(180deg) invert(0.9) hue-rotate(180deg);" />
+                        <img id="gh-graph-img" src="https://ghchart.rshah.org/39D353/tausifm2174-cyber"
+                            alt="GitHub Contribution Graph" class="extracted-inline-59" />
                     </div>
                 </div>
             </div>
 
             <!-- Dynamic Repositories Grid -->
-            <h3 class="h3 reveal" style="margin: 4rem 0 2rem;">Latest Repositories</h3>
+            <h3 class="h3 reveal extracted-inline-60">Latest Repositories</h3>
             <div class="grid grid-cols-3" id="github-repos-container">
                 <!-- Skeletons while loading -->
                 <div class="repo-card skeleton-card card reveal">
-                    <div class="skeleton-line" style="width: 60%; height: 24px; margin-bottom: 1rem;"></div>
-                    <div class="skeleton-line" style="width: 100%; height: 16px; margin-bottom: 0.5rem;"></div>
-                    <div class="skeleton-line" style="width: 80%; height: 16px; margin-bottom: 1.5rem;"></div>
-                    <div class="skeleton-line" style="width: 40%; height: 16px;"></div>
+                    <div class="skeleton-line extracted-inline-61"></div>
+                    <div class="skeleton-line extracted-inline-62"></div>
+                    <div class="skeleton-line extracted-inline-63"></div>
+                    <div class="skeleton-line extracted-inline-64"></div>
                 </div>
-                <div class="repo-card skeleton-card card reveal" style="transition-delay: 0.1s;">
-                    <div class="skeleton-line" style="width: 60%; height: 24px; margin-bottom: 1rem;"></div>
-                    <div class="skeleton-line" style="width: 100%; height: 16px; margin-bottom: 0.5rem;"></div>
-                    <div class="skeleton-line" style="width: 80%; height: 16px; margin-bottom: 1.5rem;"></div>
-                    <div class="skeleton-line" style="width: 40%; height: 16px;"></div>
+                <div class="repo-card skeleton-card card reveal extracted-inline-1">
+                    <div class="skeleton-line extracted-inline-61"></div>
+                    <div class="skeleton-line extracted-inline-62"></div>
+                    <div class="skeleton-line extracted-inline-63"></div>
+                    <div class="skeleton-line extracted-inline-64"></div>
                 </div>
-                <div class="repo-card skeleton-card card reveal" style="transition-delay: 0.2s;">
-                    <div class="skeleton-line" style="width: 60%; height: 24px; margin-bottom: 1rem;"></div>
-                    <div class="skeleton-line" style="width: 100%; height: 16px; margin-bottom: 0.5rem;"></div>
-                    <div class="skeleton-line" style="width: 80%; height: 16px; margin-bottom: 1.5rem;"></div>
-                    <div class="skeleton-line" style="width: 40%; height: 16px;"></div>
+                <div class="repo-card skeleton-card card reveal extracted-inline-6">
+                    <div class="skeleton-line extracted-inline-61"></div>
+                    <div class="skeleton-line extracted-inline-62"></div>
+                    <div class="skeleton-line extracted-inline-63"></div>
+                    <div class="skeleton-line extracted-inline-64"></div>
                 </div>
             </div>
-            
-            <div id="gh-error-msg" class="text-muted text-center" style="display:none; margin-top:2rem;">
-                <i class="ph ph-warning-circle text-primary"></i> GitHub API rate limit exceeded. Please check back later.
+
+            <div id="gh-error-msg" class="text-muted text-center extracted-inline-65">
+                <i class="ph ph-warning-circle text-primary"></i> GitHub API rate limit exceeded. Please check back
+                later.
             </div>
         </div>
     </section>
@@ -819,208 +768,136 @@
     <section class="section" id="certificates">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="h2">Certifications</h2>
+                <h2 class="h2" data-i18n="cert_title">Certifications</h2>
                 <p class="text-muted text-large">Professional qualifications and continuous learning.</p>
             </div>
-            
-            <div class="grid grid-cols-3">
-                <!-- Certificate 1 -->
+
+            <div class="certs-wrapper">
+                <!-- Certificate: Google AI Essentials -->
                 <div class="cert-card card reveal">
-                    <div class="cert-image-wrapper">
-                        <div class="cert-image bg-aws">
-                            <i class="ph ph-certificate cert-watermark"></i>
-                            <div class="cert-overlay">
-                                <a href="#TODO" class="btn btn-primary btn-sm" style="font-size:0.8rem; padding: 0.5rem 1rem;">View Credential <i class="ph ph-arrow-up-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cert-content">
-                        <div class="cert-meta">
-                            <div class="cert-platform">
-                                <i class="ph ph-amazon-logo" style="color:#FF9900;"></i> AWS
-                            </div>
-                            <span class="cert-date text-mono">Aug 2025</span>
-                        </div>
-                        <h4 class="h4" style="margin-bottom: 0.5rem; font-size: 1.1rem; line-height: 1.3;">AWS Certified Solutions Architect</h4>
-                        <p class="text-muted text-sm">Amazon Web Services</p>
-                    </div>
-                </div>
-
-                <!-- Certificate 2 -->
-                <div class="cert-card card reveal" style="transition-delay: 0.1s;">
-                    <div class="cert-image-wrapper">
-                        <div class="cert-image bg-meta">
-                            <i class="ph ph-certificate cert-watermark"></i>
-                            <div class="cert-overlay">
-                                <a href="#TODO" class="btn btn-primary btn-sm" style="font-size:0.8rem; padding: 0.5rem 1rem;">View Credential <i class="ph ph-arrow-up-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cert-content">
-                        <div class="cert-meta">
-                            <div class="cert-platform">
-                                <i class="ph ph-meta-logo" style="color:#0668E1;"></i> Meta
-                            </div>
-                            <span class="cert-date text-mono">May 2025</span>
-                        </div>
-                        <h4 class="h4" style="margin-bottom: 0.5rem; font-size: 1.1rem; line-height: 1.3;">Front-End Developer Professional</h4>
-                        <p class="text-muted text-sm">Coursera &bull; Meta</p>
-                    </div>
-                </div>
-
-                <!-- Certificate 3 -->
-                <div class="cert-card card reveal" style="transition-delay: 0.2s;">
                     <div class="cert-image-wrapper">
                         <div class="cert-image bg-google">
                             <i class="ph ph-certificate cert-watermark"></i>
                             <div class="cert-overlay">
-                                <a href="#TODO" class="btn btn-primary btn-sm" style="font-size:0.8rem; padding: 0.5rem 1rem;">View Credential <i class="ph ph-arrow-up-right"></i></a>
+                                <a href="https://www.coursera.org/account/accomplishments/specialization/2XXXBP0L61G1"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="btn btn-primary btn-sm extracted-inline-66">View Credential <i
+                                        class="ph ph-arrow-up-right"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="cert-content">
                         <div class="cert-meta">
                             <div class="cert-platform">
-                                <i class="ph ph-google-logo" style="color:#34A853;"></i> Google
+                                <i class="ph ph-google-logo extracted-inline-70"></i> Coursera (Google Career
+                                Certificates)
                             </div>
-                            <span class="cert-date text-mono">Jan 2025</span>
+                            <span class="cert-date text-mono">Aug 2026</span>
                         </div>
-                        <h4 class="h4" style="margin-bottom: 0.5rem; font-size: 1.1rem; line-height: 1.3;">Google UX Design Professional</h4>
-                        <p class="text-muted text-sm">Coursera &bull; Google</p>
+                        <h4 class="h4 extracted-inline-68">Google AI Essentials</h4>
+                        <p class="text-muted text-sm">Google (5-course specialization)</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- 11. Testimonials -->
-    <section class="section" style="background: rgba(14, 22, 40, 0.3); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
-        <div class="container">
-            <div class="section-title reveal">
-                <h2 class="h2">Client & Colleague Love</h2>
-                <p class="text-muted text-large">What people say about working with me.</p>
-            </div>
-            
-            <div class="masonry">
-                <div class="card testimonial-card reveal">
-                    <p class="text-large">"Tausif is a rare breed of designer who deeply understands engineering constraints without compromising on aesthetic quality. The design system he built saved us months of dev time."</p>
-                    <div class="author">
-                        <div class="author-avatar">S</div>
-                        <div>
-                            <h5 style="font-weight: 600; font-size: 0.875rem;">Sarah Jenkins</h5>
-                            <p class="text-muted" style="font-size: 0.75rem;">VP of Engineering, Nova</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card testimonial-card reveal" style="transition-delay: 0.1s;">
-                    <p class="text-large">"Working with Tausif elevated our entire product. He brings a level of polish and attention to detail that is simply world-class. Highly recommended."</p>
-                    <div class="author">
-                        <div class="author-avatar">M</div>
-                        <div>
-                            <h5 style="font-weight: 600; font-size: 0.875rem;">Marcus Chen</h5>
-                            <p class="text-muted" style="font-size: 0.75rem;">CEO, StartupX</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card testimonial-card reveal" style="transition-delay: 0.2s;">
-                    <p class="text-large">"The prototyping skills are unmatched. Being able to interact with the high-fidelity React prototypes before writing backend code gave us incredible confidence in the product direction."</p>
-                    <div class="author">
-                        <div class="author-avatar">E</div>
-                        <div>
-                            <h5 style="font-weight: 600; font-size: 0.875rem;">Elena Rodriguez</h5>
-                            <p class="text-muted" style="font-size: 0.75rem;">Product Manager</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Testimonials section removed as requested -->
     <!-- 12. Contact -->
-    <section class="section" id="contact" style="position: relative; overflow: hidden;">
+    <section class="section extracted-inline-71" id="contact">
         <!-- Animated Background Glow -->
-        <div class="ambient-glow" style="background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 60%); top: 50%; left: 0; opacity: 0.1;"></div>
-        
+        <div class="ambient-glow extracted-inline-72"></div>
+
         <div class="container relative">
             <div class="section-title reveal">
-                <h2 class="display">Let's build <br><span class="text-gradient">together.</span></h2>
+                <h2 class="display" data-i18n="contact_title">Let's build <br><span
+                        class="text-gradient">together.</span></h2>
             </div>
-            
+
             <div class="grid grid-cols-2 gap-lg">
                 <!-- Left: Contact Details -->
                 <div class="contact-details reveal">
-                    <p class="text-muted text-large" style="margin-bottom: 3rem;">
-                        I'm always open to discussing product design work, new frontend architecture opportunities, or tech mentorship. Let's connect.
+                    <p class="text-muted text-large extracted-inline-73">
+                        I'm always open to discussing product design work, new frontend architecture opportunities, or
+                        tech mentorship. Let's connect.
                     </p>
-                    
+
                     <div class="contact-links-grid">
-                        <a href="mailto:hello@tausif.design" class="contact-link-pill card">
+                        <a href="mailto:mtausif1316@gmail.com" class="contact-link-pill card">
                             <i class="ph ph-envelope-simple text-primary"></i>
                             <div class="contact-text">
                                 <span class="contact-label">Email</span>
-                                <span class="contact-value">hello@tausif.design</span>
+                                <span class="contact-value">mtausif1316@gmail.com</span>
                             </div>
                         </a>
-                        
-                        <a href="tel:+1234567890" class="contact-link-pill card">
-                            <i class="ph ph-phone text-primary"></i>
+
+                        <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
+                            class="contact-link-pill card">
+                            <i class="ph ph-github-logo text-primary"></i>
                             <div class="contact-text">
-                                <span class="contact-label">Phone</span>
-                                <span class="contact-value">+1 (234) 567-890</span>
+                                <span class="contact-label">GitHub</span>
+                                <span class="contact-value">github.com/tausifm2174-cyber</span>
                             </div>
                         </a>
-                        
-                        <a href="#TODO" class="contact-link-pill card">
+
+                        <a href="#" class="contact-link-pill card">
                             <i class="ph ph-map-pin text-primary"></i>
                             <div class="contact-text">
                                 <span class="contact-label">Location</span>
-                                <span class="contact-value">San Francisco, CA</span>
+                                <span class="contact-value">Bengaluru, Karnataka, India</span>
                             </div>
                         </a>
-                        
-                        <a href="#TODO" class="contact-link-pill card">
-                            <i class="ph ph-file-pdf text-primary"></i>
+
+                        <a href="https://linkedin.com/in/tausifm" target="_blank" rel="noopener noreferrer"
+                            class="contact-link-pill card">
+                            <i class="ph ph-linkedin-logo text-primary"></i>
                             <div class="contact-text">
-                                <span class="contact-label">Resume</span>
-                                <span class="contact-value">Download PDF</span>
+                                <span class="contact-label">LinkedIn</span>
+                                <span class="contact-value">linkedin.com/in/tausifm</span>
                             </div>
                         </a>
                     </div>
-                    
-                    <div class="social-pills" style="margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a href="#TODO" class="social-btn card"><i class="ph ph-github-logo"></i> GitHub</a>
-                        <a href="#TODO" class="social-btn card"><i class="ph ph-linkedin-logo"></i> LinkedIn</a>
-                        <a href="#TODO" class="social-btn card"><i class="ph ph-instagram-logo"></i> Instagram</a>
-                        <a href="#TODO" class="social-btn card"><i class="ph ph-whatsapp-logo"></i> WhatsApp</a>
+
+                    <div class="social-pills extracted-inline-74">
+                        <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
+                            class="social-btn card"><i class="ph ph-github-logo"></i> GitHub</a>
+                        <a href="https://linkedin.com/in/tausifm" target="_blank" rel="noopener noreferrer"
+                            class="social-btn card"><i class="ph ph-linkedin-logo"></i> LinkedIn</a>
                     </div>
                 </div>
-                
+
                 <!-- Right: Interactive Form -->
-                <div class="contact-form-wrapper card reveal" style="transition-delay: 0.2s; padding: 3rem;">
+                <div class="contact-form-wrapper card reveal extracted-inline-75">
                     <form id="contactForm" class="contact-form">
-                        
+
                         <div class="form-group floating-label-group">
-                            <input type="text" id="name" class="form-input" required autocomplete="off">
+                            <input type="text" id="name" class="form-input" aria-label="Your Name" required
+                                autocomplete="off">
                             <label for="name" class="floating-label">Your Name</label>
                             <div class="input-border"></div>
                         </div>
-                        
+
                         <div class="form-group floating-label-group">
-                            <input type="email" id="email" class="form-input" required autocomplete="off">
+                            <input type="email" id="email" class="form-input" aria-label="Email Address" required
+                                autocomplete="off">
                             <label for="email" class="floating-label">Email Address</label>
                             <div class="input-border"></div>
                         </div>
-                        
+
                         <div class="form-group floating-label-group">
-                            <textarea id="message" class="form-input" rows="4" required autocomplete="off" style="resize: vertical; min-height: 120px;"></textarea>
+                            <textarea id="message" class="form-input extracted-inline-76" rows="4" aria-label="Message"
+                                required autocomplete="off"></textarea>
                             <label for="message" class="floating-label">Tell me about your project...</label>
                             <div class="input-border"></div>
                         </div>
-                        
-                        <button type="submit" id="submitBtn" class="btn btn-primary submit-btn" style="width: 100%; position: relative; overflow: hidden; height: 50px;">
+
+                        <button type="submit" id="submitBtn" class="btn btn-primary submit-btn extracted-inline-77">
                             <span class="btn-text">Send Message <i class="ph ph-paper-plane-tilt"></i></span>
-                            <span class="btn-loader" style="display:none;"><i class="ph ph-spinner-gap"></i></span>
-                            <span class="btn-success" style="display:none;"><i class="ph ph-check-circle"></i> Sent Successfully!</span>
-                            <span class="btn-error" style="display:none;"><i class="ph ph-warning-circle"></i> Try Again</span>
+                            <span class="btn-loader extracted-inline-78"><i class="ph ph-spinner-gap"></i></span>
+                            <span class="btn-success extracted-inline-78"><i class="ph ph-check-circle"></i> Sent
+                                Successfully!</span>
+                            <span class="btn-error extracted-inline-78"><i class="ph ph-warning-circle"></i> Try
+                                Again</span>
                         </button>
                     </form>
                 </div>
@@ -1035,36 +912,40 @@
             <div class="footer-grid">
                 <!-- Brand Column -->
                 <div class="footer-brand">
-                    <a href="#TODO" class="logo footer-logo">
+                    <a href="#home" class="logo footer-logo">
                         <div class="logo-circle"></div>
                         <span>Tausif.</span>
                     </a>
-                    <p class="text-muted text-sm" style="margin: 1.5rem 0;">Building digital products with a focus on typography, layout, and purpose.</p>
+                    <p class="text-muted text-sm extracted-inline-79">Building digital products with a focus on
+                        typography, layout, and purpose.</p>
                     <div class="footer-socials">
-                        <a href="#TODO" class="footer-social-link"><i class="ph ph-dribbble-logo"></i></a>
-                        <a href="#TODO" class="footer-social-link"><i class="ph ph-github-logo"></i></a>
-                        <a href="#TODO" class="footer-social-link"><i class="ph ph-linkedin-logo"></i></a>
-                        <a href="#TODO" class="footer-social-link"><i class="ph ph-twitter-logo"></i></a>
+                        <a href="mailto:mtausif1316@gmail.com" class="footer-social-link" title="Email"><i
+                                class="ph ph-envelope-simple"></i></a>
+                        <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
+                            class="footer-social-link" title="GitHub"><i class="ph ph-github-logo"></i></a>
+                        <a href="https://linkedin.com/in/tausifm" target="_blank" rel="noopener noreferrer"
+                            class="footer-social-link" title="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
                     </div>
                 </div>
-                
+
                 <!-- Quick Links -->
                 <div class="footer-links-group">
-                    <h5 class="h5" style="margin-bottom: 1.5rem;">Explore</h5>
+                    <h5 class="h5 extracted-inline-31">Explore</h5>
                     <a href="#about" class="footer-link">About Me</a>
                     <a href="#skills" class="footer-link">Tech Stack</a>
-                    <a href="#projects" class="footer-link">Case Studies</a>
-                    <a href="#experience" class="footer-link">Experience</a>
+                    <a href="#work" class="footer-link">Projects</a>
                 </div>
-                
+
                 <!-- Connect -->
                 <div class="footer-links-group">
-                    <h5 class="h5" style="margin-bottom: 1.5rem;">Connect</h5>
-                    <a href="mailto:hello@tausif.design" class="footer-link">hello@tausif.design</a>
-                    <a href="#TODO" class="footer-link">Schedule a Call</a>
-                    <a href="#TODO" class="footer-link">Resume</a>
+                    <h5 class="h5 extracted-inline-31">Connect</h5>
+                    <a href="mailto:mtausif1316@gmail.com" class="footer-link">mtausif1316@gmail.com</a>
+                    <a href="https://linkedin.com/in/tausifm" target="_blank" rel="noopener noreferrer"
+                        class="footer-link">LinkedIn</a>
+                    <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
+                        class="footer-link">GitHub</a>
                 </div>
-                
+
                 <!-- Back to Top -->
                 <div class="footer-to-top">
                     <button class="back-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
@@ -1073,20 +954,19 @@
                     </button>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p class="text-muted text-sm">&copy; <span id="currentYear">2026</span> Tausif. Crafted with precision.</p>
+                <p class="text-muted text-sm">&copy; <span id="currentYear">2026</span> Tausif. Crafted with precision.
+                </p>
                 <div class="footer-status">
-                    <div class="status-dot pulse-glow-btn" style="width:8px; height:8px; border-radius:50%; background:#10B981; margin:0;"></div>
+                    <div class="status-dot pulse-glow-btn extracted-inline-80"></div>
                     <span class="text-mono text-sm text-muted">All Systems Operational</span>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+
 
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -1094,4 +974,5 @@
     <script src="https://unpkg.com/split-type"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

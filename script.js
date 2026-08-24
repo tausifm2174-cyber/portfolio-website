@@ -64,7 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smooth: true,
+            smoothWheel: true,
+            syncTouch: false,
         });
         
         function raf(time) {
@@ -77,62 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sync GSAP ScrollTrigger
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
         
-        // Custom Cursor Logic
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        
-        if (cursor && cursorFollower && window.innerWidth >= 1024) {
-            // Use GSAP quickTo for highly performant mouse following
-            const xToCursor = gsap.quickTo(cursor, "x", {duration: 0.1, ease: "power3"});
-            const yToCursor = gsap.quickTo(cursor, "y", {duration: 0.1, ease: "power3"});
-            
-            const xToFollower = gsap.quickTo(cursorFollower, "x", {duration: 0.4, ease: "power3"});
-            const yToFollower = gsap.quickTo(cursorFollower, "y", {duration: 0.4, ease: "power3"});
-            
-            window.addEventListener("mousemove", e => {
-                xToCursor(e.clientX);
-                yToCursor(e.clientY);
-                xToFollower(e.clientX);
-                yToFollower(e.clientY);
-            });
-            
-            // Hover states and Magnetic Effect for interactive elements
-            const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .magnetic');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.classList.add('active');
-                    cursorFollower.classList.add('active');
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('active');
-                    cursorFollower.classList.remove('active');
-                    
-                    // Reset magnetic element position
-                    if (el.classList.contains('btn') || el.classList.contains('magnetic') || el.classList.contains('social-btn') || el.classList.contains('footer-social-link')) {
-                        gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
-                    }
-                });
-                
-                // Magnetic effect calculation
-                if (el.classList.contains('btn') || el.classList.contains('magnetic') || el.classList.contains('social-btn') || el.classList.contains('footer-social-link')) {
-                    el.addEventListener('mousemove', (e) => {
-                        const rect = el.getBoundingClientRect();
-                        const h = rect.width / 2;
-                        const w = rect.height / 2;
-                        const x = e.clientX - rect.left - h;
-                        const y = e.clientY - rect.top - w;
-                        
-                        gsap.to(el, {
-                            x: x * 0.3,
-                            y: y * 0.3,
-                            duration: 0.5,
-                            ease: 'power3.out'
-                        });
-                    });
-                }
-            });
-        }
+        // Custom Cursor Logic Removed
         
         // Global Text Reveals (SplitType)
         if (typeof SplitType !== 'undefined') {
@@ -382,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------
     // 9. GitHub API Integration
     // --------------------------------------------------------
-    const GITHUB_USERNAME = 'octocat'; // REPLACE THIS WITH ACTUAL GITHUB USERNAME
+    const GITHUB_USERNAME = 'tausifm2174-cyber'; // REPLACE THIS WITH ACTUAL GITHUB USERNAME
     
     async function fetchGitHubData() {
         const reposContainer = document.getElementById('github-repos-container');
@@ -455,6 +403,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('GitHub API Error:', error);
             errorMsg.style.display = 'block';
             reposContainer.innerHTML = ''; // Clear skeletons if failed
+            document.getElementById('gh-followers').innerText = 'N/A';
+            document.getElementById('gh-repos').innerText = 'N/A';
+            document.getElementById('gh-stars').innerText = 'N/A';
         }
     }
 
@@ -480,14 +431,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Handle Form Submission Animation
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent actual submission for demo
+        // Handle Form Submission
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
             const btnText = submitBtn.querySelector('.btn-text');
             const btnLoader = submitBtn.querySelector('.btn-loader');
             const btnSuccess = submitBtn.querySelector('.btn-success');
             const btnError = submitBtn.querySelector('.btn-error');
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
 
             // Set Loading State
             submitBtn.disabled = true;
@@ -496,8 +451,15 @@ document.addEventListener('DOMContentLoaded', () => {
             btnError.style.display = 'none';
             btnLoader.style.display = 'inline-block';
             
-            // Simulate API Call (1.5 seconds)
-            setTimeout(() => {
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, message })
+                });
+
+                if (!response.ok) throw new Error('API response not ok');
+                
                 // Set Success State
                 btnLoader.style.display = 'none';
                 btnSuccess.style.display = 'inline-block';
@@ -508,19 +470,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Clear Form
                 contactForm.reset();
                 formInputs.forEach(input => input.parentElement.classList.remove('has-value'));
-
+            } catch (error) {
+                console.error('Contact Form Error:', error);
+                
+                // Set Error State
+                btnLoader.style.display = 'none';
+                btnError.style.display = 'inline-block';
+                submitBtn.style.background = '#EF4444'; // Red error color
+                submitBtn.style.color = '#fff';
+                submitBtn.style.borderColor = '#EF4444';
+            } finally {
                 // Reset Button after 3 seconds
                 setTimeout(() => {
                     submitBtn.disabled = false;
                     btnSuccess.style.display = 'none';
+                    btnError.style.display = 'none';
                     btnText.style.display = 'inline-block';
                     // Revert to original styles
                     submitBtn.style.background = '';
                     submitBtn.style.color = '';
                     submitBtn.style.borderColor = '';
                 }, 3000);
-                
-            }, 1500);
+            }
         });
     }
 
@@ -664,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (lightbox && lightboxImg) {
         projectImages.forEach(container => {
-            container.style.cursor = 'none'; // Will use custom cursor
+            container.style.cursor = 'pointer'; 
             container.addEventListener('click', () => {
                 // Find inner div with background image
                 const innerEl = container.querySelector('.macbook-content, .iphone-screen');
@@ -746,6 +717,80 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof ScrollTrigger !== 'undefined') {
                     setTimeout(() => ScrollTrigger.refresh(), 100);
                 }
+            });
+        });
+    }
+
+    // --------------------------------------------------------
+    // 16. i18n Language System
+    // --------------------------------------------------------
+    const translations = {
+        en: {
+            about_title: 'Beyond the <span class="text-gradient">Screen.</span>',
+            tech_title: 'Technical <span class="text-gradient">Arsenal.</span>',
+            work_title: 'Selected <span class="text-gradient">Works.</span>',
+            learning_title: 'Learning <span class="text-gradient">Roadmap.</span>',
+            opensource_title: 'Open <span class="text-gradient">Source.</span>',
+            cert_title: 'Certifications',
+            contact_title: 'Let\'s build <br><span class="text-gradient">together.</span>'
+        },
+        kn: {
+            about_title: 'ಪರದೆಯ <span class="text-gradient">ಆಚೆಗೆ.</span>',
+            tech_title: 'ತಾಂತ್ರಿಕ <span class="text-gradient">ಸಾಮರ್ಥ್ಯ.</span>',
+            work_title: 'ಆಯ್ದ <span class="text-gradient">ಯೋಜನೆಗಳು.</span>',
+            learning_title: 'ಕಲಿಕೆಯ <span class="text-gradient">ಹಾದಿ.</span>',
+            opensource_title: 'ಮುಕ್ತ <span class="text-gradient">ಮೂಲ.</span>',
+            cert_title: 'ಪ್ರಮಾಣಪತ್ರಗಳು',
+            contact_title: 'ಒಟ್ಟಿಗೆ <br><span class="text-gradient">ನಿರ್ಮಿಸೋಣ.</span>'
+        },
+        hi: {
+            about_title: 'स्क्रीन के <span class="text-gradient">परे.</span>',
+            tech_title: 'तकनीकी <span class="text-gradient">क्षमता.</span>',
+            work_title: 'चुनिंदा <span class="text-gradient">प्रोजेक्ट्स.</span>',
+            learning_title: 'सीखने का <span class="text-gradient">रास्ता.</span>',
+            opensource_title: 'ओपन <span class="text-gradient">सोर्स.</span>',
+            cert_title: 'प्रमाणपत्र',
+            contact_title: 'आइए साथ मिलकर <br><span class="text-gradient">बनाएं.</span>'
+        },
+        ur: {
+            about_title: 'اسکرین کے <span class="text-gradient">آگے.</span>',
+            tech_title: 'تکنیکی <span class="text-gradient">صلاحیتیں.</span>',
+            work_title: 'منتخب کردہ <span class="text-gradient">پروجیکٹس.</span>',
+            learning_title: 'سیکھنے کا <span class="text-gradient">راستہ.</span>',
+            opensource_title: 'اوپن <span class="text-gradient">سورس.</span>',
+            cert_title: 'سرٹیفکیٹس',
+            contact_title: 'آئیے مل کر <br><span class="text-gradient">بنائیں۔</span>'
+        }
+    };
+
+    const langOpts = document.querySelectorAll('.lang-opt');
+    const htmlTag = document.documentElement;
+
+    if (langOpts.length > 0) {
+        langOpts.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = btn.getAttribute('data-lang');
+                
+                // Update active state
+                langOpts.forEach(l => l.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Set HTML lang and dir for RTL
+                htmlTag.setAttribute('lang', lang);
+                if (lang === 'ur') {
+                    htmlTag.setAttribute('dir', 'rtl');
+                } else {
+                    htmlTag.removeAttribute('dir');
+                }
+
+                // Update text elements
+                const dict = translations[lang] || translations['en'];
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key]) {
+                        el.innerHTML = dict[key];
+                    }
+                });
             });
         });
     }

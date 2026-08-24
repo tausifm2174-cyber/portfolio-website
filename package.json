@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "A premium, production-ready developer portfolio designed to showcase high-level product design and UI engineering skills. The site is engineered for maximum performance (60fps ScrollTrigger animations), perfect Lighthouse scores, and a cinematic user experience inspired by top-tier tech companies.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "resend": "^6.18.1"
+  }
+}

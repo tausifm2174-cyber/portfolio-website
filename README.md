@@ -32,12 +32,20 @@ A premium, production-ready developer portfolio designed to showcase high-level 
 ```
 
 ## Local Development
-Since this is a lightweight static site without a bundler, no installation is required!
-1. Clone the repository: `git clone https://github.com/tausif/tausif-portfolio.git`
-2. Open `index.html` in any modern web browser or use VS Code Live Server.
+- **Static Preview**: Open `index.html` in any modern web browser or use VS Code Live Server (animations and UI work client-side).
+- **Full Stack & Serverless API Testing**: To test the `/api/contact` email endpoint locally:
+  1. Install dependencies: `npm install`
+  2. Create a `.env.local` file with your Resend key (`RESEND_API_KEY=re_...`)
+  3. Run `npx vercel dev` to start the local server with serverless functions support.
 
 ## Environment Variables
-This project requires **NO environment variables**. It is entirely client-side and static.
+The contact form requires a **Resend API Key** for email delivery.
+
+| Variable | Description | Required |
+| :--- | :--- | :--- |
+| `RESEND_API_KEY` | API Key generated from [Resend](https://resend.com/api-keys) | Yes (for contact form) |
+
+> **Important**: Add `RESEND_API_KEY` in your Vercel Project Settings under **Settings → Environment Variables**. Do not commit your real API key to source control.
 
 ## Deployment
 This project is pre-configured for instant deployment on **Vercel**.
