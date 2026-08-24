@@ -39,13 +39,14 @@ A premium, production-ready developer portfolio designed to showcase high-level 
   3. Run `npx vercel dev` to start the local server with serverless functions support.
 
 ## Environment Variables
-The contact form requires a **Resend API Key** for email delivery.
+This project uses serverless API routes on Vercel which require the following environment variables:
 
 | Variable | Description | Required |
 | :--- | :--- | :--- |
 | `RESEND_API_KEY` | API Key generated from [Resend](https://resend.com/api-keys) | Yes (for contact form) |
+| `GITHUB_TOKEN` | Classic Personal Access Token with the `read:user` scope, created at [github.com/settings/tokens](https://github.com/settings/tokens) | Yes (for hero stats contributions) |
 
-> **Important**: Add `RESEND_API_KEY` in your Vercel Project Settings under **Settings → Environment Variables**. Do not commit your real API key to source control.
+> **Important**: Add `RESEND_API_KEY` and `GITHUB_TOKEN` in your Vercel Project Settings under **Settings → Environment Variables**. Do not commit real keys or tokens to source control.
 
 ## Deployment
 This project is pre-configured for instant deployment on **Vercel**.

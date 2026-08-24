@@ -197,32 +197,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // D. Number Counters for Statistics
-    const counters = document.querySelectorAll('.counter');
     const statsSection = document.getElementById('hero-stats');
-    
-    if (statsSection && counters.length > 0) {
-        let hasAnimated = false;
+    let isStatsInView = false;
+    let isStatsDataReady = false;
+    let hasStatsAnimated = false;
 
+    function triggerStatsCounterAnimation() {
+        if (!hasStatsAnimated && isStatsInView && isStatsDataReady) {
+            hasStatsAnimated = true;
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target') || 0;
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+                updateCounter();
+            });
+        }
+    }
+
+    // Safety fallback: trigger animation with existing targets after 4 seconds if API is delayed
+    setTimeout(() => {
+        if (!isStatsDataReady) {
+            isStatsDataReady = true;
+            triggerStatsCounterAnimation();
+        }
+    }, 4000);
+
+    if (statsSection) {
         const statObserver = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !hasAnimated) {
-                hasAnimated = true;
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    const duration = 2000; // 2 seconds
-                    const increment = target / (duration / 16); // 60fps
-                    let current = 0;
-
-                    const updateCounter = () => {
-                        current += increment;
-                        if (current < target) {
-                            counter.innerText = Math.ceil(current).toLocaleString();
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            counter.innerText = target.toLocaleString();
-                        }
-                    };
-                    updateCounter();
-                });
+            if (entries[0].isIntersecting) {
+                isStatsInView = true;
+                triggerStatsCounterAnimation();
             }
         }, { threshold: 0.5 });
         
@@ -335,77 +351,123 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchGitHubData() {
         const reposContainer = document.getElementById('github-repos-container');
         const errorMsg = document.getElementById('gh-error-msg');
-        
-        if (!reposContainer) return;
 
+        // Fetch User profile, Repositories, and Stats in parallel
+        const fetchUserAndRepos = async () => {
+            try {
+                // Fetch User Profile
+                const userResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+                if (!userResponse.ok) throw new Error('Rate limit or user not found');
+                const userData = await userResponse.json();
+
+                // Fetch Repositories
+                const reposResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+                if (!reposResponse.ok) throw new Error('Rate limit or repos not found');
+                const reposData = await reposResponse.json();
+
+                // Calculate total stars across all public repos
+                const totalStars = reposData.reduce((acc, repo) => acc + repo.stargazers_count, 0);
+
+                // Populate Numbers in Open Source Section
+                const ghFollowers = document.getElementById('gh-followers');
+                const ghRepos = document.getElementById('gh-repos');
+                const ghStars = document.getElementById('gh-stars');
+                if (ghFollowers) ghFollowers.innerText = userData.followers;
+                if (ghRepos) ghRepos.innerText = userData.public_repos;
+                if (ghStars) ghStars.innerText = totalStars;
+
+                // Step 3: Compute "Projects" (non-fork repos) and "Technologies" (unique non-null languages)
+                const originalRepos = reposData.filter(repo => !repo.fork);
+                const projectsCount = originalRepos.length;
+                const techCount = new Set(
+                    originalRepos.map(r => r.language).filter(Boolean)
+                ).size;
+
+                const counterProjects = document.getElementById('counter-projects');
+                const counterTech = document.getElementById('counter-technologies');
+                if (counterProjects && typeof projectsCount === 'number') {
+                    counterProjects.setAttribute('data-target', projectsCount);
+                }
+                if (counterTech && typeof techCount === 'number') {
+                    counterTech.setAttribute('data-target', techCount);
+                }
+
+                // Render Repositories
+                if (reposContainer) {
+                    const topRepos = originalRepos
+                        .sort((a, b) => b.stargazers_count - a.stargazers_count)
+                        .slice(0, 3);
+
+                    reposContainer.innerHTML = ''; // Clear skeletons
+                    
+                    topRepos.forEach((repo, index) => {
+                        const langColors = {
+                            'JavaScript': '#f1e05a',
+                            'TypeScript': '#3178c6',
+                            'Python': '#3572A5',
+                            'HTML': '#e34c26',
+                            'CSS': '#563d7c',
+                            'React': '#61dafb'
+                        };
+                        const langColor = langColors[repo.language] || '#8b949e';
+                        
+                        const repoHtml = `
+                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;" class="card repo-card reveal active" style="transition-delay: ${index * 0.1}s; opacity: 1; transform: translateY(0);">
+                                <div class="repo-header">
+                                    <h4 class="h4" style="color: var(--accent-primary); display: flex; align-items: center; gap: 0.5rem; word-break: break-all;">
+                                        <i class="ph ph-book-bookmark"></i> ${repo.name}
+                                    </h4>
+                                    <div class="repo-stats">
+                                        <span><i class="ph ph-star"></i> ${repo.stargazers_count}</span>
+                                        <span><i class="ph ph-git-fork"></i> ${repo.forks_count}</span>
+                                    </div>
+                                </div>
+                                <p class="text-muted text-sm" style="margin-bottom: 1.5rem; flex-grow: 1;">${repo.description || 'No description provided.'}</p>
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <div style="width: 12px; height: 12px; border-radius: 50%; background: ${langColor};"></div>
+                                    <span class="text-mono text-muted">${repo.language || 'Unknown'}</span>
+                                </div>
+                            </a>
+                        `;
+                        reposContainer.innerHTML += repoHtml;
+                    });
+                }
+            } catch (error) {
+                console.error('GitHub API Error:', error);
+                if (errorMsg) errorMsg.style.display = 'block';
+                if (reposContainer) reposContainer.innerHTML = '';
+                const ghFollowers = document.getElementById('gh-followers');
+                const ghRepos = document.getElementById('gh-repos');
+                const ghStars = document.getElementById('gh-stars');
+                if (ghFollowers) ghFollowers.innerText = 'N/A';
+                if (ghRepos) ghRepos.innerText = 'N/A';
+                if (ghStars) ghStars.innerText = 'N/A';
+            }
+        };
+
+        const fetchContributions = async () => {
+            try {
+                const res = await fetch('/api/github-stats');
+                if (!res.ok) throw new Error(`Server returned status ${res.status}`);
+                const data = await res.json();
+                if (typeof data.totalContributions === 'number') {
+                    const counterContributions = document.getElementById('counter-contributions');
+                    if (counterContributions) {
+                        counterContributions.setAttribute('data-target', data.totalContributions);
+                    }
+                }
+            } catch (error) {
+                console.error('GitHub Contributions API Error:', error);
+                // Keep hardcoded fallback target
+            }
+        };
+
+        // Run both in parallel and start animation once data targets are populated
         try {
-            // Fetch User Profile
-            const userResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-            if (!userResponse.ok) throw new Error('Rate limit or user not found');
-            const userData = await userResponse.json();
-
-            // Fetch Repositories
-            const reposResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-            if (!reposResponse.ok) throw new Error('Rate limit or repos not found');
-            const reposData = await reposResponse.json();
-
-            // Calculate total stars across all public repos
-            const totalStars = reposData.reduce((acc, repo) => acc + repo.stargazers_count, 0);
-
-            // Populate Numbers
-            document.getElementById('gh-followers').innerText = userData.followers;
-            document.getElementById('gh-repos').innerText = userData.public_repos;
-            document.getElementById('gh-stars').innerText = totalStars;
-
-            // Filter out forks and sort by stars
-            const topRepos = reposData
-                .filter(repo => !repo.fork)
-                .sort((a, b) => b.stargazers_count - a.stargazers_count)
-                .slice(0, 3);
-
-            // Render Repositories
-            reposContainer.innerHTML = ''; // Clear skeletons
-            
-            topRepos.forEach((repo, index) => {
-                // Determine language color
-                const langColors = {
-                    'JavaScript': '#f1e05a',
-                    'TypeScript': '#3178c6',
-                    'Python': '#3572A5',
-                    'HTML': '#e34c26',
-                    'CSS': '#563d7c',
-                    'React': '#61dafb'
-                };
-                const langColor = langColors[repo.language] || '#8b949e';
-                
-                const repoHtml = `
-                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;" class="card repo-card reveal active" style="transition-delay: ${index * 0.1}s; opacity: 1; transform: translateY(0);">
-                        <div class="repo-header">
-                            <h4 class="h4" style="color: var(--accent-primary); display: flex; align-items: center; gap: 0.5rem; word-break: break-all;">
-                                <i class="ph ph-book-bookmark"></i> ${repo.name}
-                            </h4>
-                            <div class="repo-stats">
-                                <span><i class="ph ph-star"></i> ${repo.stargazers_count}</span>
-                                <span><i class="ph ph-git-fork"></i> ${repo.forks_count}</span>
-                            </div>
-                        </div>
-                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem; flex-grow: 1;">${repo.description || 'No description provided.'}</p>
-                        <div style="display: flex; gap: 0.5rem; align-items: center;">
-                            <div style="width: 12px; height: 12px; border-radius: 50%; background: ${langColor};"></div>
-                            <span class="text-mono text-muted">${repo.language || 'Unknown'}</span>
-                        </div>
-                    </a>
-                `;
-                reposContainer.innerHTML += repoHtml;
-            });
-
-        } catch (error) {
-            console.error('GitHub API Error:', error);
-            errorMsg.style.display = 'block';
-            reposContainer.innerHTML = ''; // Clear skeletons if failed
-            document.getElementById('gh-followers').innerText = 'N/A';
-            document.getElementById('gh-repos').innerText = 'N/A';
-            document.getElementById('gh-stars').innerText = 'N/A';
+            await Promise.allSettled([fetchUserAndRepos(), fetchContributions()]);
+        } finally {
+            isStatsDataReady = true;
+            triggerStatsCounterAnimation();
         }
     }
 
