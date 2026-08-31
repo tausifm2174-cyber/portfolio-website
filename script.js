@@ -202,26 +202,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let isStatsDataReady = false;
     let hasStatsAnimated = false;
 
+    // Reusable counter animation helper
+    function animateCounter(element, target, duration = 2000) {
+        if (!element || typeof target !== 'number' || target <= 0) return;
+        const increment = target / (duration / 16); // 60fps
+        let current = 0;
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                element.innerText = Math.ceil(current).toLocaleString();
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.innerText = target.toLocaleString();
+            }
+        };
+        updateCounter();
+    }
+
     function triggerStatsCounterAnimation() {
         if (!hasStatsAnimated && isStatsInView && isStatsDataReady) {
             hasStatsAnimated = true;
             const counters = document.querySelectorAll('.counter');
             counters.forEach(counter => {
                 const target = +counter.getAttribute('data-target') || 0;
-                const duration = 2000; // 2 seconds
-                const increment = target / (duration / 16); // 60fps
-                let current = 0;
-
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.innerText = Math.ceil(current).toLocaleString();
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.innerText = target.toLocaleString();
-                    }
-                };
-                updateCounter();
+                animateCounter(counter, target);
             });
         }
     }
@@ -243,6 +247,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { threshold: 0.5 });
         
         statObserver.observe(statsSection);
+    }
+
+    // GitHub Stats Count-Up (IntersectionObserver)
+    let isGhStatsInView = false;
+    let isGhStatsDataReady = false;
+    let hasGhStatsAnimated = false;
+    let ghStatsData = null; // { followers, stars, repos }
+    const ghStatsGrid = document.querySelector('.github-stats-grid');
+
+    function triggerGhStatsAnimation() {
+        if (!hasGhStatsAnimated && isGhStatsInView && isGhStatsDataReady && ghStatsData) {
+            hasGhStatsAnimated = true;
+            const ghFollowers = document.getElementById('gh-followers');
+            const ghStars = document.getElementById('gh-stars');
+            const ghRepos = document.getElementById('gh-repos');
+
+            if (ghFollowers) {
+                ghFollowers.setAttribute('data-target', ghStatsData.followers);
+                animateCounter(ghFollowers, ghStatsData.followers);
+            }
+            if (ghStars) {
+                ghStars.setAttribute('data-target', ghStatsData.stars);
+                animateCounter(ghStars, ghStatsData.stars);
+            }
+            if (ghRepos) {
+                ghRepos.setAttribute('data-target', ghStatsData.repos);
+                animateCounter(ghRepos, ghStatsData.repos);
+            }
+        }
+    }
+
+    if (ghStatsGrid) {
+        const ghStatObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                isGhStatsInView = true;
+                triggerGhStatsAnimation();
+            }
+        }, { threshold: 0.3 });
+        ghStatObserver.observe(ghStatsGrid);
     }
 
     // --------------------------------------------------------
@@ -277,6 +320,29 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('mouseleave', () => {
                 // Reset tilt smoothly
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+
+        // 5b. Magnetic Hover on Hero CTA Buttons
+        const heroButtons = document.querySelectorAll('.hero-btn');
+        heroButtons.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const dx = (e.clientX - centerX) * 0.3; // ~30% of distance, capped below
+                const dy = (e.clientY - centerY) * 0.3;
+                const maxOffset = 7;
+                const clampedDx = Math.max(-maxOffset, Math.min(maxOffset, dx));
+                const clampedDy = Math.max(-maxOffset, Math.min(maxOffset, dy));
+                btn.style.transform = `translate(${clampedDx}px, ${clampedDy}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.4, ease: 'elastic.out(1, 0.5)', clearProps: 'transform' });
+                } else {
+                    btn.style.transform = '';
+                }
             });
         });
     }
@@ -344,6 +410,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --------------------------------------------------------
+    // 8b. Language Progress Bars Scroll Animation
+    // --------------------------------------------------------
+    const bentoLanguages = document.querySelector('.bento-languages');
+    if (bentoLanguages && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        const progressBars = bentoLanguages.querySelectorAll('.progress[data-width]');
+        ScrollTrigger.create({
+            trigger: bentoLanguages,
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+                progressBars.forEach((bar, i) => {
+                    const targetWidth = bar.getAttribute('data-width');
+                    gsap.to(bar, {
+                        width: targetWidth,
+                        duration: 1.2,
+                        delay: i * 0.15,
+                        ease: 'power3.out'
+                    });
+                });
+            }
+        });
+    }
+
+    // --------------------------------------------------------
     // 9. GitHub API Integration
     // --------------------------------------------------------
     const GITHUB_USERNAME = 'tausifm2174-cyber'; // REPLACE THIS WITH ACTUAL GITHUB USERNAME
@@ -368,13 +458,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Calculate total stars across all public repos
                 const totalStars = reposData.reduce((acc, repo) => acc + repo.stargazers_count, 0);
 
-                // Populate Numbers in Open Source Section
-                const ghFollowers = document.getElementById('gh-followers');
-                const ghRepos = document.getElementById('gh-repos');
-                const ghStars = document.getElementById('gh-stars');
-                if (ghFollowers) ghFollowers.innerText = userData.followers;
-                if (ghRepos) ghRepos.innerText = userData.public_repos;
-                if (ghStars) ghStars.innerText = totalStars;
+                // Store GitHub stats for count-up animation
+                ghStatsData = {
+                    followers: userData.followers,
+                    stars: totalStars,
+                    repos: userData.public_repos
+                };
+                isGhStatsDataReady = true;
+                // If the section is already in view, trigger immediately
+                triggerGhStatsAnimation();
+
+                // Recently Active line
+                const recentlyActiveEl = document.getElementById('gh-recently-active');
+                if (recentlyActiveEl && reposData.length > 0) {
+                    const mostRecent = reposData[0]; // already sorted by updated
+                    const pushedAt = new Date(mostRecent.pushed_at);
+                    const now = new Date();
+                    const diffMs = now - pushedAt;
+                    const diffSec = Math.floor(diffMs / 1000);
+                    const diffMin = Math.floor(diffSec / 60);
+                    const diffHr = Math.floor(diffMin / 60);
+                    const diffDays = Math.floor(diffHr / 24);
+                    const diffWeeks = Math.floor(diffDays / 7);
+                    let relativeTime;
+                    if (diffSec < 60) relativeTime = 'just now';
+                    else if (diffMin < 60) relativeTime = `${diffMin} minute${diffMin !== 1 ? 's' : ''} ago`;
+                    else if (diffHr < 24) relativeTime = `${diffHr} hour${diffHr !== 1 ? 's' : ''} ago`;
+                    else if (diffDays < 7) relativeTime = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+                    else relativeTime = `${diffWeeks} week${diffWeeks !== 1 ? 's' : ''} ago`;
+                    recentlyActiveEl.innerHTML = `<i class="ph ph-pulse"></i> Recently active on <strong>${mostRecent.name}</strong> · ${relativeTime}`;
+                    recentlyActiveEl.style.display = 'flex';
+                }
 
                 // Step 3: Compute "Projects" (non-fork repos) and "Technologies" (unique non-null languages)
                 const originalRepos = reposData.filter(repo => !repo.fork);
@@ -733,6 +847,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         // Ignore if typing in an input
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key.length !== 1) return; // Ignore modifier keys like Shift, Control, Alt
         
         typedKeys += e.key.toLowerCase();
         if (typedKeys.length > secretCode.length) {
@@ -740,11 +855,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         if (typedKeys === secretCode) {
-            alert('🎉 Easter Egg Found! Unleashing the fireworks...');
-            if (typeof gsap !== 'undefined') {
-                gsap.to('body', { rotation: 360, duration: 2, ease: 'power3.inOut' });
-            }
             typedKeys = ''; // reset
+
+            // Confetti bursts from two angles
+            if (typeof confetti === 'function') {
+                const accentColors = ['#00d9ff', '#7c3aed', '#f43f5e', '#fbbf24', '#10b981'];
+                // Left burst
+                confetti({
+                    particleCount: 120,
+                    angle: 60,
+                    spread: 70,
+                    origin: { x: 0.15, y: 0.6 },
+                    colors: accentColors,
+                    ticks: 100,
+                    gravity: 1.2,
+                    scalar: 1.1
+                });
+                // Right burst (slight delay)
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 120,
+                        angle: 120,
+                        spread: 70,
+                        origin: { x: 0.85, y: 0.6 },
+                        colors: accentColors,
+                        ticks: 100,
+                        gravity: 1.2,
+                        scalar: 1.1
+                    });
+                }, 200);
+            }
+
+            // Glassmorphic toast
+            const toast = document.createElement('div');
+            toast.className = 'easter-egg-toast';
+            toast.innerHTML = '<span class="toast-emoji">🎉</span><span class="toast-text">Easter Egg Found! You discovered the secret.</span>';
+            document.body.appendChild(toast);
+
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(toast,
+                    { opacity: 0, y: -20, xPercent: -50 },
+                    { opacity: 1, y: 0, xPercent: -50, duration: 0.5, ease: 'back.out(1.5)' }
+                );
+                gsap.to(toast, {
+                    opacity: 0,
+                    y: -20,
+                    xPercent: -50,
+                    duration: 0.4,
+                    ease: 'power2.in',
+                    delay: 3,
+                    onComplete: () => toast.remove()
+                });
+            } else {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(-50%) translateY(0)';
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(-50%) translateY(-20px)';
+                }, 3000);
+                setTimeout(() => toast.remove(), 3500);
+            }
         }
     });
 
@@ -855,6 +1025,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         });
+    }
+
+    // --------------------------------------------------------
+    // 17. Copy Email to Clipboard
+    // --------------------------------------------------------
+    const copyEmailBtn = document.querySelector('.copy-email-btn');
+    if (copyEmailBtn) {
+        const handleCopyEmail = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const showFeedback = () => {
+                const originalHTML = copyEmailBtn.innerHTML;
+                copyEmailBtn.innerHTML = '<i class="ph ph-check"></i><span class="copied-text">Copied!</span>';
+                copyEmailBtn.style.color = '#10B981';
+                setTimeout(() => {
+                    copyEmailBtn.innerHTML = originalHTML;
+                    copyEmailBtn.style.color = '';
+                }, 1800);
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText('mtausif1316@gmail.com')
+                    .then(showFeedback)
+                    .catch(() => {
+                        fallbackCopy();
+                        showFeedback();
+                    });
+            } else {
+                fallbackCopy();
+                showFeedback();
+            }
+
+            function fallbackCopy() {
+                const textArea = document.createElement('textarea');
+                textArea.value = 'mtausif1316@gmail.com';
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                } catch (err) {
+                    console.error('Fallback copy failed', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        };
+
+        copyEmailBtn.addEventListener('click', handleCopyEmail);
+        copyEmailBtn.addEventListener('mousedown', (e) => e.stopPropagation());
     }
 
 });

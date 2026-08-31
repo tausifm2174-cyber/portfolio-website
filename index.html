@@ -152,7 +152,7 @@
                     <a href="#contact" class="btn btn-primary hero-btn pulse-glow-btn">
                         Hire Me
                     </a>
-                    <a href="#TODO" class="btn btn-glass hero-btn">
+                    <a href="assets/resume-tausif-m.pdf" download="Tausif-M-Resume.pdf" class="btn btn-glass hero-btn">
                         Download Resume <i class="ph ph-download-simple"></i>
                     </a>
                     <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
@@ -242,7 +242,7 @@
                                     class="text-muted extracted-inline-16">Professional</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress extracted-inline-17"></div>
+                                <div class="progress" data-width="100%"></div>
                             </div>
                         </div>
                         <div>
@@ -251,7 +251,7 @@
                                     class="text-muted extracted-inline-16">Fluent</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress extracted-inline-18"></div>
+                                <div class="progress" data-width="85%"></div>
                             </div>
                         </div>
                         <div>
@@ -260,7 +260,7 @@
                                     class="text-muted extracted-inline-16">Native</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress extracted-inline-17"></div>
+                                <div class="progress" data-width="100%"></div>
                             </div>
                         </div>
                         <div>
@@ -269,7 +269,7 @@
                                     class="text-muted extracted-inline-16">Fluent</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress extracted-inline-18"></div>
+                                <div class="progress" data-width="85%"></div>
                             </div>
                         </div>
                     </div>
@@ -690,6 +690,7 @@
             <div class="section-title reveal">
                 <h2 class="h2" data-i18n="opensource_title">Open <span class="text-gradient">Source.</span></h2>
                 <p class="text-muted text-large">Live GitHub statistics and recent public contributions.</p>
+                <p id="gh-recently-active" class="gh-recently-active text-muted text-sm" style="display: none;"></p>
             </div>
 
             <!-- GitHub Bento Dashboard -->
@@ -824,6 +825,9 @@
                                 <span class="contact-label">Email</span>
                                 <span class="contact-value">mtausif1316@gmail.com</span>
                             </div>
+                            <button class="copy-email-btn" aria-label="Copy email address" title="Copy email">
+                                <i class="ph ph-copy"></i>
+                            </button>
                         </a>
 
                         <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
@@ -835,7 +839,7 @@
                             </div>
                         </a>
 
-                        <a href="#" class="contact-link-pill card">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Bengaluru%2C+Karnataka%2C+India" target="_blank" rel="noopener noreferrer" class="contact-link-pill card">
                             <i class="ph ph-map-pin text-primary"></i>
                             <div class="contact-text">
                                 <span class="contact-label">Location</span>
@@ -967,6 +971,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/split-type"></script>
+    <script src="https://unpkg.com/canvas-confetti@1.9.3/dist/confetti.browser.js"></script>
     <script src="script.js"></script>
 </body>
 
