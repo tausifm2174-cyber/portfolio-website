@@ -2402,8 +2402,8 @@ html.lenis, html.lenis body {
   z-index: 10000;
   padding: 1rem 2rem;
   background: rgba(14, 22, 40, 0.85);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 217, 255, 0.1);
@@ -2462,8 +2462,8 @@ html.lenis, html.lenis body {
 
 /* GitHub Recently Active Line */
 .gh-recently-active {
+  display: none;
   margin-top: 0.5rem;
-  display: flex;
   align-items: center;
   gap: 0.5rem;
 }
