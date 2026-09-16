@@ -196,15 +196,17 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(typeEffect, 1800);
     }
 
-    // D. Number Counters for Statistics
+    // D. Number Counters for Hero Statistics (Real DOM-driven & authentic data)
     const statsSection = document.getElementById('hero-stats');
-    let isStatsInView = false;
-    let isStatsDataReady = false;
-    let hasStatsAnimated = false;
+    let hasHeroStatsAnimated = false;
 
     // Reusable counter animation helper
     function animateCounter(element, target, duration = 2000) {
-        if (!element || typeof target !== 'number' || target <= 0) return;
+        if (!element || typeof target !== 'number') return;
+        if (target <= 0) {
+            element.innerText = '0';
+            return;
+        }
         const increment = target / (duration / 16); // 60fps
         let current = 0;
         const updateCounter = () => {
@@ -219,35 +221,125 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCounter();
     }
 
-    function triggerStatsCounterAnimation() {
-        if (!hasStatsAnimated && isStatsInView && isStatsDataReady) {
-            hasStatsAnimated = true;
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target') || 0;
-                animateCounter(counter, target);
-            });
+    function isHeroStatsInViewport() {
+        if (!statsSection) return false;
+        const rect = statsSection.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+    }
+
+    function triggerHeroCounterAnimation() {
+        if (hasHeroStatsAnimated) return;
+        if (!isHeroStatsInViewport()) return;
+
+        hasHeroStatsAnimated = true;
+        const counterProjects = document.getElementById('counter-projects');
+        const counterTech = document.getElementById('counter-technologies');
+        const counterContributions = document.getElementById('counter-contributions');
+        const contributionsPlus = document.getElementById('contributions-plus');
+
+        if (counterProjects) {
+            const target = +counterProjects.getAttribute('data-target') || 0;
+            if (target > 0) animateCounter(counterProjects, target, 1200);
+            else counterProjects.innerText = target.toString();
+        }
+
+        if (counterTech) {
+            const target = +counterTech.getAttribute('data-target') || 0;
+            if (target > 0) animateCounter(counterTech, target, 1500);
+            else counterTech.innerText = target.toString();
+        }
+
+        if (counterContributions) {
+            const targetAttr = counterContributions.getAttribute('data-target');
+            if (targetAttr !== null && targetAttr !== '' && !isNaN(+targetAttr)) {
+                const target = +targetAttr;
+                if (target > 0) {
+                    if (contributionsPlus) contributionsPlus.style.display = 'inline';
+                    animateCounter(counterContributions, target, 2000);
+                } else {
+                    counterContributions.innerText = '0';
+                    if (contributionsPlus) contributionsPlus.style.display = 'inline';
+                }
+            } else {
+                counterContributions.innerText = '--';
+                if (contributionsPlus) contributionsPlus.style.display = 'none';
+            }
         }
     }
 
-    // Safety fallback: trigger animation with existing targets after 4 seconds if API is delayed
-    setTimeout(() => {
-        if (!isStatsDataReady) {
-            isStatsDataReady = true;
-            triggerStatsCounterAnimation();
-        }
-    }, 4000);
+    function initHeroStats() {
+        const counterProjects = document.getElementById('counter-projects');
+        const counterTech = document.getElementById('counter-technologies');
+        const counterContributions = document.getElementById('counter-contributions');
+        const contributionsPlus = document.getElementById('contributions-plus');
 
+        // 1. Projects Count: drive from actual rendered project cards in Selected Works (#work)
+        const projectCards = document.querySelectorAll('#work .premium-project-showcase');
+        const projectCount = projectCards.length;
+        if (counterProjects) {
+            counterProjects.setAttribute('data-target', projectCount);
+        }
+
+        // 2. Technologies Count: programmatic count of unique tech pills in pruned skills-grid
+        const techPills = document.querySelectorAll('.skills-grid .tech-pill');
+        const uniqueTechCount = new Set(Array.from(techPills).map(el => el.textContent.trim())).size || techPills.length;
+        if (counterTech) {
+            counterTech.setAttribute('data-target', uniqueTechCount);
+        }
+
+        // 3. Contributions: check cached genuine count if previously retrieved
+        let cachedContributions = null;
+        try {
+            const raw = localStorage.getItem('gh_last_known_stats');
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (typeof parsed.totalContributions === 'number') {
+                    cachedContributions = parsed.totalContributions;
+                }
+            }
+        } catch (e) {}
+
+        if (counterContributions) {
+            if (typeof cachedContributions === 'number') {
+                counterContributions.setAttribute('data-target', cachedContributions);
+                if (contributionsPlus) contributionsPlus.style.display = 'inline';
+            } else {
+                counterContributions.removeAttribute('data-target');
+                counterContributions.innerText = '--';
+                if (contributionsPlus) contributionsPlus.style.display = 'none';
+            }
+        }
+
+        // Trigger animation immediately if visible on initial load / first paint
+        if (isHeroStatsInViewport()) {
+            triggerHeroCounterAnimation();
+        }
+    }
+
+    initHeroStats();
+
+    // IntersectionObserver to trigger when scrolled into view
     if (statsSection) {
         const statObserver = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
-                isStatsInView = true;
-                triggerStatsCounterAnimation();
+                triggerHeroCounterAnimation();
             }
-        }, { threshold: 0.5 });
-        
+        }, { threshold: 0.1 });
         statObserver.observe(statsSection);
     }
+
+    // Safety fallback: ensure animation runs if visible after initial paint / layout or loading screen exit
+    setTimeout(() => {
+        if (!hasHeroStatsAnimated && isHeroStatsInViewport()) {
+            triggerHeroCounterAnimation();
+        }
+    }, 250);
+
+    setTimeout(() => {
+        if (!hasHeroStatsAnimated && isHeroStatsInViewport()) {
+            triggerHeroCounterAnimation();
+        }
+    }, 1600);
 
     // GitHub Stats Count-Up (IntersectionObserver)
     let isGhStatsInView = false;
@@ -265,15 +357,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (ghFollowers) {
                 ghFollowers.setAttribute('data-target', ghStatsData.followers);
-                animateCounter(ghFollowers, ghStatsData.followers);
+                if (ghStatsData.followers > 0) {
+                    animateCounter(ghFollowers, ghStatsData.followers);
+                } else {
+                    ghFollowers.innerText = '0';
+                }
             }
             if (ghStars) {
                 ghStars.setAttribute('data-target', ghStatsData.stars);
-                animateCounter(ghStars, ghStatsData.stars);
+                if (ghStatsData.stars > 0) {
+                    animateCounter(ghStars, ghStatsData.stars);
+                } else {
+                    ghStars.innerText = '0';
+                }
             }
             if (ghRepos) {
                 ghRepos.setAttribute('data-target', ghStatsData.repos);
-                animateCounter(ghRepos, ghStatsData.repos);
+                if (ghStatsData.repos > 0) {
+                    animateCounter(ghRepos, ghStatsData.repos);
+                } else {
+                    ghRepos.innerText = '0';
+                }
             }
         }
     }
@@ -436,152 +540,230 @@ document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------
     // 9. GitHub API Integration
     // --------------------------------------------------------
-    const GITHUB_USERNAME = 'tausifm2174-cyber'; // REPLACE THIS WITH ACTUAL GITHUB USERNAME
-    
     async function fetchGitHubData() {
         const reposContainer = document.getElementById('github-repos-container');
         const errorMsg = document.getElementById('gh-error-msg');
+        const recentlyActiveEl = document.getElementById('gh-recently-active');
 
-        // Fetch User profile, Repositories, and Stats in parallel
-        const fetchUserAndRepos = async () => {
+        const renderRepoCards = (repos) => {
+            if (!reposContainer || !Array.isArray(repos) || repos.length === 0) return;
+            const langColors = {
+                'JavaScript': '#f1e05a',
+                'TypeScript': '#3178c6',
+                'Python': '#3572A5',
+                'HTML': '#e34c26',
+                'CSS': '#563d7c',
+                'React': '#61dafb'
+            };
+
+            reposContainer.innerHTML = ''; // Clear skeletons
+            repos.forEach((repo, index) => {
+                const langColor = langColors[repo.language] || '#8b949e';
+                const repoHtml = `
+                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;" class="card repo-card reveal active" style="transition-delay: ${index * 0.1}s; opacity: 1; transform: translateY(0);">
+                        <div class="repo-header">
+                            <h4 class="h4" style="color: var(--accent-primary); display: flex; align-items: center; gap: 0.5rem; word-break: break-all;">
+                                <i class="ph ph-book-bookmark"></i> ${repo.name}
+                            </h4>
+                            <div class="repo-stats">
+                                <span><i class="ph ph-star"></i> ${repo.stargazers_count || 0}</span>
+                                <span><i class="ph ph-git-fork"></i> ${repo.forks_count || 0}</span>
+                            </div>
+                        </div>
+                        <p class="text-muted text-sm" style="margin-bottom: 1.5rem; flex-grow: 1;">${repo.description || 'No description provided.'}</p>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <div style="width: 12px; height: 12px; border-radius: 50%; background: ${langColor};"></div>
+                            <span class="text-mono text-muted">${repo.language || 'Code'}</span>
+                        </div>
+                    </a>
+                `;
+                reposContainer.innerHTML += repoHtml;
+            });
+        };
+
+        const renderDirectGitHubNotice = () => {
+            if (!reposContainer) return;
+            reposContainer.innerHTML = `
+                <div class="card repo-fallback-notice reveal active" style="grid-column: 1 / -1; text-align: center; padding: 3rem 1.5rem; opacity: 1; transform: translateY(0);">
+                    <i class="ph ph-github-logo" style="font-size: 2.5rem; color: var(--accent-primary); display: block; margin: 0 auto 0.75rem;"></i>
+                    <h4 class="h4" style="margin-bottom: 0.5rem;">Explore Projects on GitHub</h4>
+                    <p class="text-muted text-sm" style="max-width: 500px; margin: 0 auto 1.5rem;">
+                        Live repository highlights are currently syncing. You can explore active repositories, recent commits, and source code directly on GitHub.
+                    </p>
+                    <a href="https://github.com/tausifm2174-cyber?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <span>View All Repositories</span>
+                        <i class="ph ph-arrow-up-right"></i>
+                    </a>
+                </div>
+            `;
+        };
+
+        const applyStatsFallback = () => {
+            let cachedStats = null;
             try {
-                // Fetch User Profile
-                const userResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-                if (!userResponse.ok) throw new Error('Rate limit or user not found');
-                const userData = await userResponse.json();
+                const raw = localStorage.getItem('gh_last_known_stats');
+                if (raw) cachedStats = JSON.parse(raw);
+            } catch (e) {
+                // Ignore storage errors
+            }
 
-                // Fetch Repositories
-                const reposResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-                if (!reposResponse.ok) throw new Error('Rate limit or repos not found');
-                const reposData = await reposResponse.json();
-
-                // Calculate total stars across all public repos
-                const totalStars = reposData.reduce((acc, repo) => acc + repo.stargazers_count, 0);
-
-                // Store GitHub stats for count-up animation
+            if (cachedStats && typeof cachedStats.followers === 'number') {
                 ghStatsData = {
-                    followers: userData.followers,
-                    stars: totalStars,
-                    repos: userData.public_repos
+                    followers: cachedStats.followers,
+                    stars: cachedStats.stars,
+                    repos: cachedStats.repos
                 };
                 isGhStatsDataReady = true;
-                // If the section is already in view, trigger immediately
                 triggerGhStatsAnimation();
 
-                // Recently Active line
-                const recentlyActiveEl = document.getElementById('gh-recently-active');
-                if (recentlyActiveEl && reposData.length > 0) {
-                    const mostRecent = reposData[0]; // already sorted by updated
-                    const pushedAt = new Date(mostRecent.pushed_at);
-                    const now = new Date();
-                    const diffMs = now - pushedAt;
-                    const diffSec = Math.floor(diffMs / 1000);
-                    const diffMin = Math.floor(diffSec / 60);
-                    const diffHr = Math.floor(diffMin / 60);
-                    const diffDays = Math.floor(diffHr / 24);
-                    const diffWeeks = Math.floor(diffDays / 7);
-                    let relativeTime;
-                    if (diffSec < 60) relativeTime = 'just now';
-                    else if (diffMin < 60) relativeTime = `${diffMin} minute${diffMin !== 1 ? 's' : ''} ago`;
-                    else if (diffHr < 24) relativeTime = `${diffHr} hour${diffHr !== 1 ? 's' : ''} ago`;
-                    else if (diffDays < 7) relativeTime = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
-                    else relativeTime = `${diffWeeks} week${diffWeeks !== 1 ? 's' : ''} ago`;
-                    recentlyActiveEl.innerHTML = `<i class="ph ph-pulse"></i> Recently active on <strong>${mostRecent.name}</strong> · ${relativeTime}`;
-                    recentlyActiveEl.style.display = 'flex';
-                }
-
-                // Step 3: Compute "Projects" (non-fork repos) and "Technologies" (unique non-null languages)
-                const originalRepos = reposData.filter(repo => !repo.fork);
-                const projectsCount = originalRepos.length;
-                const techCount = new Set(
-                    originalRepos.map(r => r.language).filter(Boolean)
-                ).size;
-
-                const counterProjects = document.getElementById('counter-projects');
-                const counterTech = document.getElementById('counter-technologies');
-                if (counterProjects && typeof projectsCount === 'number') {
-                    counterProjects.setAttribute('data-target', projectsCount);
-                }
-                if (counterTech && typeof techCount === 'number') {
-                    counterTech.setAttribute('data-target', techCount);
-                }
-
-                // Render Repositories
-                if (reposContainer) {
-                    const topRepos = originalRepos
-                        .sort((a, b) => b.stargazers_count - a.stargazers_count)
-                        .slice(0, 3);
-
-                    reposContainer.innerHTML = ''; // Clear skeletons
-                    
-                    topRepos.forEach((repo, index) => {
-                        const langColors = {
-                            'JavaScript': '#f1e05a',
-                            'TypeScript': '#3178c6',
-                            'Python': '#3572A5',
-                            'HTML': '#e34c26',
-                            'CSS': '#563d7c',
-                            'React': '#61dafb'
-                        };
-                        const langColor = langColors[repo.language] || '#8b949e';
-                        
-                        const repoHtml = `
-                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;" class="card repo-card reveal active" style="transition-delay: ${index * 0.1}s; opacity: 1; transform: translateY(0);">
-                                <div class="repo-header">
-                                    <h4 class="h4" style="color: var(--accent-primary); display: flex; align-items: center; gap: 0.5rem; word-break: break-all;">
-                                        <i class="ph ph-book-bookmark"></i> ${repo.name}
-                                    </h4>
-                                    <div class="repo-stats">
-                                        <span><i class="ph ph-star"></i> ${repo.stargazers_count}</span>
-                                        <span><i class="ph ph-git-fork"></i> ${repo.forks_count}</span>
-                                    </div>
-                                </div>
-                                <p class="text-muted text-sm" style="margin-bottom: 1.5rem; flex-grow: 1;">${repo.description || 'No description provided.'}</p>
-                                <div style="display: flex; gap: 0.5rem; align-items: center;">
-                                    <div style="width: 12px; height: 12px; border-radius: 50%; background: ${langColor};"></div>
-                                    <span class="text-mono text-muted">${repo.language || 'Unknown'}</span>
-                                </div>
-                            </a>
-                        `;
-                        reposContainer.innerHTML += repoHtml;
-                    });
-                }
-            } catch (error) {
-                console.error('GitHub API Error:', error);
-                if (errorMsg) errorMsg.style.display = 'block';
-                if (reposContainer) reposContainer.innerHTML = '';
-                const ghFollowers = document.getElementById('gh-followers');
-                const ghRepos = document.getElementById('gh-repos');
-                const ghStars = document.getElementById('gh-stars');
-                if (ghFollowers) ghFollowers.innerText = 'N/A';
-                if (ghRepos) ghRepos.innerText = 'N/A';
-                if (ghStars) ghStars.innerText = 'N/A';
-            }
-        };
-
-        const fetchContributions = async () => {
-            try {
-                const res = await fetch('/api/github-stats');
-                if (!res.ok) throw new Error(`Server returned status ${res.status}`);
-                const data = await res.json();
-                if (typeof data.totalContributions === 'number') {
-                    const counterContributions = document.getElementById('counter-contributions');
-                    if (counterContributions) {
-                        counterContributions.setAttribute('data-target', data.totalContributions);
+                // Restore hero contributions if available in cache
+                const counterContributions = document.getElementById('counter-contributions');
+                const contributionsPlus = document.getElementById('contributions-plus');
+                if (counterContributions) {
+                    if (typeof cachedStats.totalContributions === 'number') {
+                        counterContributions.setAttribute('data-target', cachedStats.totalContributions);
+                        if (contributionsPlus) contributionsPlus.style.display = 'inline';
+                        animateCounter(counterContributions, cachedStats.totalContributions, 2000);
+                    } else {
+                        counterContributions.removeAttribute('data-target');
+                        counterContributions.innerText = '--';
+                        if (contributionsPlus) contributionsPlus.style.display = 'none';
                     }
                 }
-            } catch (error) {
-                console.error('GitHub Contributions API Error:', error);
-                // Keep hardcoded fallback target
+            } else {
+                // No genuine previous data exists: set "--" instead of invented numbers
+                const ghFollowers = document.getElementById('gh-followers');
+                const ghStars = document.getElementById('gh-stars');
+                const ghRepos = document.getElementById('gh-repos');
+                if (ghFollowers) ghFollowers.innerText = '--';
+                if (ghStars) ghStars.innerText = '--';
+                if (ghRepos) ghRepos.innerText = '--';
+                hasGhStatsAnimated = true;
+
+                const counterContributions = document.getElementById('counter-contributions');
+                const contributionsPlus = document.getElementById('contributions-plus');
+                if (counterContributions) {
+                    counterContributions.removeAttribute('data-target');
+                    counterContributions.innerText = '--';
+                    if (contributionsPlus) contributionsPlus.style.display = 'none';
+                }
             }
         };
 
-        // Run both in parallel and start animation once data targets are populated
         try {
-            await Promise.allSettled([fetchUserAndRepos(), fetchContributions()]);
-        } finally {
-            isStatsDataReady = true;
-            triggerStatsCounterAnimation();
+            const res = await fetch('/api/github-stats');
+            if (!res.ok) throw new Error(`Serverless endpoint returned HTTP ${res.status}`);
+            const data = await res.json();
+
+            // If backend returned a fallback flag or unsuccessful response
+            if (!data.success || data.fallback) {
+                applyStatsFallback();
+            } else {
+                // 1. Authentic Follower, Star, Repo counts for GitHub Bento section
+                ghStatsData = {
+                    followers: typeof data.followers === 'number' ? data.followers : 0,
+                    stars: typeof data.stars === 'number' ? data.stars : 0,
+                    repos: typeof data.repos === 'number' ? data.repos : 0
+                };
+
+                // Cache genuine values for resilient fallback in subsequent visits
+                try {
+                    localStorage.setItem('gh_last_known_stats', JSON.stringify({
+                        followers: ghStatsData.followers,
+                        stars: ghStatsData.stars,
+                        repos: ghStatsData.repos,
+                        totalContributions: data.totalContributions,
+                        cachedAt: new Date().toISOString()
+                    }));
+                } catch (e) {
+                    // Ignore storage quota/permission issues
+                }
+
+                isGhStatsDataReady = true;
+                triggerGhStatsAnimation();
+            }
+
+            // 2. Hero Contributions counter (authentic GitHub contribution data only)
+            const counterContributions = document.getElementById('counter-contributions');
+            const contributionsPlus = document.getElementById('contributions-plus');
+            if (counterContributions) {
+                if (typeof data.totalContributions === 'number') {
+                    counterContributions.setAttribute('data-target', data.totalContributions);
+                    if (contributionsPlus) contributionsPlus.style.display = 'inline';
+                    animateCounter(counterContributions, data.totalContributions, 2000);
+                } else {
+                    // If totalContributions is null (e.g. no token configured), check genuine cache or display honest '--'
+                    let cachedContrib = null;
+                    try {
+                        const raw = localStorage.getItem('gh_last_known_stats');
+                        if (raw) {
+                            const parsed = JSON.parse(raw);
+                            if (typeof parsed.totalContributions === 'number') cachedContrib = parsed.totalContributions;
+                        }
+                    } catch (e) {}
+
+                    if (typeof cachedContrib === 'number') {
+                        counterContributions.setAttribute('data-target', cachedContrib);
+                        if (contributionsPlus) contributionsPlus.style.display = 'inline';
+                        animateCounter(counterContributions, cachedContrib, 2000);
+                    } else {
+                        counterContributions.removeAttribute('data-target');
+                        counterContributions.innerText = '--';
+                        if (contributionsPlus) contributionsPlus.style.display = 'none';
+                    }
+                }
+            }
+
+            // 3. Recently Active status line
+            if (recentlyActiveEl && data.recentlyActive && data.recentlyActive.pushed_at) {
+                const pushedAt = new Date(data.recentlyActive.pushed_at);
+                const now = new Date();
+                const diffMs = now - pushedAt;
+                const diffSec = Math.floor(diffMs / 1000);
+                const diffMin = Math.floor(diffSec / 60);
+                const diffHr = Math.floor(diffMin / 60);
+                const diffDays = Math.floor(diffHr / 24);
+                const diffWeeks = Math.floor(diffDays / 7);
+                let relativeTime;
+                if (diffSec < 60) relativeTime = 'just now';
+                else if (diffMin < 60) relativeTime = `${diffMin} minute${diffMin !== 1 ? 's' : ''} ago`;
+                else if (diffHr < 24) relativeTime = `${diffHr} hour${diffHr !== 1 ? 's' : ''} ago`;
+                else if (diffDays < 7) relativeTime = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+                else relativeTime = `${diffWeeks} week${diffWeeks !== 1 ? 's' : ''} ago`;
+
+                recentlyActiveEl.innerHTML = `<i class="ph ph-pulse"></i> Recently active on <strong>${data.recentlyActive.name}</strong> · ${relativeTime}`;
+                recentlyActiveEl.style.display = 'flex';
+            }
+
+            // 4. Render repositories or direct GitHub notice
+            if (Array.isArray(data.recentRepos) && data.recentRepos.length > 0) {
+                renderRepoCards(data.recentRepos);
+            } else {
+                renderDirectGitHubNotice();
+            }
+
+            // If it was a fallback response, show graceful non-intrusive notice
+            if (data.fallback && errorMsg) {
+                errorMsg.innerHTML = '<i class="ph ph-info text-primary"></i> GitHub highlights are syncing with live activity. View full profile on <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">GitHub</a>.';
+                errorMsg.style.display = 'block';
+            } else if (errorMsg) {
+                errorMsg.style.display = 'none';
+            }
+
+        } catch (error) {
+            console.warn('GitHub API route unavailable; using genuine cached stats or direct link:', error);
+
+            // Apply last known good values or set "--"
+            applyStatsFallback();
+
+            // Direct GitHub messaging instead of invented cards
+            renderDirectGitHubNotice();
+
+            // Provide a graceful fallback notice
+            if (errorMsg) {
+                errorMsg.innerHTML = '<i class="ph ph-info text-primary"></i> GitHub highlights are syncing with live activity. View full profile on <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">GitHub</a>.';
+                errorMsg.style.display = 'block';
+            }
         }
     }
 

@@ -169,17 +169,17 @@
             <!-- Statistics Bar -->
             <div class="hero-stats reveal extracted-inline-2" id="hero-stats">
                 <div class="stat-item">
-                    <h3 class="stat-number"><span class="counter" id="counter-projects" data-target="25">0</span>+</h3>
+                    <h3 class="stat-number"><span class="counter" id="counter-projects">0</span>+</h3>
                     <p class="stat-label">Projects</p>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat-item">
-                    <h3 class="stat-number"><span class="counter" id="counter-technologies" data-target="15">0</span>+</h3>
+                    <h3 class="stat-number"><span class="counter" id="counter-technologies">0</span>+</h3>
                     <p class="stat-label">Technologies</p>
                 </div>
                 <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <h3 class="stat-number"><span class="counter" id="counter-contributions" data-target="1500">0</span>+</h3>
+                <div class="stat-item" id="hero-stat-contributions">
+                    <h3 class="stat-number"><span class="counter" id="counter-contributions">--</span><span class="stat-plus" id="contributions-plus">+</span></h3>
                     <p class="stat-label">Contributions</p>
                 </div>
             </div>
@@ -326,7 +326,6 @@
                             <span class="tech-pill">Next.js</span>
                             <span class="tech-pill">TypeScript</span>
                             <span class="tech-pill">Tailwind CSS</span>
-                            <span class="tech-pill">Framer Motion</span>
                         </div>
                     </div>
                 </div>
@@ -343,7 +342,7 @@
                             <span class="tech-pill">Node.js</span>
                             <span class="tech-pill">Express</span>
                             <span class="tech-pill">Python</span>
-                            <span class="tech-pill">GraphQL</span>
+                            <span class="tech-pill">FastAPI</span>
                         </div>
                     </div>
                 </div>
@@ -378,41 +377,9 @@
                         <div class="tech-badges">
                             <span class="tech-pill">OpenAI API</span>
                             <span class="tech-pill">LangChain</span>
+                            <span class="tech-pill">FAISS</span>
                             <span class="tech-pill">Vector DBs</span>
                             <span class="tech-pill">Prompt Engineering</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Database -->
-                <div class="card skill-3d-card reveal extracted-inline-19">
-                    <div class="skill-glow"></div>
-                    <div class="skill-content">
-                        <div class="skill-icon-3d extracted-inline-36"><i class="ph ph-hard-drives"></i></div>
-                        <h3 class="h4 extracted-inline-10">Databases</h3>
-                        <p class="text-muted text-sm extracted-inline-31">Data modeling and storage solutions.</p>
-                        <div class="tech-badges">
-                            <span class="tech-pill">PostgreSQL</span>
-                            <span class="tech-pill">MongoDB</span>
-                            <span class="tech-pill">Redis</span>
-                            <span class="tech-pill">Prisma</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cloud -->
-                <div class="card skill-3d-card reveal extracted-inline-25">
-                    <div class="skill-glow"></div>
-                    <div class="skill-content">
-                        <div class="skill-icon-3d extracted-inline-37"><i class="ph ph-cloud"></i></div>
-                        <h3 class="h4 extracted-inline-10">Cloud & DevOps</h3>
-                        <p class="text-muted text-sm extracted-inline-31">Deploying and scaling applications seamlessly.
-                        </p>
-                        <div class="tech-badges">
-                            <span class="tech-pill">AWS</span>
-                            <span class="tech-pill">Vercel</span>
-                            <span class="tech-pill">Docker</span>
-                            <span class="tech-pill">CI/CD</span>
                         </div>
                     </div>
                 </div>
@@ -427,7 +394,6 @@
                         <div class="tech-badges">
                             <span class="tech-pill">Figma</span>
                             <span class="tech-pill">Git</span>
-                            <span class="tech-pill">Linear</span>
                             <span class="tech-pill">VS Code</span>
                         </div>
                     </div>
@@ -449,10 +415,7 @@
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="frontend">Frontend</button>
                 <button class="filter-btn" data-filter="backend">Backend</button>
-                <button class="filter-btn" data-filter="fullstack">Full Stack</button>
                 <button class="filter-btn" data-filter="ai">AI</button>
-                <button class="filter-btn" data-filter="react">React</button>
-                <button class="filter-btn" data-filter="python">Python</button>
             </div>
 
             <div class="project-gallery">

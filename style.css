@@ -945,28 +945,26 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(255,255,255,0.2);
 }
 
-/* 7-Category Asymmetric Layout using 12-col grid */
+/* 5-Category Asymmetric Layout using 12-col grid */
 .skill-frontend { grid-column: span 7; order: 1; }
 .skill-ai { grid-column: span 5; order: 2; }
 .skill-3d-card:nth-child(2) { grid-column: span 4; order: 3; } /* Backend */
 .skill-3d-card:nth-child(3) { grid-column: span 4; order: 4; } /* Languages */
-.skill-3d-card:nth-child(5) { grid-column: span 4; order: 5; } /* Database */
-.skill-3d-card:nth-child(6) { grid-column: span 6; order: 6; } /* Cloud */
-.skill-3d-card:nth-child(7) { grid-column: span 6; order: 7; } /* Tools */
+.skill-3d-card:nth-child(5) { grid-column: span 4; order: 5; } /* Tools */
 
 @media (max-width: 1024px) {
   .skill-frontend, .skill-ai, 
-  .skill-3d-card:nth-child(2), .skill-3d-card:nth-child(3), 
-  .skill-3d-card:nth-child(5), .skill-3d-card:nth-child(6), 
-  .skill-3d-card:nth-child(7) {
+  .skill-3d-card:nth-child(2), .skill-3d-card:nth-child(3) {
     grid-column: span 6;
+  }
+  .skill-3d-card:nth-child(5) {
+    grid-column: span 12;
   }
 }
 @media (max-width: 768px) {
   .skill-frontend, .skill-ai, 
   .skill-3d-card:nth-child(2), .skill-3d-card:nth-child(3), 
-  .skill-3d-card:nth-child(5), .skill-3d-card:nth-child(6), 
-  .skill-3d-card:nth-child(7) {
+  .skill-3d-card:nth-child(5) {
     grid-column: span 12;
   }
   .skill-content { transform: translateZ(0); }
