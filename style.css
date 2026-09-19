@@ -508,7 +508,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: url('./assets/images/profile-photo.jpeg') center/cover no-repeat;
+  background: url('./assets/images/profile-photo.jpeg?v=4') center 20%/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -516,6 +516,17 @@ h1, h2, h3, h4, h5, h6 {
   color: rgba(255,255,255,0.2);
   border: 4px solid var(--bg-primary);
   overflow: hidden;
+}
+.profile-photo-placeholder i {
+  display: none;
+}
+.hero-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 50%;
+  display: block;
 }
 
 /* Status Badges */
@@ -735,8 +746,81 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Grid Spans */
 .bento-education { grid-column: span 2; }
+.bento-photo { 
+  grid-column: span 1; 
+  grid-row: span 2; 
+  padding: 1rem; 
+  position: relative; 
+  overflow: hidden;
+  background: var(--bg-card);
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bento-photo-frame {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius-lg) - 1rem);
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background: var(--bg-secondary);
+}
+.bento-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  display: block;
+  transition: transform var(--transition-medium);
+}
+.bento-photo:hover .bento-photo-frame .bento-photo-img {
+  transform: scale(1.04);
+}
+.bento-photo-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(14, 22, 40, 0.95), rgba(10, 25, 47, 0.98));
+  border-radius: inherit;
+  z-index: 1;
+}
+.bento-photo-fallback-initials {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+}
+.bento-photo.img-failed .bento-photo-fallback {
+  display: flex;
+}
+.bento-photo.img-failed .bento-photo-img {
+  display: none;
+}
+
 .bento-passion { grid-column: span 2; }
-.bento-location { grid-column: span 1; grid-row: span 2; padding: 0; }
+.bento-location { 
+  grid-column: span 1; 
+  grid-row: span 2; 
+  padding: 0; 
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  outline: none;
+  position: relative;
+}
+.bento-location:focus-visible {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.3), var(--glow-primary);
+}
 .bento-goal { grid-column: span 1; }
 
 /* Timeline inside Bento */
@@ -759,6 +843,9 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   padding-left: 2rem;
 }
+.b-coursework {
+  margin-top: 0.35rem;
+}
 .b-dot {
   position: absolute;
   left: 0;
@@ -770,7 +857,30 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 0 4px var(--bg-secondary), var(--glow-primary);
 }
 
-/* Location Card Special */
+/* Location Card Special & Interactive Toggle */
+.location-hint {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: rgba(14, 22, 40, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-glass);
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  z-index: 5;
+}
+.bento-location:hover .location-hint {
+  color: var(--accent-primary);
+  border-color: rgba(0, 217, 255, 0.4);
+}
 .location-map {
   height: 120px;
   background: 
@@ -786,6 +896,67 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   text-align: center;
 }
+.location-views-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.location-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.location-view.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  position: relative;
+}
+.location-college-icon {
+  color: var(--accent-secondary);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.loc-toggle-pills {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  z-index: 3;
+}
+.loc-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.loc-pill:hover {
+  color: var(--text-primary);
+  border-color: var(--border-glass-hover);
+}
+.loc-pill.active {
+  background: rgba(0, 217, 255, 0.15);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  font-weight: 500;
+}
+
 .pulse-pin {
   animation: pulsePin 2s infinite;
 }
@@ -845,7 +1016,7 @@ h1, h2, h3, h4, h5, h6 {
   .bento-education, .bento-passion {
     grid-column: span 2;
   }
-  .bento-location, .bento-goal {
+  .bento-photo, .bento-location, .bento-goal {
     grid-column: span 1;
   }
 }
@@ -853,8 +1024,9 @@ h1, h2, h3, h4, h5, h6 {
   .bento-grid {
     grid-template-columns: 1fr;
   }
-  .bento-education, .bento-passion, .bento-location, .bento-goal {
+  .bento-education, .bento-passion, .bento-photo, .bento-location, .bento-goal {
     grid-column: span 1;
+    grid-row: auto;
   }
 }
 
@@ -2256,7 +2428,7 @@ html.lenis, html.lenis body {
     pointer-events: none;
 }
 
-.lang-dropdown-wrapper:hover .lang-dropdown-content {
+.lang-dropdown-wrapper.open .lang-dropdown-content {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(-10px);

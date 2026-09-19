@@ -1,9 +1,11 @@
 # Tausif M — Developer Portfolio
 
 ## Overview
+
 A premium, production-ready developer portfolio designed to showcase high-level product design and UI engineering skills. The site is engineered for maximum performance (60fps ScrollTrigger animations), perfect Lighthouse scores, and a cinematic user experience inspired by top-tier tech companies.
 
 ## Features
+
 - **Cinematic Animations**: Hardware-accelerated GSAP ScrollTrigger batch reveals.
 - **Global Command Palette**: Raycast-inspired `Ctrl + K` search overlay.
 - **macOS Floating Dock**: Context-aware bottom navigation dock.
@@ -13,6 +15,7 @@ A premium, production-ready developer portfolio designed to showcase high-level 
 - **Hidden Easter Egg**: Type `tausif` to trigger a secret animation!
 
 ## Tech Stack
+
 - HTML5
 - Vanilla CSS (Custom properties, Glassmorphism, Responsive Grid)
 - Vanilla JavaScript (ES6+)
@@ -21,6 +24,7 @@ A premium, production-ready developer portfolio designed to showcase high-level 
 - Lenis Smooth Scroll
 
 ## Project Structure
+
 ```text
 /
 ├── index.html       # Main portfolio page
@@ -32,6 +36,7 @@ A premium, production-ready developer portfolio designed to showcase high-level 
 ```
 
 ## Local Development
+
 - **Static Preview**: Open `index.html` in any modern web browser or use VS Code Live Server (animations and UI work client-side).
 - **Full Stack & Serverless API Testing**: To test the `/api/contact` email endpoint locally:
   1. Install dependencies: `npm install`
@@ -39,6 +44,7 @@ A premium, production-ready developer portfolio designed to showcase high-level 
   3. Run `npx vercel dev` to start the local server with serverless functions support.
 
 ## Environment Variables
+
 This project uses serverless API routes on Vercel which require the following environment variables:
 
 | Variable | Description | Required |
@@ -49,10 +55,13 @@ This project uses serverless API routes on Vercel which require the following en
 > **Important**: Add `RESEND_API_KEY` and `GITHUB_TOKEN` in your Vercel Project Settings under **Settings → Environment Variables**. Do not commit real keys or tokens to source control.
 
 ## Deployment
+
 This project is pre-configured for instant deployment on **Vercel**.
+
 - **Framework Preset**: Other (Static)
 - **Build Command**: None (leave empty)
 - **Output Directory**: `./`
 
 ## Credits
+
 Designed and engineered by Tausif.

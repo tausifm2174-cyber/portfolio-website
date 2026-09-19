@@ -80,19 +80,21 @@
             </button>
             <button id="cmd-trigger" class="dock-item" data-tooltip="Search (Ctrl+K)" aria-label="Open Command Palette">
                 <i class="ph ph-command"></i>
-                <div class="dock-divider"></div>
-                <div class="lang-dropdown-wrapper">
-                    <button class="dock-item" id="lang-trigger" data-tooltip="Language" aria-label="Select Language">
-                        <i class="ph ph-translate"></i>
-                    </button>
-                    <div class="lang-dropdown-content">
-                        <button class="lang-opt" data-lang="en">English (EN)</button>
-                        <button class="lang-opt" data-lang="kn">ಕನ್ನಡ (KN)</button>
-                        <button class="lang-opt" data-lang="ur">اردو (UR)</button>
-                        <button class="lang-opt" data-lang="hi">हिंदी (HI)</button>
-                    </div>
+            </button>
+            <div class="dock-divider"></div>
+            <div class="lang-dropdown-wrapper">
+                <button class="dock-item" id="lang-trigger" data-tooltip="Language" aria-label="Select Language"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="ph ph-translate"></i>
+                </button>
+                <div class="lang-dropdown-content">
+                    <button class="lang-opt" data-lang="en">English (EN)</button>
+                    <button class="lang-opt" data-lang="kn">ಕನ್ನಡ (KN)</button>
+                    <button class="lang-opt" data-lang="ur">اردو (UR)</button>
+                    <button class="lang-opt" data-lang="hi">हिंदी (HI)</button>
+                    <button class="lang-opt" data-lang="ja">日本語 (JA)</button>
                 </div>
-        </div>
+            </div>
     </nav>
     <!-- 3. Hero Section (Cinematic Overhaul) -->
     <section id="home" class="hero cinematic-hero">
@@ -169,17 +171,18 @@
             <!-- Statistics Bar -->
             <div class="hero-stats reveal extracted-inline-2" id="hero-stats">
                 <div class="stat-item">
-                    <h3 class="stat-number"><span class="counter" id="counter-projects">0</span>+</h3>
+                    <h3 class="stat-number"><span class="counter" id="counter-projects">0</span></h3>
                     <p class="stat-label">Projects</p>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat-item">
-                    <h3 class="stat-number"><span class="counter" id="counter-technologies">0</span>+</h3>
+                    <h3 class="stat-number"><span class="counter" id="counter-technologies">0</span></h3>
                     <p class="stat-label">Technologies</p>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat-item" id="hero-stat-contributions">
-                    <h3 class="stat-number"><span class="counter" id="counter-contributions">--</span><span class="stat-plus" id="contributions-plus">+</span></h3>
+                    <h3 class="stat-number"><span class="counter" id="counter-contributions">--</span><span
+                            class="stat-plus" id="contributions-plus"></span></h3>
                     <p class="stat-label">Contributions</p>
                 </div>
             </div>
@@ -203,24 +206,66 @@
                         <div class="b-timeline-item">
                             <div class="b-dot"></div>
                             <p class="text-primary font-medium extracted-inline-4">B.E. Computer Science & Engineering
-                                (2nd Year)</p>
+                                (3rd Year)</p>
                             <p class="text-muted text-sm extracted-inline-5">SJB Institute of Technology (VTU)</p>
                         </div>
                         <div class="b-timeline-item">
                             <div class="b-dot"></div>
                             <p class="text-primary font-medium extracted-inline-4">Current Status</p>
-                            <p class="text-muted text-sm extracted-inline-5">CGPA 8.28/10</p>
+                            <p class="text-muted text-sm extracted-inline-5">CGPA 8.21/10</p>
+                            <p class="text-muted text-sm extracted-inline-5 b-coursework">Relevant
+                                Coursework: Operating Systems, Object-Oriented Programming (Java), Web Design &amp;
+                                Server-Side Scripting, Design and Analysis of Algorithms, Data Structures</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Location -->
-                <div class="card bento-card bento-location reveal extracted-inline-6">
+                <!-- Photo Card (Standalone Column) -->
+                <div class="card bento-card bento-photo reveal" aria-label="Profile photo of Tausif M">
+                    <div class="bento-photo-frame">
+                        <div class="bento-photo-fallback" aria-hidden="true">
+                            <span class="bento-photo-fallback-initials">TM</span>
+                        </div>
+                        <img src="assets/profile/tausif-photo.jpg?v=2" alt="Tausif M" class="bento-photo-img" loading="lazy"
+                            onerror="this.closest('.bento-photo').classList.add('img-failed')">
+                    </div>
+                </div>
+
+                <!-- Location (Interactive Toggle) -->
+                <div class="card bento-card bento-location reveal extracted-inline-6"
+                    aria-label="Location: Bengaluru, Karnataka, India. Switch to College location with buttons below.">
+                    <div class="location-hint" aria-hidden="true">
+                        <i class="ph ph-arrows-clockwise"></i>
+                        <span>Tap to switch</span>
+                    </div>
                     <div class="location-map"></div>
                     <div class="location-content">
-                        <i class="ph ph-map-pin pulse-pin extracted-inline-7"></i>
-                        <h3 class="h4 extracted-inline-8">Bengaluru, Karnataka, India</h3>
-                        <p class="text-muted text-sm extracted-inline-8">Open to opportunities</p>
+                        <!-- Screen reader live announcement -->
+                        <div class="sr-only" aria-live="polite" id="loc-live-announcer">Showing Bengaluru, Karnataka,
+                            India</div>
+
+                        <div class="location-views-wrapper">
+                            <!-- View 1: Current / City -->
+                            <div class="location-view loc-view-current active">
+                                <i class="ph ph-map-pin pulse-pin extracted-inline-7"></i>
+                                <h3 class="h4 extracted-inline-8">Bengaluru, Karnataka, India</h3>
+                                <p class="text-muted text-sm extracted-inline-8">Open to opportunities</p>
+                            </div>
+
+                            <!-- View 2: College -->
+                            <div class="location-view loc-view-college">
+                                <i class="ph ph-graduation-cap pulse-pin location-college-icon"></i>
+                                <h3 class="h4 extracted-inline-8">SJB Institute of Technology</h3>
+                                <p class="text-muted text-sm extracted-inline-8">Kengeri, Bengaluru, Karnataka 560060
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Toggle Pills Indicator / Target -->
+                        <div class="loc-toggle-pills" role="tablist" aria-label="Location view options">
+                            <button type="button" class="loc-pill active" role="tab" data-loc-target="current" aria-selected="true">Current</button>
+                            <button type="button" class="loc-pill" role="tab" data-loc-target="college" aria-selected="false">College</button>
+                        </div>
                     </div>
                 </div>
 
@@ -270,6 +315,15 @@
                             </div>
                             <div class="progress-bar">
                                 <div class="progress" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="extracted-inline-14">
+                                <span class="text-sm extracted-inline-15">Japanese (日本語)</span> <span
+                                    class="text-muted extracted-inline-16">Learning</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" data-width="30%"></div>
                             </div>
                         </div>
                     </div>
@@ -322,10 +376,9 @@
                         <p class="text-muted text-sm extracted-inline-31">Building pixel-perfect, highly interactive,
                             and accessible user interfaces at 60fps.</p>
                         <div class="tech-badges">
-                            <span class="tech-pill">React</span>
-                            <span class="tech-pill">Next.js</span>
-                            <span class="tech-pill">TypeScript</span>
-                            <span class="tech-pill">Tailwind CSS</span>
+                            <span class="tech-pill">HTML5</span>
+                            <span class="tech-pill">CSS3 (Glassmorphism)</span>
+                            <span class="tech-pill">JavaScript (ES6+)</span>
                         </div>
                     </div>
                 </div>
@@ -339,10 +392,9 @@
                         <p class="text-muted text-sm extracted-inline-31">Designing robust APIs and scalable server-side
                             logic.</p>
                         <div class="tech-badges">
-                            <span class="tech-pill">Node.js</span>
-                            <span class="tech-pill">Express</span>
                             <span class="tech-pill">Python</span>
                             <span class="tech-pill">FastAPI</span>
+                            <span class="tech-pill">SQLite</span>
                         </div>
                     </div>
                 </div>
@@ -356,7 +408,6 @@
                         <p class="text-muted text-sm extracted-inline-31">The foundational languages I use daily.</p>
                         <div class="tech-badges">
                             <span class="tech-pill">JavaScript</span>
-                            <span class="tech-pill">TypeScript</span>
                             <span class="tech-pill">HTML/CSS</span>
                             <span class="tech-pill">SQL</span>
                         </div>
@@ -375,8 +426,8 @@
                         <p class="text-muted text-sm extracted-inline-31">Implementing LLMs and building AI-driven
                             product features.</p>
                         <div class="tech-badges">
-                            <span class="tech-pill">OpenAI API</span>
-                            <span class="tech-pill">LangChain</span>
+                            <span class="tech-pill">Google Gemini</span>
+                            <span class="tech-pill">OpenRouter</span>
                             <span class="tech-pill">FAISS</span>
                             <span class="tech-pill">Vector DBs</span>
                             <span class="tech-pill">Prompt Engineering</span>
@@ -392,9 +443,10 @@
                         <h3 class="h4 extracted-inline-10">Design & Tools</h3>
                         <p class="text-muted text-sm extracted-inline-31">The software that accelerates my workflow.</p>
                         <div class="tech-badges">
-                            <span class="tech-pill">Figma</span>
                             <span class="tech-pill">Git</span>
                             <span class="tech-pill">VS Code</span>
+                            <span class="tech-pill">pytest</span>
+                            <span class="tech-pill">Figma</span>
                         </div>
                     </div>
                 </div>
@@ -406,7 +458,7 @@
     <section id="work" class="section">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="h2" data-i18n="work_title">Selected <span class="text-gradient">Works.</span></h2>
+                <h2 class="h2" data-i18n="work_title"><span class="text-gradient">Projects.</span></h2>
                 <p class="text-muted text-large">Deep-dive case studies showcasing end-to-end product engineering.</p>
             </div>
 
@@ -421,7 +473,7 @@
             <div class="project-gallery">
 
                 <!-- Project 1: SynapDoc AI -->
-                <div class="premium-project-showcase reveal" data-category="ai python backend">
+                <div class="premium-project-showcase reveal" data-category="ai python backend frontend">
                     <div class="project-cinematic-glow extracted-inline-40"></div>
 
                     <!-- Zone A: Device Presentation -->
@@ -449,96 +501,50 @@
                             <div class="tech-badges">
                                 <span class="tech-pill">Python</span>
                                 <span class="tech-pill">FastAPI</span>
-                                <span class="tech-pill">LangChain</span>
                                 <span class="tech-pill">FAISS</span>
-                                <span class="tech-pill">OpenAI</span>
+                                <span class="tech-pill">Google Gemini</span>
+                                <span class="tech-pill">OpenRouter</span>
+                                <span class="tech-pill">SQLite</span>
+                                <span class="tech-pill">pytest</span>
+                                <span class="tech-pill">HTML/CSS/JS</span>
                             </div>
                         </div>
 
                         <div class="deepdive-grid">
                             <div class="dd-col">
                                 <h4 class="h5 extracted-inline-45">The Challenge</h4>
-                                <p class="text-sm">Retrieving accurate information from massive document repositories
-                                    efficiently while avoiding AI hallucinations.</p>
+                                <p class="text-sm">Retrieving accurate information from large document repositories
+                                    while
+                                    minimizing AI hallucinations, with reliable AI generation even if one provider
+                                    fails.</p>
                             </div>
                             <div class="dd-col">
                                 <h4 class="h5 extracted-inline-45">The Architecture</h4>
-                                <p class="text-sm">Implemented an advanced RAG (Retrieval-Augmented Generation) pipeline
-                                    using FAISS vector databases and LangChain.</p>
+                                <p class="text-sm">Built a full-stack RAG (Retrieval-Augmented Generation) application.
+                                    The backend (Python, FastAPI) handles PDF processing and chunking, generates
+                                    embeddings
+                                    for semantic retrieval, and uses FAISS for vector similarity search with a reranking
+                                    step to improve retrieval relevance. Generation is handled through a provider
+                                    abstraction
+                                    layer integrating Google Gemini and OpenRouter, so the system isn't locked to a
+                                    single
+                                    AI provider. The frontend is built with HTML, CSS, and JavaScript as a responsive,
+                                    chat-based interface. SQLite handles application persistence, and the test suite is
+                                    written with pytest.</p>
                             </div>
                         </div>
 
                         <div class="dd-features">
                             <span class="passion-tag"><i class="ph ph-database"></i> Vector Search</span>
-                            <span class="passion-tag"><i class="ph ph-rocket"></i> FastAPI Backend</span>
-                            <span class="passion-tag"><i class="ph ph-text-aa"></i> Semantic Search</span>
+                            <span class="passion-tag"><i class="ph ph-arrows-down-up"></i> Reranking</span>
+                            <span class="passion-tag"><i class="ph ph-cpu"></i> Multi-Provider AI</span>
+                            <span class="passion-tag"><i class="ph ph-chats-circle"></i> Chat Interface</span>
                         </div>
 
                         <div class="project-actions">
                             <a href="https://github.com/tausifm2174-cyber/ai-document-search" target="_blank"
                                 rel="noopener noreferrer" class="btn btn-primary pulse-glow-btn">GitHub <i
                                     class="ph ph-github-logo"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2: Expense Tracker App -->
-                <div class="premium-project-showcase reveal" data-category="frontend javascript">
-                    <div class="project-cinematic-glow extracted-inline-46"></div>
-
-                    <!-- Zone A: Device Presentation -->
-                    <div class="project-devices-zone reverse">
-                        <div class="macbook-mockup">
-                            <div class="macbook-screen">
-                                <div class="macbook-content extracted-inline-47">
-                                    <i class="ph ph-wallet extracted-inline-42"></i>
-                                    <h3 class="h4">Expense Tracker App</h3>
-                                </div>
-                            </div>
-                            <div class="macbook-base"></div>
-                        </div>
-                        <div class="iphone-mockup parallax-item">
-                            <div class="iphone-screen">
-                                <div class="iphone-content extracted-inline-48">
-                                    <i class="ph ph-chart-pie extracted-inline-44"></i>
-                                    <span class="text-xs">Dashboard</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Zone B: Deep Dive Dashboard -->
-                    <div class="project-deepdive card">
-                        <div class="deepdive-header">
-                            <h3 class="h2">Expense Tracker App</h3>
-                            <div class="tech-badges">
-                                <span class="tech-pill">JavaScript</span>
-                                <span class="tech-pill">HTML</span>
-                                <span class="tech-pill">CSS</span>
-                            </div>
-                        </div>
-
-                        <div class="deepdive-grid">
-                            <div class="dd-col">
-                                <h4 class="h5 extracted-inline-45">Overview</h4>
-                                <p class="text-sm">A web application designed to help users track their daily expenses
-                                    and manage their budget effectively.</p>
-                            </div>
-                            <div class="dd-col">
-                                <h4 class="h5 extracted-inline-45">Key Features</h4>
-                                <p class="text-sm">Intuitive UI for logging expenses, visualizing spending habits, and
-                                    local storage integration for data persistence.</p>
-                            </div>
-                        </div>
-
-                        <div class="dd-features">
-                            <span class="passion-tag"><i class="ph ph-chart-line-up"></i> Data Visualization</span>
-                            <span class="passion-tag"><i class="ph ph-device-mobile"></i> Responsive UI</span>
-                        </div>
-
-                        <div class="project-actions">
-                            <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-primary pulse-glow-btn">GitHub <i class="ph ph-github-logo"></i></a>
                         </div>
                     </div>
                 </div>
@@ -599,12 +605,39 @@
                     </div>
                 </div>
 
-                <!-- Python -->
+                <!-- C -->
                 <div class="roadmap-node-wrapper">
-                    <div class="roadmap-node" data-color="#3776AB"><i class="ph ph-file-py"></i></div>
+                    <div class="roadmap-node" data-color="#00599C"><i class="ph ph-file-c"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4 extracted-inline-52">Python</h4>
+                        <h4 class="h4 extracted-inline-52">C</h4>
                         <p class="text-muted text-sm">Data structures & algorithms</p>
+                    </div>
+                </div>
+
+                <!-- Object-Oriented Programming -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#ED8B00"><i class="ph ph-coffee"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4 extracted-inline-52">Object-Oriented Programming</h4>
+                        <p class="text-muted text-sm">Java, OOP concepts</p>
+                    </div>
+                </div>
+
+                <!-- Design & Analysis of Algorithms -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#8B5CF6"><i class="ph ph-tree-structure"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4 extracted-inline-52">Design & Analysis of Algorithms</h4>
+                        <p class="text-muted text-sm">Algorithm complexity, optimization</p>
+                    </div>
+                </div>
+
+                <!-- Operating Systems -->
+                <div class="roadmap-node-wrapper">
+                    <div class="roadmap-node" data-color="#06B6D4"><i class="ph ph-cpu"></i></div>
+                    <div class="roadmap-content card">
+                        <h4 class="h4 extracted-inline-52">Operating Systems</h4>
+                        <p class="text-muted text-sm">Process management, memory, concurrency</p>
                     </div>
                 </div>
 
@@ -619,10 +652,10 @@
 
                 <!-- Backend -->
                 <div class="roadmap-node-wrapper">
-                    <div class="roadmap-node" data-color="#339933"><i class="ph ph-database"></i></div>
+                    <div class="roadmap-node" data-color="#3776AB"><i class="ph ph-database"></i></div>
                     <div class="roadmap-content card">
-                        <h4 class="h4 extracted-inline-52">Backend</h4>
-                        <p class="text-muted text-sm">Node.js, APIs, PostgreSQL</p>
+                        <h4 class="h4 extracted-inline-52">Backend Development</h4>
+                        <p class="text-muted text-sm">Python, FastAPI, SQLite, REST APIs</p>
                     </div>
                 </div>
 
@@ -746,6 +779,7 @@
                         </div>
                     </div>
                     <div class="cert-content">
+
                         <div class="cert-meta">
                             <div class="cert-platform">
                                 <i class="ph ph-google-logo extracted-inline-70"></i> Coursera (Google Career
@@ -802,7 +836,8 @@
                             </div>
                         </a>
 
-                        <a href="https://www.google.com/maps/search/?api=1&query=Bengaluru%2C+Karnataka%2C+India" target="_blank" rel="noopener noreferrer" class="contact-link-pill card">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Bengaluru%2C+Karnataka%2C+India"
+                            target="_blank" rel="noopener noreferrer" class="contact-link-pill card">
                             <i class="ph ph-map-pin text-primary"></i>
                             <div class="contact-text">
                                 <span class="contact-label">Location</span>

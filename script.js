@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // C. Animated Typing Effect
     const typingText = document.getElementById('typing-text');
     if (typingText) {
-        const words = ['premium SaaS platforms.', 'world-class design systems.', 'flawless React applications.', 'beautiful digital experiences.'];
+        const words = ['AI-powered document tools.', 'responsive web interfaces.', 'production RAG pipelines.', 'clean, accessible UIs.'];
         let wordIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -533,6 +533,61 @@ document.addEventListener('DOMContentLoaded', () => {
                         ease: 'power3.out'
                     });
                 });
+            }
+        });
+    }
+
+    // --------------------------------------------------------
+    // 8c. Bento Location Card Toggle (Current vs College)
+    // --------------------------------------------------------
+    const bentoLocation = document.querySelector('.bento-location');
+    if (bentoLocation) {
+        let isCollege = false;
+        const currentView = bentoLocation.querySelector('.loc-view-current');
+        const collegeView = bentoLocation.querySelector('.loc-view-college');
+        const pills = bentoLocation.querySelectorAll('.loc-pill');
+        const announcer = document.getElementById('loc-live-announcer');
+
+        function toggleLocation(forceState) {
+            isCollege = forceState !== undefined ? forceState : !isCollege;
+            if (isCollege) {
+                if (currentView) currentView.classList.remove('active');
+                if (collegeView) collegeView.classList.add('active');
+                pills.forEach(p => {
+                    const isTarget = p.getAttribute('data-loc-target') === 'college';
+                    p.classList.toggle('active', isTarget);
+                    p.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+                });
+                bentoLocation.setAttribute('aria-label', 'Location: SJB Institute of Technology, Kengeri, Bengaluru. Switch to City location with buttons.');
+                if (announcer) announcer.textContent = 'Showing SJB Institute of Technology, Kengeri, Bengaluru';
+            } else {
+                if (currentView) currentView.classList.add('active');
+                if (collegeView) collegeView.classList.remove('active');
+                pills.forEach(p => {
+                    const isTarget = p.getAttribute('data-loc-target') === 'current';
+                    p.classList.toggle('active', isTarget);
+                    p.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+                });
+                bentoLocation.setAttribute('aria-label', 'Location: Bengaluru, Karnataka, India. Switch to College location with buttons.');
+                if (announcer) announcer.textContent = 'Showing Bengaluru, Karnataka, India';
+            }
+        }
+
+        bentoLocation.addEventListener('click', (e) => {
+            const pill = e.target.closest('.loc-pill');
+            if (pill) {
+                e.stopPropagation();
+                const target = pill.getAttribute('data-loc-target');
+                toggleLocation(target === 'college');
+                return;
+            }
+            toggleLocation();
+        });
+
+        bentoLocation.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleLocation();
             }
         });
     }
@@ -1142,7 +1197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             about_title: 'Beyond the <span class="text-gradient">Screen.</span>',
             tech_title: 'Technical <span class="text-gradient">Arsenal.</span>',
-            work_title: 'Selected <span class="text-gradient">Works.</span>',
+            work_title: '<span class="text-gradient">Projects.</span>',
             learning_title: 'Learning <span class="text-gradient">Roadmap.</span>',
             opensource_title: 'Open <span class="text-gradient">Source.</span>',
             cert_title: 'Certifications',
@@ -1151,7 +1206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         kn: {
             about_title: 'ಪರದೆಯ <span class="text-gradient">ಆಚೆಗೆ.</span>',
             tech_title: 'ತಾಂತ್ರಿಕ <span class="text-gradient">ಸಾಮರ್ಥ್ಯ.</span>',
-            work_title: 'ಆಯ್ದ <span class="text-gradient">ಯೋಜನೆಗಳು.</span>',
+            work_title: '<span class="text-gradient">ಯೋಜನೆಗಳು.</span>',
             learning_title: 'ಕಲಿಕೆಯ <span class="text-gradient">ಹಾದಿ.</span>',
             opensource_title: 'ಮುಕ್ತ <span class="text-gradient">ಮೂಲ.</span>',
             cert_title: 'ಪ್ರಮಾಣಪತ್ರಗಳು',
@@ -1160,7 +1215,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hi: {
             about_title: 'स्क्रीन के <span class="text-gradient">परे.</span>',
             tech_title: 'तकनीकी <span class="text-gradient">क्षमता.</span>',
-            work_title: 'चुनिंदा <span class="text-gradient">प्रोजेक्ट्स.</span>',
+            work_title: '<span class="text-gradient">प्रोजेक्ट्स.</span>',
             learning_title: 'सीखने का <span class="text-gradient">रास्ता.</span>',
             opensource_title: 'ओपन <span class="text-gradient">सोर्स.</span>',
             cert_title: 'प्रमाणपत्र',
@@ -1169,16 +1224,62 @@ document.addEventListener('DOMContentLoaded', () => {
         ur: {
             about_title: 'اسکرین کے <span class="text-gradient">آگے.</span>',
             tech_title: 'تکنیکی <span class="text-gradient">صلاحیتیں.</span>',
-            work_title: 'منتخب کردہ <span class="text-gradient">پروجیکٹس.</span>',
+            work_title: '<span class="text-gradient">پروجیکٹس.</span>',
             learning_title: 'سیکھنے کا <span class="text-gradient">راستہ.</span>',
             opensource_title: 'اوپن <span class="text-gradient">سورس.</span>',
             cert_title: 'سرٹیفکیٹس',
             contact_title: 'آئیے مل کر <br><span class="text-gradient">بنائیں۔</span>'
+        },
+        ja: {
+            about_title: '画面の<span class="text-gradient">向こうへ。</span>',
+            tech_title: '技術<span class="text-gradient">スタック。</span>',
+            work_title: '<span class="text-gradient">プロジェクト。</span>',
+            learning_title: '学習<span class="text-gradient">ロードマップ。</span>',
+            opensource_title: 'オープン<span class="text-gradient">ソース。</span>',
+            cert_title: '認定資格',
+            contact_title: '一緒に<br><span class="text-gradient">創りましょう。</span>'
         }
     };
 
+    const langTrigger = document.getElementById('lang-trigger');
+    const langWrapper = document.querySelector('.lang-dropdown-wrapper');
     const langOpts = document.querySelectorAll('.lang-opt');
     const htmlTag = document.documentElement;
+
+    if (langTrigger && langWrapper) {
+        langTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = langWrapper.classList.toggle('open');
+            langTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        langTrigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const isOpen = langWrapper.classList.toggle('open');
+                langTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            } else if (e.key === 'Escape' && langWrapper.classList.contains('open')) {
+                e.preventDefault();
+                langWrapper.classList.remove('open');
+                langTrigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!langWrapper.contains(e.target)) {
+                langWrapper.classList.remove('open');
+                langTrigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && langWrapper.classList.contains('open')) {
+                langWrapper.classList.remove('open');
+                langTrigger.setAttribute('aria-expanded', 'false');
+                langTrigger.focus();
+            }
+        });
+    }
 
     if (langOpts.length > 0) {
         langOpts.forEach(btn => {
@@ -1188,6 +1289,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Update active state
                 langOpts.forEach(l => l.classList.remove('active'));
                 btn.classList.add('active');
+
+                // Close dropdown on selection
+                if (langWrapper) {
+                    langWrapper.classList.remove('open');
+                }
+                if (langTrigger) {
+                    langTrigger.setAttribute('aria-expanded', 'false');
+                }
 
                 // Set HTML lang and dir for RTL
                 htmlTag.setAttribute('lang', lang);
