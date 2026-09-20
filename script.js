@@ -86,6 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof SplitType !== 'undefined') {
             const headings = document.querySelectorAll('.section-title h2, .display');
             headings.forEach(heading => {
+                // Elements containing .text-gradient rely on CSS background-clip: text which
+                // breaks and turns invisible when split into child inline-block character spans in WebKit/Blink.
+                // Their entrance is already handled smoothly by the parent .section-title .reveal animation.
+                if (heading.querySelector('.text-gradient')) {
+                    return;
+                }
                 const splitText = new SplitType(heading, { types: 'words, chars' });
                 gsap.from(splitText.chars, {
                     scrollTrigger: {
@@ -135,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             heroSection.style.setProperty('--mouse-y', `${y}px`);
         });
 
-        // B. Parallax Effect for Rings and Badges
+        // B. Parallax Effect for Hero Floating Rings
         const parallaxElements = document.querySelectorAll('[data-speed]');
         heroSection.addEventListener('mousemove', (e) => {
             const x = (window.innerWidth - e.pageX * 2) / 100;
@@ -1306,17 +1312,64 @@ document.addEventListener('DOMContentLoaded', () => {
                     htmlTag.removeAttribute('dir');
                 }
 
-                // Update text elements
+                // Update text elements with defensive check
                 const dict = translations[lang] || translations['en'];
                 document.querySelectorAll('[data-i18n]').forEach(el => {
                     const key = el.getAttribute('data-i18n');
-                    if (dict[key]) {
+                    if (dict && dict[key] && typeof dict[key] === 'string' && dict[key].trim() !== '') {
                         el.innerHTML = dict[key];
                     }
                 });
             });
         });
     }
+
+    // Auto-detect browser language safely on page load
+    const detectAndApplyLanguage = () => {
+        try {
+            const rawLang = (navigator.languages && navigator.languages.length > 0)
+                ? navigator.languages[0]
+                : (navigator.language || '');
+
+            if (!rawLang) return;
+
+            // 1. Normalize detected language (e.g. "en-US" -> "en", "hi-IN" -> "hi")
+            const normalizedLang = rawLang.split('-')[0].toLowerCase();
+
+            // 2. Fall back safely to 'en' if the normalized language is not in dictionary
+            const targetLang = (translations && translations[normalizedLang]) ? normalizedLang : 'en';
+
+            // If detected language is a supported non-English language, apply it
+            if (targetLang !== 'en') {
+                htmlTag.setAttribute('lang', targetLang);
+                if (targetLang === 'ur') {
+                    htmlTag.setAttribute('dir', 'rtl');
+                } else {
+                    htmlTag.removeAttribute('dir');
+                }
+
+                // Update active state in dropdown
+                langOpts.forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-lang') === targetLang);
+                });
+
+                // 3. Defensive dictionary lookup - never blank out content with undefined
+                const dict = translations[targetLang];
+                if (dict) {
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (key && dict[key] && typeof dict[key] === 'string' && dict[key].trim() !== '') {
+                            el.innerHTML = dict[key];
+                        }
+                    });
+                }
+            }
+        } catch (e) {
+            console.warn('Language auto-detection error:', e);
+        }
+    };
+
+    detectAndApplyLanguage();
 
     // --------------------------------------------------------
     // 17. Copy Email to Clipboard

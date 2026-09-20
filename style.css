@@ -529,72 +529,10 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
-/* Status Badges */
-.status-badge {
-  position: absolute;
-  background: rgba(14, 22, 40, 0.8);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-glass);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-  z-index: 10;
-}
-.available-badge {
-  bottom: 10%;
-  right: -60%;
-  animation: floatSubtle 4s ease-in-out infinite;
-}
-.location-badge {
-  top: 10%;
-  left: -50%;
-  animation: floatSubtle 5s ease-in-out infinite reverse;
-}
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  background: #10B981;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: pulseGreen 2s infinite;
-}
-@keyframes pulseGreen {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
 @keyframes floatSubtle {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
-
-/* Tech Badges */
-.tech-badge {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  background: rgba(14, 22, 40, 0.6);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border-glass);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-  z-index: 1;
-}
-.badge-react { color: #61DAFB; top: -20px; right: -30px; animation: floatSubtle 6s ease-in-out infinite 1s; }
-.badge-figma { color: #F24E1E; bottom: 20px; left: -40px; animation: floatSubtle 5s ease-in-out infinite 0.5s; }
-.badge-js { color: #F7DF1E; top: 40px; right: -80px; animation: floatSubtle 7s ease-in-out infinite 2s; }
 
 /* 6. Typography */
 .hero-text-area {
@@ -709,8 +647,6 @@ h1, h2, h3, h4, h5, h6 {
   }
   .stat-divider { display: none; }
   .stat-item { width: 40%; }
-  .available-badge { right: -20%; }
-  .location-badge { left: -10%; }
 }
 
 /* ==========================================================================
