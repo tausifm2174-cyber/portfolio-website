@@ -543,60 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --------------------------------------------------------
-    // 8c. Bento Location Card Toggle (Current vs College)
-    // --------------------------------------------------------
-    const bentoLocation = document.querySelector('.bento-location');
-    if (bentoLocation) {
-        let isCollege = false;
-        const currentView = bentoLocation.querySelector('.loc-view-current');
-        const collegeView = bentoLocation.querySelector('.loc-view-college');
-        const pills = bentoLocation.querySelectorAll('.loc-pill');
-        const announcer = document.getElementById('loc-live-announcer');
 
-        function toggleLocation(forceState) {
-            isCollege = forceState !== undefined ? forceState : !isCollege;
-            if (isCollege) {
-                if (currentView) currentView.classList.remove('active');
-                if (collegeView) collegeView.classList.add('active');
-                pills.forEach(p => {
-                    const isTarget = p.getAttribute('data-loc-target') === 'college';
-                    p.classList.toggle('active', isTarget);
-                    p.setAttribute('aria-selected', isTarget ? 'true' : 'false');
-                });
-                bentoLocation.setAttribute('aria-label', 'Location: SJB Institute of Technology, Kengeri, Bengaluru. Switch to City location with buttons.');
-                if (announcer) announcer.textContent = 'Showing SJB Institute of Technology, Kengeri, Bengaluru';
-            } else {
-                if (currentView) currentView.classList.add('active');
-                if (collegeView) collegeView.classList.remove('active');
-                pills.forEach(p => {
-                    const isTarget = p.getAttribute('data-loc-target') === 'current';
-                    p.classList.toggle('active', isTarget);
-                    p.setAttribute('aria-selected', isTarget ? 'true' : 'false');
-                });
-                bentoLocation.setAttribute('aria-label', 'Location: Bengaluru, Karnataka, India. Switch to College location with buttons.');
-                if (announcer) announcer.textContent = 'Showing Bengaluru, Karnataka, India';
-            }
-        }
-
-        bentoLocation.addEventListener('click', (e) => {
-            const pill = e.target.closest('.loc-pill');
-            if (pill) {
-                e.stopPropagation();
-                const target = pill.getAttribute('data-loc-target');
-                toggleLocation(target === 'college');
-                return;
-            }
-            toggleLocation();
-        });
-
-        bentoLocation.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleLocation();
-            }
-        });
-    }
 
     // --------------------------------------------------------
     // 9. GitHub API Integration
