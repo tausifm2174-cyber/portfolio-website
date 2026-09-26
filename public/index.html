@@ -15,6 +15,16 @@
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- Theme Initialization to prevent flash of wrong theme -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) { }
+        })();
+    </script>
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
@@ -59,42 +69,65 @@
         <img id="lightbox-img" src="" alt="Zoomed view">
     </div>
 
-    <!-- Floating Dock -->
-    <nav class="floating-dock" id="floating-dock" aria-label="Main Navigation">
-        <div class="dock-container">
-            <a href="#home" class="dock-item active" data-tooltip="Home" aria-label="Navigate to Home">
-                <i class="ph ph-house"></i>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav" id="floating-dock" aria-label="Main Navigation">
+        <div class="nav-container">
+            <!-- Left: Logo / Name in Serif -->
+            <a href="#home" class="nav-logo" aria-label="Tausif M Portfolio Home">
+                Tausif M<span class="logo-dot">.</span>
             </a>
-            <a href="#about" class="dock-item" data-tooltip="About" aria-label="Navigate to About">
-                <i class="ph ph-user"></i>
-            </a>
-            <a href="#work" class="dock-item" data-tooltip="Projects" aria-label="Navigate to Projects">
-                <i class="ph ph-folder-notch"></i>
-            </a>
-            <a href="#experience" class="dock-item" data-tooltip="Experience" aria-label="Navigate to Experience">
-                <i class="ph ph-briefcase"></i>
-            </a>
-            <div class="dock-divider"></div>
-            <button id="theme-toggle" class="dock-item" data-tooltip="Toggle Theme" aria-label="Toggle Theme">
-                <i class="ph ph-moon"></i>
-            </button>
-            <button id="cmd-trigger" class="dock-item" data-tooltip="Search (Ctrl+K)" aria-label="Open Command Palette">
-                <i class="ph ph-command"></i>
-            </button>
-            <div class="dock-divider"></div>
-            <div class="lang-dropdown-wrapper">
-                <button class="dock-item" id="lang-trigger" data-tooltip="Language" aria-label="Select Language"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="ph ph-translate"></i>
-                </button>
-                <div class="lang-dropdown-content">
-                    <button class="lang-opt" data-lang="en">English (EN)</button>
-                    <button class="lang-opt" data-lang="kn">ಕನ್ನಡ (KN)</button>
-                    <button class="lang-opt" data-lang="ur">اردو (UR)</button>
-                    <button class="lang-opt" data-lang="hi">हिंदी (HI)</button>
-                    <button class="lang-opt" data-lang="ja">日本語 (JA)</button>
+
+            <!-- Right: Nav Links + Actions -->
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#home" class="dock-item nav-link active">Home</a>
+                    <a href="#about" class="dock-item nav-link">About</a>
+                    <a href="#work" class="dock-item nav-link">Projects</a>
+                    <a href="#experience" class="dock-item nav-link">Experience</a>
+                </div>
+
+                <div class="nav-divider"></div>
+
+                <div class="nav-actions">
+                    <button id="cmd-trigger" class="dock-item nav-action-btn" data-tooltip="Search (Ctrl+K)"
+                        aria-label="Open Command Palette">
+                        <i class="ph ph-command"></i>
+                    </button>
+                    <button id="theme-toggle" class="dock-item nav-action-btn" data-tooltip="Toggle Theme"
+                        aria-label="Toggle Theme">
+                        <i class="ph ph-moon"></i>
+                    </button>
+                    <div class="lang-dropdown-wrapper">
+                        <button class="dock-item nav-action-btn" id="lang-trigger" data-tooltip="Language"
+                            aria-label="Select Language" aria-haspopup="true" aria-expanded="false">
+                            <i class="ph ph-translate"></i>
+                        </button>
+                        <div class="lang-dropdown-content">
+                            <button class="lang-opt" data-lang="en">English (EN)</button>
+                            <button class="lang-opt" data-lang="kn">ಕನ್ನಡ (KN)</button>
+                            <button class="lang-opt" data-lang="ur">اردو (UR)</button>
+                            <button class="lang-opt" data-lang="hi">हिंदी (HI)</button>
+                            <button class="lang-opt" data-lang="ja">日本語 (JA)</button>
+                        </div>
+                    </div>
+                    <!-- Mobile Hamburger Button -->
+                    <button id="mobile-menu-toggle" class="nav-action-btn mobile-menu-toggle"
+                        aria-label="Toggle navigation menu" aria-expanded="false">
+                        <i class="ph ph-list" id="mobile-menu-icon"></i>
+                    </button>
                 </div>
             </div>
+        </div>
+
+        <!-- Mobile Drawer (Expands on tap on <= 768px) -->
+        <div class="mobile-menu" id="mobile-menu" aria-label="Mobile Navigation">
+            <div class="mobile-menu-links">
+                <a href="#home" class="dock-item mobile-nav-link active">Home</a>
+                <a href="#about" class="dock-item mobile-nav-link">About</a>
+                <a href="#work" class="dock-item mobile-nav-link">Projects</a>
+                <a href="#experience" class="dock-item mobile-nav-link">Experience</a>
+            </div>
+        </div>
     </nav>
     <!-- 3. Hero Section (Cinematic Overhaul) -->
     <section id="home" class="hero cinematic-hero">
@@ -114,6 +147,7 @@
             <div class="hero-profile-container reveal">
                 <div class="profile-photo-wrapper">
                     <div class="profile-photo-placeholder">
+                        <img src="assets/images/profile-photo.jpeg" alt="Tausif M" class="hero-profile-img">
                         <i class="ph ph-user"></i>
                     </div>
                 </div>
@@ -139,20 +173,22 @@
                     <a href="#work" class="btn btn-primary hero-btn">
                         View Projects <i class="ph ph-arrow-right"></i>
                     </a>
-                    <a href="#contact" class="btn btn-primary hero-btn pulse-glow-btn">
+                    <a href="#contact" class="btn btn-outline hero-btn">
                         Get In Touch
                     </a>
-                    <a href="assets/resume-tausif-m.pdf" download="Tausif-M-Resume.pdf" class="btn btn-glass hero-btn">
+                    <a href="assets/resume new.pdf" download="Tausif-M-Resume.pdf" class="btn btn-outline hero-btn">
                         Download Resume <i class="ph ph-download-simple"></i>
                     </a>
-                    <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
-                        class="btn btn-glass icon-btn hero-btn" aria-label="GitHub">
-                        <i class="ph ph-github-logo"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/tausifm" target="_blank" rel="noopener noreferrer"
-                        class="btn btn-glass icon-btn hero-btn" aria-label="LinkedIn">
-                        <i class="ph ph-linkedin-logo"></i>
-                    </a>
+                    <div class="hero-icon-btns">
+                        <a href="https://github.com/tausifm2174-cyber" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-outline icon-btn hero-btn" aria-label="GitHub">
+                            <i class="ph ph-github-logo"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/tausifm" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-outline icon-btn hero-btn" aria-label="LinkedIn">
+                            <i class="ph ph-linkedin-logo"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
 

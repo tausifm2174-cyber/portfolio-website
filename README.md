@@ -27,12 +27,14 @@ A premium, production-ready developer portfolio designed to showcase high-level 
 
 ```text
 /
-├── index.html       # Main portfolio page
-├── 404.html         # Custom 404 error page
-├── style.css        # Global styles and design tokens
-├── script.js        # Interaction logic and animations
-└── assets/
-    └── images/      # Optimized assets
+├── api/             # Vercel serverless functions
+├── docs/            # Project documents and master files
+└── public/          # Production frontend files & assets
+    ├── index.html   # Main portfolio page
+    ├── 404.html     # Custom 404 error page
+    ├── style.css    # Global styles and design tokens
+    ├── script.js    # Interaction logic and animations
+    └── assets/      # Media, mockups, and resume
 ```
 
 ## Local Development
@@ -56,11 +58,11 @@ This project uses serverless API routes on Vercel which require the following en
 
 ## Deployment
 
-This project is pre-configured for instant deployment on **Vercel**.
+This project is pre-configured for instant deployment on **Vercel** with a root `vercel.json`.
 
 - **Framework Preset**: Other (Static)
 - **Build Command**: None (leave empty)
-- **Output Directory**: `./`
+- **Output Directory**: `public` (or automatically picked up from `vercel.json`)
 
 ## Credits
 

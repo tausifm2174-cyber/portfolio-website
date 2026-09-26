@@ -927,14 +927,73 @@ document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------
     const themeToggleBtn = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
+
+    function applyTheme(theme, save = true) {
+        if (theme === 'dark') {
+            htmlElement.setAttribute('data-theme', 'dark');
+            if (themeToggleBtn) {
+                themeToggleBtn.innerHTML = '<i class="ph ph-sun"></i>';
+                themeToggleBtn.setAttribute('aria-label', 'Switch to Light Theme');
+            }
+            if (save) localStorage.setItem('theme', 'dark');
+        } else {
+            htmlElement.removeAttribute('data-theme');
+            if (themeToggleBtn) {
+                themeToggleBtn.innerHTML = '<i class="ph ph-moon"></i>';
+                themeToggleBtn.setAttribute('aria-label', 'Switch to Dark Theme');
+            }
+            if (save) localStorage.setItem('theme', 'light');
+        }
+    }
+
+    // Sync button icon and initial theme with current attribute state / localStorage
+    const currentTheme = htmlElement.getAttribute('data-theme') === 'dark' || localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
+    applyTheme(currentTheme, false);
+
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
-            if (htmlElement.getAttribute('data-theme') === 'light') {
-                htmlElement.removeAttribute('data-theme');
-                themeToggleBtn.innerHTML = '<i class="ph ph-moon"></i>';
-            } else {
-                htmlElement.setAttribute('data-theme', 'light');
-                themeToggleBtn.innerHTML = '<i class="ph ph-sun"></i>';
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            applyTheme(isDark ? 'light' : 'dark', true);
+        });
+    }
+
+    // --------------------------------------------------------
+    // Mobile Navigation Drawer Toggle
+    // --------------------------------------------------------
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (mobileMenuToggle && mobileMenu) {
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileMenuToggle.setAttribute('aria-expanded', String(isOpen));
+            if (mobileMenuIcon) {
+                mobileMenuIcon.className = isOpen ? 'ph ph-x' : 'ph ph-list';
+            }
+        });
+
+        // Close mobile menu when a navigation link is clicked
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                if (mobileMenuIcon) {
+                    mobileMenuIcon.className = 'ph ph-list';
+                }
+            });
+        });
+
+        // Close on clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                mobileMenu.classList.remove('open');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                if (mobileMenuIcon) {
+                    mobileMenuIcon.className = 'ph ph-list';
+                }
             }
         });
     }
